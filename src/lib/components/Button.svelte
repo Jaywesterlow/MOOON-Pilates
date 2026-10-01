@@ -1,0 +1,158 @@
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { expoOut } from 'svelte/easing';
+	import { prefersReducedMotion, Tween } from 'svelte/motion';
+	import { MediaQuery } from 'svelte/reactivity';
+	import Arrow from './Arrow.svelte';
+
+	type Props = {
+		href: string;
+		/** ink: solid on paper · paper: solid on the dark band · outline: ink outline on paper · light: paper outline on the dark band */
+		variant?: 'ink' | 'paper' | 'outline' | 'light';
+		size?: 'sm' | 'md' | 'lg';
+		arrow?: boolean;
+		external?: boolean;
+		/** 27c: the button leans 30 % toward the cursor. For the one button that matters. */
+		magnetic?: boolean;
+		onclick?: (event: MouseEvent & { currentTarget: EventTarget & HTMLAnchorElement }) => void;
+		children: Snippet;
+	};
+
+	let {
+		href,
+		variant = 'ink',
+		size = 'md',
+		arrow = true,
+		external = false,
+		magnetic = false,
+		onclick,
+		children
+	}: Props = $props();
+
+	const hasCursor = new MediaQuery('(hover: hover)');
+	const pull = new Tween({ x: 0, y: 0 }, { duration: 200, easing: expoOut });
+
+	const magnetOn = $derived(magnetic && hasCursor.current && !prefersReducedMotion.current);
+
+	function follow(event: MouseEvent & { currentTarget: HTMLAnchorElement }) {
+		if (!magnetOn) return;
+		const box = event.currentTarget.getBoundingClientRect();
+		pull.target = {
+			x: (event.clientX - (box.left + box.width / 2)) * 0.3,
+			y: (event.clientY - (box.top + box.height / 2)) * 0.3
+		};
+	}
+
+	function release() {
+		pull.target = { x: 0, y: 0 };
+	}
+</script>
+
+{#snippet label()}
+	{@render children()}
+	{#if arrow}<Arrow />{/if}
+{/snippet}
+
+<!-- The fill carries its own copy of the label, clipped with it: the text is readable at every frame. -->
+<a
+	{href}
+	class={['btn', variant, size]}
+	target={external ? '_blank' : undefined}
+	rel={external ? 'noopener' : undefined}
+	style:transform={magnetOn ? `translate(${pull.current.x}px, ${pull.current.y}px)` : undefined}
+	onmousemove={follow}
+	onmouseleave={release}
+	{onclick}
+>
+	<span>{@render label()}</span>
+	<span class="fill" aria-hidden="true">{@render label()}</span>
+</a>
+
+<style>
+	.btn {
+		position: relative;
+		display: inline-grid;
+		isolation: isolate;
+		overflow: hidden;
+		border-radius: 999px;
+		border: 1px solid currentColor;
+		min-height: var(--tap);
+		font: var(--label-weight) var(--text-label) / 1 var(--font-body);
+		letter-spacing: var(--label-tracking);
+		text-transform: uppercase;
+		will-change: transform;
+		transition: scale 0.2s var(--ease);
+	}
+	/* 27c press: the `scale` property, so it stacks on the magnetic translate instead of replacing it */
+	.btn:active {
+		scale: 0.97;
+	}
+	.btn > span {
+		grid-area: 1 / 1;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--space-2);
+		padding: var(--space-2) var(--space-5);
+		white-space: nowrap;
+	}
+	.sm > span {
+		padding-inline: var(--space-4);
+	}
+	.lg {
+		min-height: 3rem;
+	}
+	.lg > span {
+		padding-inline: var(--space-6);
+	}
+
+	/* one direction only: in from the bottom on hover, out through the top on leave */
+	.fill {
+		background: var(--fill);
+		color: var(--fill-text);
+		border-radius: 999px;
+		clip-path: inset(0 0 100% 0);
+		transition: clip-path 0.38s var(--ease);
+	}
+	.btn:hover .fill,
+	.btn:focus-visible .fill {
+		clip-path: inset(0 0 0 0);
+		animation: fill-in 0.38s var(--ease);
+	}
+	@keyframes fill-in {
+		from {
+			clip-path: inset(100% 0 0 0);
+		}
+		to {
+			clip-path: inset(0 0 0 0);
+		}
+	}
+	.btn:hover :global(svg) {
+		transform: translateX(4px);
+	}
+
+	.ink {
+		background: var(--night);
+		color: var(--paper);
+		border-color: var(--night);
+		--fill: var(--olive);
+		--fill-text: var(--paper);
+	}
+	.paper {
+		background: var(--paper-d);
+		color: var(--night);
+		border-color: var(--paper-d);
+		--fill: var(--olive);
+		--fill-text: var(--paper-d);
+	}
+	.outline {
+		color: var(--night);
+		--fill: var(--night);
+		--fill-text: var(--paper);
+	}
+	.light {
+		color: var(--paper-d);
+		--fill: var(--paper-d);
+		--fill-text: var(--night);
+	}
+</style>
