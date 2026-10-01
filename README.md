@@ -16,7 +16,7 @@ npm run dev
 | `npm run lint`    | Prettier check + ESLint        |
 | `npm run format`  | Prettier write                 |
 
-Deploys to Vercel with `@sveltejs/adapter-vercel`. Both pages are prerendered, so Vercel serves static files. The production URL in `site.origin` (`src/lib/data/studio.ts`) is assumed to be `https://mooon-pilates.vercel.app`; change it there once the project exists, and canonical, hreflang and JSON-LD follow.
+Deploys to Vercel with `@sveltejs/adapter-vercel`. Both pages are prerendered, so Vercel serves static files. Live at https://mooon-pilates.vercel.app (Vercel project `mooon-pilates`, team `jaywesterlows-projects`); every push to `main` deploys to production. That URL is `site.origin` in `src/lib/data/studio.ts`; canonical, hreflang and JSON-LD follow it.
 
 ## The page
 
