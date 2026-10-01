@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animatiecombinaties MOOON</title>
+<meta name="description" content="Vier animatiesets uit de JW-bibliotheek voor de MOOON Pilates-demo, naast elkaar, met vangrails en gaten.">
+<style>
+:root{
+  --bg:#f7f4ef; --surface:#fffdf9; --ink:#2b2822; --muted:#6b6661; --line:#e2dcd5;
+  --accent:#8a7a60; --gap-bg:#f3efe8; --tag:#ece6dd; --ok:#4f6b4a;
+  --font: "Afacad", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1b1a17; --surface:#24221e; --ink:#eee9e1; --muted:#a8a197; --line:#3a3630;
+    --accent:#c4b39c; --gap-bg:#2a2823; --tag:#33302a; --ok:#9cbf95;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1b1a17; --surface:#24221e; --ink:#eee9e1; --muted:#a8a197; --line:#3a3630;
+  --accent:#c4b39c; --gap-bg:#2a2823; --tag:#33302a; --ok:#9cbf95;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--font)}
+main{max-width:1480px;margin:0 auto;padding:40px 16px 64px}
+h1{font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.15;margin:0 0 8px;font-weight:600;letter-spacing:-.01em}
+h2{font-size:1.15rem;margin:0 0 4px;font-weight:600}
+h3{font-size:1rem;margin:32px 0 10px;font-weight:600}
+p{margin:0 0 10px}
+a{color:var(--accent);text-underline-offset:2px}
+.sub{color:var(--muted);font-size:.95rem;max-width:90ch}
+.vibe{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
+.vibe span{background:var(--tag);border-radius:999px;padding:3px 12px;font-size:.9rem}
+.flag{font-size:.8rem;color:var(--muted);border:1px dashed var(--line);border-radius:6px;padding:1px 8px;margin-left:4px}
+.sets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px;align-items:start}
+@media (max-width:1180px){.sets{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.sets{grid-template-columns:1fr}}
+.set{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 16px;min-width:0}
+.set header{border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:10px}
+.meta{font-size:.85rem;color:var(--muted);margin:2px 0}
+.meta b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;font-size:.75rem;padding:1px 9px;border-radius:999px;background:var(--tag);margin-right:4px}
+.why{font-size:.92rem;margin-top:8px}
+dl.slots{margin:0}
+.slot{padding:9px 0;border-bottom:1px solid var(--line)}
+.slot:last-child{border-bottom:0}
+.slot dt{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:2px}
+.slot dd{margin:0;font-size:.93rem;overflow-wrap:anywhere}
+.slot .id{font-family:var(--mono);font-size:.82rem;background:var(--tag);border-radius:4px;padding:0 5px;margin-right:4px}
+.slot .cls{font-size:.78rem;color:var(--muted);display:block}
+.slot .sig{font-size:.72rem;color:var(--accent);font-weight:600;margin-left:4px}
+.slot.none dd{color:var(--muted)}
+.slot.gap dd{background:var(--gap-bg);border:1px dashed var(--muted);border-radius:8px;padding:6px 8px}
+.slot.gap dd::before{content:"gat";font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-right:6px;color:var(--muted)}
+.foot{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:.86rem}
+.foot p{margin:0 0 6px}
+.checks{list-style:none;padding:0;margin:4px 0 8px;display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.82rem}
+.checks li::before{content:"✓ ";color:var(--ok);font-weight:700}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 16px;margin-top:20px}
+.box ul{margin:6px 0 0;padding-left:18px}
+.box li{margin:4px 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px solid var(--line)}
+th{font-weight:600;color:var(--muted);width:30%}
+.small{font-size:.85rem;color:var(--muted);margin-top:24px}
+code{font-family:var(--mono);font-size:.85em}
+.swatch{display:inline-block;width:.9em;height:.9em;border-radius:50%;vertical-align:-.1em;border:1px solid var(--line);margin-right:3px}
+</style>
+</head>
+<body>
+<main>
+  <h1>Animatiecombinaties: MOOON Pilates</h1>
+  <p class="sub">1 oktober 2026 · mooonpilates.nl · bibliotheek: 71 van 94 animaties gelezen met <code>list_animations</code> op intensity <b>calm</b> (30) en <b>medium</b> (41, aangrenzend). Vier sets, niet gerangschikt, van stil naar minder stil. Jaymar kiest.</p>
+  <div class="vibe" aria-label="vibe">
+    <span>kalm</span><span>traag</span><span>warm</span><span>gemengd (beeld + tekst)</span><span>ingetogen</span>
+    <span class="flag">onbevestigd</span>
+  </div>
+  <p class="sub">Waarom: lange, zachte Nederlandse lopende tekst ("Geen haast, geen moeten"), Engelse taglines die letterlijk over traagheid gaan, aardetinten in de huisstijl, voor vrouwen die "even mogen landen". Beeld is er (een professionele shoot uit april 2026), maar bijna alles is staand, dus de pagina leunt op beeld én tekst. Deze woorden zijn niet door Jaymar bevestigd; met een ander volume moet de bibliotheek opnieuw gefilterd worden.</p>
+
+  <section class="sets" aria-label="sets">
+
+    <!-- SET 1 -->
+    <article class="set">
+      <header>
+        <h2>1 · Adem</h2>
+        <p class="meta"><span class="pill">calm</span><span class="pill">klasse B</span></p>
+        <p class="meta"><b>Karakter:</b> stil en tekstgedragen. De taglines dragen de pagina, beelden drijven er traag langs.</p>
+        <p class="meta"><b>Signatuur:</b> tekst. "Move slowly, feel deeply" landt in de hero zacht uit het masker.</p>
+        <p class="why">Waarom het past: de merkbelofte gaat over traag bewegen. De koppen bewegen één keer, kort, en daarna staat alles stil. De foto's schuiven elk op hun eigen tempo, zoals ademhaling, zonder een echt effect te worden.</p>
+      </header>
+      <dl class="slots">
+        <div class="slot"><dt>scroll</dt><dd><span class="id">17b</span><a href="https://www.jwcreative.nl/animations/17b-parallax-drift.html">Blokken drijven op eigen snelheid</a><span class="cls">geen deps · A</span></dd></div>
+        <div class="slot"><dt>tekst</dt><dd><span class="id">11b</span><a href="https://www.jwcreative.nl/animations/11b-text-slide-up-soft.html">Tekst schuift zacht omhoog</a><span class="sig">signatuur</span><span class="cls">gsap lenis · B</span></dd></div>
+        <div class="slot none"><dt>hover/cursor</dt><dd>geen: rust. Alleen de CSS-hover op links en de knop-fill.</dd></div>
+        <div class="slot gap"><dt>navigatie</dt><dd>vaste balk, transparant op de hero en crème (<code>#F0ECE6</code>) daarna, alleen een kleurtransitie. CSS, klasse A. Dit is een gat in de bibliotheek: calm heeft alleen 39b, een statuspil en geen menu.</dd></div>
+        <div class="slot none"><dt>galerij</dt><dd>geen: de set is tekstgedragen; de foto's staan los in 17b.</dd></div>
+        <div class="slot none"><dt>achtergrond</dt><dd>geen: crème vlak, de foto's zijn het enige dat beweegt.</dd></div>
+        <div class="slot"><dt>knop</dt><dd><span class="id">27c</span><a href="https://www.jwcreative.nl/animations/27c-magnetic-button.html">Magnetische knop</a>: alleen de ene knop "Book a trial class", alleen <code>(hover: hover)</code><span class="cls">geen deps · A</span></dd></div>
+        <div class="slot none"><dt>overig (status)</dt><dd>geen: de orbs zijn AI-indicatoren en passen niet bij een studio.</dd></div>
+      </dl>
+      <div class="foot">
+        <p><b>Bewegingssoorten (3):</b> masker-reveal · parallax-drift · magnetisch</p>
+        <ul class="checks"><li>≤3 soorten</li><li>tekst &lt;300 ms</li><li>geen scroll-lock</li><li>reduced motion</li><li>Lighthouse ≥90</li></ul>
+        <p><b>Mobiel:</b> 17b met kleinere verschillen in snelheid; magnetisch uit; koppen blijven.</p>
+        <p><b>Reduced motion:</b> geen Lenis, alles staat er, blokken op hun plek.</p>
+        <p><b>T.o.v. nu:</b> geen Elementor-fadeInUp/-fadeInLeft met 200 tot 350 ms vertraging per blok meer, maar één reveal per kop en verder rust.</p>
+      </div>
+    </article>
+
+    <!-- SET 2 -->
+    <article class="set">
+      <header>
+        <h2>2 · Één les, stap voor stap</h2>
+        <p class="meta"><span class="pill">calm</span><span class="pill">klasse B</span></p>
+        <p class="meta"><b>Karakter:</b> stil en beeldgedragen, met een verhaal.</p>
+        <p class="meta"><b>Signatuur:</b> scroll. Eén staand beeld blijft staan terwijl het aanbod langs scrollt: Reformer, E-Reformer, Bodyroll en ĀYU HOUSE.</p>
+        <p class="why">Waarom het past: hun foto's zijn staand (2:3, 3:4) en dat formaat is precies wat een sticky beeld naast tekst nodig heeft. Het aanbod is nu verspreid over flip-boxes en carrousels; hier wordt het één rustige lijn. Het is de opbouw van de Fuku-demo, dus bewezen te bouwen.</p>
+      </header>
+      <dl class="slots">
+        <div class="slot"><dt>scroll</dt><dd><span class="id">19</span><a href="https://www.jwcreative.nl/animations/19-sticky-stack-narrative.html">Vast beeld, blokken scrollen langs</a><span class="sig">signatuur</span><span class="cls">gsap lenis · B</span></dd></div>
+        <div class="slot"><dt>tekst</dt><dd><span class="id">11b</span><a href="https://www.jwcreative.nl/animations/11b-text-slide-up-soft.html">Tekst schuift zacht omhoog</a><span class="cls">gsap lenis · B</span></dd></div>
+        <div class="slot none"><dt>hover/cursor</dt><dd>geen: het sticky verhaal is genoeg.</dd></div>
+        <div class="slot gap"><dt>navigatie</dt><dd>vaste balk die na de hero van wit logo naar zwart logo wisselt (beide bestaan). CSS, klasse A. Geen calm-menu in de bibliotheek.</dd></div>
+        <div class="slot"><dt>galerij</dt><dd><span class="id">06</span><a href="https://www.jwcreative.nl/animations/06-infinite-marquee.html">Oneindige strook</a>: studiofoto's, zachte randen<span class="cls">images · A</span></dd></div>
+        <div class="slot none"><dt>achtergrond</dt><dd>geen: de foto's zijn de achtergrond.</dd></div>
+        <div class="slot gap"><dt>knop</dt><dd>fill die van onder inschuift en via de bovenkant weer verlaat, met een meegeknipte kopie van het label (Fuku-regel). CSS, klasse A. Staat niet in de bibliotheek.</dd></div>
+        <div class="slot none"><dt>overig (status)</dt><dd>geen: AI-indicatoren.</dd></div>
+      </dl>
+      <div class="foot">
+        <p><b>Bewegingssoorten (3):</b> masker-reveal · sticky-wissel · lus</p>
+        <ul class="checks"><li>≤3 soorten</li><li>tekst &lt;300 ms</li><li>geen scroll-lock</li><li>reduced motion</li><li>Lighthouse ≥90</li></ul>
+        <p><b>Mobiel:</b> sticky beeld boven de blokken (ongeveer 44 svh), blokregels altijd zichtbaar; strook blijft.</p>
+        <p><b>Reduced motion:</b> beelden wisselen zonder fade, strook staat stil, koppen staan er.</p>
+        <p><b>T.o.v. nu:</b> geen Swiper-carrousels en flip-boxes meer, maar één verhaal waarin het aanbod één voor één aan de beurt komt.</p>
+      </div>
+    </article>
+
+    <!-- SET 3 -->
+    <article class="set">
+      <header>
+        <h2>3 · Drie manen</h2>
+        <p class="meta"><span class="pill">calm</span><span class="pill">klasse B</span></p>
+        <p class="meta"><b>Karakter:</b> zacht en symbolisch. De cirkels uit het logo bewegen mee.</p>
+        <p class="meta"><b>Signatuur:</b> scroll. Een cirkel met "move slowly · feel deeply ·" draait alleen als jij scrollt en staat stil als jij stopt.</p>
+        <p class="why">Waarom het past: in deze set doet de beweging wat de tagline zegt: zij volgt jouw tempo. De drie O's van MOOON zijn de vorm, en op dat logo is Jaymar het meest gesteld. De achtergrond leeft heel licht in hun eigen zand- en crèmetinten.</p>
+      </header>
+      <dl class="slots">
+        <div class="slot"><dt>scroll</dt><dd><span class="id">44b</span><a href="https://www.jwcreative.nl/animations/44b-circular-text-scroll.html">Cirkel draait mee met scrollen</a><span class="sig">signatuur</span><span class="cls">gsap lenis · B</span></dd></div>
+        <div class="slot"><dt>tekst</dt><dd><span class="id">16</span><a href="https://www.jwcreative.nl/animations/16-clip-mask-text-reveal.html">Tekst stijgt op uit de regel eronder</a>: alleen onder de vouw<span class="cls">geen deps · A</span></dd></div>
+        <div class="slot none"><dt>hover/cursor</dt><dd>geen: de cirkel is het accent.</dd></div>
+        <div class="slot gap"><dt>navigatie</dt><dd>vaste balk met het logo, zonder animatie, zodat de cirkel de enige draaiende vorm blijft. CSS, klasse A. Geen calm-menu in de bibliotheek.</dd></div>
+        <div class="slot none"><dt>galerij</dt><dd>geen: beeld staat los, in een raster zonder beweging.</dd></div>
+        <div class="slot"><dt>achtergrond</dt><dd><span class="id">43</span><a href="https://www.jwcreative.nl/animations/43-mesh-gradient.html">Bewegende kleurvlekken</a>: in <span class="swatch" style="background:#C4B39C"></span>#C4B39C <span class="swatch" style="background:#E2DCD5"></span>#E2DCD5 <span class="swatch" style="background:#F0ECE6"></span>#F0ECE6, alleen in de hero, alleen desktop<span class="cls">geen deps · A</span></dd></div>
+        <div class="slot gap"><dt>knop</dt><dd>fill van onder in en boven uit, met een labelkopie (zie set 2). Staat niet in de bibliotheek.</dd></div>
+        <div class="slot none"><dt>overig (status)</dt><dd>geen: AI-indicatoren.</dd></div>
+      </dl>
+      <div class="foot">
+        <p><b>Bewegingssoorten (3):</b> draaien · opstijgen (masker) · drijven</p>
+        <ul class="checks"><li>≤3 soorten</li><li>tekst &lt;300 ms</li><li>geen scroll-lock</li><li>reduced motion</li><li>Lighthouse ≥90</li></ul>
+        <p><b>Mobiel:</b> 43 uit (canvas op 375 px kost te veel), dus een stil verloop in dezelfde tinten; de cirkel blijft, kleiner.</p>
+        <p><b>Reduced motion:</b> cirkel staat stil, de canvas tekent één frame, koppen staan er.</p>
+        <p><b>T.o.v. nu:</b> geen fade-ins van losse blokken meer; één vorm uit het logo draagt de beweging.</p>
+        <p><b>Let op:</b> 16 vult van vaag naar vol, dus niet voor de hero-kop gebruiken, anders haalt die de 300 ms niet.</p>
+      </div>
+    </article>
+
+    <!-- SET 4 -->
+    <article class="set">
+      <header>
+        <h2>4 · Maan komt op</h2>
+        <p class="meta"><span class="pill">medium</span><span class="pill">klasse B</span></p>
+        <p class="meta"><b>Karakter:</b> warm en verhalend, een contrastoptie. Van ochtend naar avond.</p>
+        <p class="meta"><b>Signatuur:</b> scroll. Een foto opent als een cirkel vanaf de onderrand, als een maan die opkomt.</p>
+        <p class="why">Waarom het past: de cirkel komt van het logo en de beweging opent het beeld. De pagina loopt van crème via zand naar donker olijf (hun eigen <code>#5C5545</code>/<code>#423D31</code>) voor ĀYU HOUSE en de avond. Deze set mag meer opvallen dan de andere drie en is daarom de enige op medium.</p>
+      </header>
+      <dl class="slots">
+        <div class="slot"><dt>scroll</dt><dd><span class="id">01b</span><a href="https://www.jwcreative.nl/animations/01b-clip-path-expand-image.html">Cirkel opent een beeld</a><span class="sig">signatuur</span><span class="cls">gsap lenis images · B</span></dd></div>
+        <div class="slot"><dt>tekst</dt><dd><span class="id">18</span><a href="https://www.jwcreative.nl/animations/18-text-mask-reveal.html">Kop vult zich op scroll</a>: alleen voor "Where strength meets softness"<span class="cls">gsap lenis · B</span></dd></div>
+        <div class="slot none"><dt>hover/cursor</dt><dd>geen: de galerij reageert al op de cursor.</dd></div>
+        <div class="slot gap"><dt>navigatie</dt><dd>vaste balk die de paletwissel van 26 volgt. Medium heeft 39a (meldingenpil) en 40 (dock), maar geen sitemenu. CSS, klasse A.</dd></div>
+        <div class="slot"><dt>galerij</dt><dd><span class="id">28b</span><a href="https://www.jwcreative.nl/animations/28b-accordion-vertical.html">Rijen klappen open bij hover</a>: het aanbod in vier rijen<span class="cls">images · A</span></dd></div>
+        <div class="slot"><dt>achtergrond</dt><dd><span class="id">26</span><a href="https://www.jwcreative.nl/animations/26-scroll-color-shift.html">Pagina wisselt van kleur per sectie</a><span class="cls">gsap lenis · B</span></dd></div>
+        <div class="slot gap"><dt>knop</dt><dd>fill van onder in en boven uit, met labelkopie. Medium heeft 36c (ring bij klik), maar die zou een vierde soort zijn.</dd></div>
+        <div class="slot none"><dt>overig (status)</dt><dd>geen: AI-indicatoren.</dd></div>
+      </dl>
+      <div class="foot">
+        <p><b>Bewegingssoorten (3):</b> masker (cirkel en vullen) · kleur · uitklappen</p>
+        <ul class="checks"><li>≤3 soorten</li><li>tekst &lt;300 ms</li><li>geen scroll-lock</li><li>reduced motion</li><li>Lighthouse ≥90</li></ul>
+        <p><b>Mobiel:</b> 28b wordt een gewone lijst met een beeld per rij (geen hover); 01b en 26 blijven.</p>
+        <p><b>Reduced motion:</b> beeld staat open, kop staat gevuld, kleuren per sectie vast zonder overgang.</p>
+        <p><b>T.o.v. nu:</b> van een witte pagina met fade-ins naar een pagina die als een dag verloopt, met één beeld dat opengaat.</p>
+        <p><b>Let op:</b> 18 begint als omtrek. Die moet bij hun dunne Aboreto-kop dik genoeg zijn om binnen 300 ms leesbaar te zijn; anders de kop gevuld laten staan.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="box">
+    <h3 style="margin-top:0">Gaten in de bibliotheek</h3>
+    <ul>
+      <li><b>navigatie op calm en medium:</b> er is geen sitemenu, alleen 39a/39b (statuspil) en 40 (dock). Suggestie: een vaste balk die bij een ScrollTrigger-grens van transparant naar vlak wisselt (kleur en logovariant), met een mobiel menu dat als vlak van boven inschuift. CSS plus één observer, klasse A. Referentie: de balk van de Fuku-demo.</li>
+      <li><b>knop:</b> de fill die van onder in en boven uit gaat, met een meegeknipte labelkopie, is een vaste regel van Jaymar maar geen bibliotheekbestand. Suggestie: als <code>button</code>, calm, toevoegen.</li>
+      <li><b>laden en sectie-overgang:</b> de vibe vraagt er niet om. Geen loader.</li>
+      <li><b>onbekende kind:</b> <code>status</code> (orbs 49a–49i) heeft nog geen slot in animatie-combinaties; voeg een regel toe aan bibliotheek.md §2. Hier staat hij als "overig".</li>
+    </ul>
+  </section>
+
+  <section class="box">
+    <h3 style="margin-top:0">Regels die voor elke set gelden (uit Fuku's CLAUDE.md en library_guide)</h3>
+    <ul>
+      <li>Maximaal drie soorten beweging, één signatuurmoment, tekst binnen 300 ms leesbaar, geen scroll-lock, en de pagina is compleet onder <code>prefers-reduced-motion</code>.</li>
+      <li>Timings en easings zoals in de bibliotheekbestanden; niets bijstellen.</li>
+      <li>Alleen GSAP zet de startstand van een reveal. Een element dat GSAP animeert krijgt geen CSS-transform.</li>
+      <li>Knop-fills bewegen één kant op: van onder in, door de bovenkant uit.</li>
+      <li>De hero-kop is geen reveal-doel; hij staat er via een CSS-load-in, zoals in de Fuku-demo.</li>
+      <li>De bestanden gaan letterlijk mee via <code>read_animation</code>; de vorm (font, kleur) komt van <code>design-system-matcher</code>.</li>
+    </ul>
+  </section>
+
+  <section class="box">
+    <h3 style="margin-top:0">Feiten uit deel 1</h3>
+    <table>
+      <tr><th>sitetype</th><td>studio (reformer-pilatesstudio, lokaal, met shop en opleiding)</td></tr>
+      <tr><th>doelgroep</th><td>vrouwen in en rond Spijkenisse die rustig en bewust sterker willen worden; zowel beginners als ervaren</td></tr>
+      <tr><th>beelden</th><td>home: 3 vaste beelden, 9 in carrousels en flip-boxes, 2 als achtergrond. Op de home is geen enkel beeld liggend en breder dan 1200 px behalve <code>sunset-sea.jpg</code> (stock). In de mediabibliotheek staan wel een professionele shoot (13 staande foto’s van ongeveer 1700×2560, april 2026) en 2 liggende opnames van 2560×1920. Zie <code>fotocheck.md</code>.</td></tr>
+      <tr><th>video</th><td>geen op de pagina's (één oude <code>.mov</code> uit 2024 in de bibliotheek)</td></tr>
+      <tr><th>tekstdichtheid</th><td>gemiddeld tot dicht: lange Nederlandse alinea's, korte Engelse koppen</td></tr>
+      <tr><th>kleuren nu</th><td><span class="swatch" style="background:#6E7269"></span>#6E7269 <span class="swatch" style="background:#5C5545"></span>#5C5545 <span class="swatch" style="background:#C4B39C"></span>#C4B39C <span class="swatch" style="background:#E2DCD5"></span>#E2DCD5 <span class="swatch" style="background:#F0ECE6"></span>#F0ECE6 <span class="swatch" style="background:#989389"></span>#989389, wit en zwart. Zie <code>merk.md</code>.</td></tr>
+      <tr><th>fonts nu</th><td>Aboreto (koppen), Afacad (tekst), Playfair Display (standaard van de kit), Satoshi (genoemd, niet geladen), Instrument Sans (thema)</td></tr>
+      <tr><th>bibliotheken nu</th><td>Elementor-entrance-animaties (fadeInUp, fadeInLeft), Swiper 8 (media-carrousels), Elementor-flip-boxes, Slider Revolution 6.6.19 geladen, Lottie genoemd</td></tr>
+      <tr><th>beweging nu</th><td>fade-ins per blok met 200–350 ms vertraging, automatische fotocarrousels, kaarten die bij hover omdraaien</td></tr>
+    </table>
+  </section>
+
+  <section class="box">
+    <h3 style="margin-top:0">Doorgeefblok (in te vullen na de keuze)</h3>
+<pre style="white-space:pre-wrap;font-family:var(--mono);font-size:.82rem;margin:0">## Gekozen animatieset: MOOON Pilates
+Set: &lt;naam&gt; · intensity &lt;calm|medium&gt; · signatuur: &lt;slot&gt;
+Bestanden: read_animation(&lt;id&gt;) per gekozen id, letterlijk meenemen; timing en easing ongewijzigd.
+
+## Huisstijl-feiten (zoals de site nu is, niet gekozen)
+Kleuren: #6E7269 #6B6661 #E2DCD5 #5C5545 #C4B39C #E5E1DB #989389 #F0ECE6 #000 #FFF
+Fonts: Aboreto, Afacad (Playfair Display als kitstandaard)
+Logo: ja, PNG 2350×810, zwarte en witte versie (geen SVG gevonden)
+Sitetype: studio · Doelgroep: vrouwen, Spijkenisse · Vibe: kalm · traag · warm · gemengd · ingetogen (onbevestigd)
+
+## Beeld
+Professionele shoot 1Y8A* (Canon EOS R5, "SHOT BY DASHENKO"), 13× ca. 1700×2560, staand.
+Liggend en ≥1920: IMG_6578/6575 (2560×1920), Voorzijde-gevel (2334×1459).</pre>
+  </section>
+
+  <p class="small">Timing en gevoel zijn niet door de agent beoordeeld; open de demo's. De vibe is gebaseerd op tekst, code en beeldmetadata, niet op het beeld zelf: een screenshot of download van de site was niet mogelijk. De vibe-woorden zijn onbevestigd.</p>
+</main>
+</body>
+</html>
