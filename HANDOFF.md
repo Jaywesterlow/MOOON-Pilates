@@ -8,13 +8,27 @@ Read `CLAUDE.md` first. This file says where the project stands and what Jaymar 
 
 ## Where it stands
 
-| Thing   | State                                                                                                                                         |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Live    | https://mooon-pilates.vercel.app (NL) and `/en`. Vercel project `mooon-pilates`, team `jaywesterlows-projects`. Every push to `main` deploys. |
-| Repo    | https://github.com/Jaywesterlow/MOOON-Pilates, branch `main`                                                                                  |
-| Checks  | `npm run check`, `lint` and `build` pass on `main`                                                                                            |
-| Verdict | **Jaymar rejected the first build on 2 October.** It stays live only until the rebuild replaces it.                                           |
-| Mail    | Not written yet. Jaymar decided: first a demo he approves, then the mail with a link and an announced call.                                   |
+| Thing   | State                                                                                                                                                                                                                                                                                             |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Live    | https://mooon-pilates.vercel.app (NL) and `/en`. Vercel project `mooon-pilates`, team `jaywesterlows-projects`. Every push to `main` deploys.                                                                                                                                                     |
+| Repo    | https://github.com/Jaywesterlow/MOOON-Pilates, branch `main`                                                                                                                                                                                                                                      |
+| Checks  | `npm run check`, `lint` and `build` pass on `main`                                                                                                                                                                                                                                                |
+| Build 1 | **Rejected by Jaymar on 2 October** (reasons below).                                                                                                                                                                                                                                              |
+| Build 2 | **Done on 2 October** by the next cloud session, as agreed below: the visible layer rebuilt from the rulebook, the invisible base kept. Recipe in `docs/recept.md`, screenshots in `docs/screenshots/`. Rendered with Playwright at 1440 and 390; **not yet judged by Jaymar in a real browser**. |
+| Mail    | Not written yet. Jaymar decided: first a demo he approves, then the mail with a link and an announced call.                                                                                                                                                                                       |
+
+## What the second build chose (so Jaymar can judge it)
+
+- **Nav**: a cream bar that is part of the first screen and then stays; nothing in it changes with the scroll, so the logo is simply always there (point 3 below). No "nav that changes on scroll" was improvised.
+- **Hero**: one screen under the bar, the reformer room (`IMG_6578`, their only wide landscape photo) edge to edge, the logo central, the tagline and the button bottom-left on the margin, address and hours bottom-right. Overlay by the rulebook's I22/I23.
+- **One margin**: `--margin` on the nav, the hero, every band and the footer.
+- **Motion**: 16 for the display headings as the library has it; the same curve for every other rise and wipe at 0.7 s (the rulebook's expressive upper bound, for readability; the one timing deviation, named in the recipe); 01b as a full takeover in `#423D31`, whole at every frame, 160 svh of stage; buttons and cards fill from the bottom, out through the top; every button magnetic (27c). Decided from the library, not asked.
+- **Hover language**: fills on buttons and the offer cards; text links only change colour.
+- **Button, language switch, dialog, footer**: designed again. Square block in sentence case; one link to the other language; a dark bar along the bottom of the screen on the margin; a dark footer with the white logo margin to margin and labelled columns.
+- **Section order**: the studio and then the founders sit on the moon's colour (founders moved after the studio).
+- **FAQ**: kept (title left, rows right); the vault had no new FAQ material on 2 October.
+- **Photos**: the seated DASHENKO portrait (`seated.jpg`) is off the page for now; kept for a portrait hero on phones once the logo is SVG.
+- **Not done**: the SVG logo (Jaymar's), the mail, a real-browser check of the feel, Lighthouse.
 
 ## Why the first build was rejected
 
@@ -31,7 +45,7 @@ Jaymar looked at it in a real browser. His points, confirmed in the code:
 8. **Centred sections.** None of his sites has one. If there is no template or knowledge for a centred section, stop and research first (he broadens the vault/dashboard, refreshes the MCP, then work continues). Never improvise one.
 9. **Questions about animation style.** He does not want to be asked which animation style to use. The AI decides from his library and says what it chose. Ask only when automation cannot decide, and then say that the question is there to improve the automation.
 
-## The rebuild he agreed to (not started)
+## The rebuild he agreed to (done on 2 October, see above)
 
 - **Hero:** exactly one screen, a photo as the background, the MOOON Pilates logo central and in the middle. Nothing else is prescribed; the rest of the hero follows the one margin.
 - **Logo as SVG.** Jaymar rebuilds the logo himself: "MOOON" and "PILATES" as separate SVGs, and the three O's as loose SVG shapes, so they can grow (the moon moment can be built from the logo's own O). Until his SVGs land, the PNG stays; design the hero and the moon so the SVG parts can drop in.
@@ -45,7 +59,7 @@ Jaymar looked at it in a real browser. His points, confirmed in the code:
 - **Sections** stay as in `docs/structuur.md`: hero, trust line, what is reformer pilates, offer, first class, prices, founders, studio, more than a studio, FAQ, visit, footer.
 - **Content:** unchanged, only their own facts and words (`src/lib/data/studio.nl.ts`, `studio.en.ts`). Prices must still be confirmed by MOOON.
 - **Research gaps stop the work.** Where the vault has no rule or template for something the design needs (a centred block, a nav that changes on scroll, a hero with a background photo), stop, name the gap, and let Jaymar broaden the vault first. Improvising there is what got this build rejected.
-- After the rebuild: update `CLAUDE.md` (the motion and design rules there describe the rejected build) and `docs/recept.md`.
+- After the rebuild: `CLAUDE.md`, `README.md` and `docs/recept.md` were updated with it.
 
 ## Facts about Jaymar for the mail (true, from him)
 

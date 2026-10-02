@@ -1,33 +1,38 @@
 <script lang="ts">
 	import { photos } from '$lib/assets/photos';
 	import type { UI } from '$lib/data/studio';
-	import RevealHeading from './RevealHeading.svelte';
+	import Heading from './Heading.svelte';
+	import Photo from './Photo.svelte';
+	import Rise from './Rise.svelte';
 
+	/** The founders' story, still on the moon's colour: the band ends with their own words. */
 	type Props = { text: UI['founders'] };
 	let { text }: Props = $props();
 </script>
 
-<section class="section founders" id="story">
-	<div class="wrap grid">
-		<div class="photo frame">
-			<enhanced:img
-				src={photos.founders}
-				alt={text.alt}
-				sizes="(min-width: 900px) 40vw, 100vw"
-				loading="lazy"
-			/>
-		</div>
+<section class="section frame dark founders" id="story">
+	<div class="grid">
+		<Photo
+			src={photos.founders}
+			alt={text.alt}
+			sizes="(min-width: 900px) 40vw, 100vw"
+			ratio="4 / 5"
+		/>
 		<div class="copy">
-			<RevealHeading lines={text.lines} />
-			<p>{text.body}</p>
+			<Heading lines={text.lines} />
+			<Rise><p>{text.body}</p></Rise>
 			<figure>
-				<blockquote lang="en">
-					<p>“{text.quote}”</p>
-				</blockquote>
-				<figcaption>
-					<span lang="en">{text.signature}</span>
-					<span class="names">{text.names}</span>
-				</figcaption>
+				<Rise>
+					<blockquote lang="en">
+						<p>“{text.quote}”</p>
+					</blockquote>
+				</Rise>
+				<Rise>
+					<figcaption>
+						<span lang="en">{text.signature}</span>
+						<span class="names">{text.names}</span>
+					</figcaption>
+				</Rise>
 			</figure>
 		</div>
 	</div>
@@ -40,8 +45,8 @@
 		gap: var(--space-8);
 		align-items: center;
 	}
-	.frame {
-		aspect-ratio: 4 / 5;
+	.founders :global(.photo) {
+		background: var(--olive);
 	}
 	.copy {
 		display: grid;
@@ -53,23 +58,22 @@
 		gap: var(--space-4);
 		margin-top: var(--space-5);
 		padding-top: var(--space-6);
-		border-top: 1px solid var(--line);
+		border-top: 1px solid var(--line-d);
 	}
 	/* T47: the quote well above body size, its opening mark hung outside the text edge */
 	blockquote p {
 		font-family: var(--font-display);
 		font-size: var(--text-lede);
 		line-height: 1.3;
-		color: var(--night);
+		color: var(--paper-d);
 		text-indent: -0.45em;
 	}
 	figcaption {
 		display: grid;
 		font-size: var(--text-small);
-		color: var(--ink-2);
 	}
 	.names {
-		color: var(--ink);
+		color: var(--paper-d);
 	}
 	@media (max-width: 900px) {
 		.grid {

@@ -1,45 +1,33 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { locales, site, type Locale } from '$lib/data/studio';
+	import { site, type Locale } from '$lib/data/studio';
 
-	/** NL / EN. A full page load on purpose: `<html lang>` and the reveals start clean. */
-	type Props = { locale: Locale; label: string };
-	let { locale, label }: Props = $props();
+	/**
+	 * One link to the other language, named by its own code. A full page load on purpose:
+	 * `<html lang>` and the reveals start clean.
+	 */
+	type Props = { locale: Locale };
+	let { locale }: Props = $props();
 
-	const href = (to: Locale) => resolve('/[[lang=locale]]', { lang: to === 'nl' ? undefined : to });
+	const other = $derived<Locale>(locale === 'nl' ? 'en' : 'nl');
+	const href = $derived(resolve('/[[lang=locale]]', { lang: other === 'nl' ? undefined : other }));
 </script>
 
-<div class="lang" role="group" aria-label={label}>
-	{#each locales as to (to)}
-		<a
-			class="tap"
-			href={href(to)}
-			hreflang={to}
-			lang={to}
-			title={site.languages[to].name}
-			aria-current={to === locale ? 'page' : undefined}
-			data-sveltekit-reload
-		>
-			{site.languages[to].code}
-		</a>
-	{/each}
-</div>
+<a
+	class="link tap lang"
+	{href}
+	hreflang={other}
+	lang={other}
+	aria-label={site.languages[other].name}
+	data-sveltekit-reload
+>
+	{site.languages[other].code}
+</a>
 
 <style>
 	.lang {
-		display: flex;
-		gap: var(--space-2);
-		font-size: var(--text-label);
-		font-weight: var(--label-weight);
-		letter-spacing: var(--label-tracking);
-		text-transform: uppercase;
-	}
-	a {
-		opacity: 0.5;
-		transition: opacity 0.35s;
-	}
-	a:hover,
-	a[aria-current='page'] {
-		opacity: 1;
+		font-size: var(--text-small);
+		font-weight: 500;
+		padding-inline: var(--space-2);
 	}
 </style>

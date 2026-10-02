@@ -1,11 +1,16 @@
 import { browser } from '$app/environment';
 import gsap from 'gsap';
+import { CustomEase } from 'gsap/CustomEase';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
+/** The curve of library entry 16, `cubic-bezier(.83,.01,.29,1)`, for every reveal on the page. */
+export const RISE = 'rise';
+
 if (browser) {
-	gsap.registerPlugin(ScrollTrigger);
+	gsap.registerPlugin(ScrollTrigger, CustomEase);
 	ScrollTrigger.config({ ignoreMobileResize: true });
+	CustomEase.create(RISE, '0.83,0.01,0.29,1');
 }
 
 export { gsap, ScrollTrigger };

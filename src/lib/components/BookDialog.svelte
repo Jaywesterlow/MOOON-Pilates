@@ -3,11 +3,14 @@
 	import { booking } from '$lib/state/booking.svelte';
 	import Button from './Button.svelte';
 
+	/**
+	 * Every booking button opens this, at once: the demo takes no real bookings. A night bar along
+	 * the bottom of the screen, on the page's own margin, with the one line and two actions.
+	 */
 	type Props = { text: UI['demo']; href: string };
 	let { text, href }: Props = $props();
 </script>
 
-<!-- Every booking button opens this, at once: the demo takes no real bookings. -->
 <dialog
 	class="dialog"
 	aria-labelledby="book-dialog-title"
@@ -15,37 +18,44 @@
 	onclose={booking.closed}
 	onclick={booking.backdrop}
 >
-	<div class="panel">
-		<h2 id="book-dialog-title" class="display">{text.title}</h2>
-		<p>{text.line}</p>
+	<div class="bar dark">
+		<div class="words">
+			<h2 id="book-dialog-title">{text.title}</h2>
+			<p class="small">{text.line}</p>
+		</div>
 		<div class="actions">
-			<Button {href} external variant="outline" size="sm">{text.link}</Button>
-			<button type="button" class="close ul" onclick={booking.close}>{text.close}</button>
+			<Button {href} external variant="light">{text.link}</Button>
+			<button type="button" class="close link tap" onclick={booking.close}>{text.close}</button>
 		</div>
 	</div>
 </dialog>
 
 <style>
 	.dialog {
-		width: min(30rem, calc(100% - 2 * var(--gutter)));
+		position: fixed;
+		inset: auto 0 0 0;
+		width: 100%;
 		max-width: none;
+		max-height: none;
+		margin: 0;
 		padding: 0;
-		border: 1px solid var(--line);
-		background: var(--paper);
-		color: var(--ink);
+		border: 0;
+		background: transparent;
+		color: var(--muted-d);
+	}
+	/* the backdrop is the whole screen; a click on it closes */
+	.dialog::backdrop {
+		background: rgb(66 61 49 / 0.4);
 	}
 	/* no scrolling behind the dialog, also when Lenis is off (reduced motion) */
 	:global(html:has(dialog[open])) {
 		overflow: hidden;
 	}
-	.dialog::backdrop {
-		background: rgb(66 61 49 / 0.6);
-	}
 	/* opacity only, nothing that moves; none at all under reduced motion */
 	@media (prefers-reduced-motion: no-preference) {
 		.dialog[open],
 		.dialog[open]::backdrop {
-			animation: appear 0.45s var(--ease);
+			animation: appear 0.2s ease-out;
 		}
 	}
 	@keyframes appear {
@@ -53,38 +63,36 @@
 			opacity: 0;
 		}
 	}
-
-	.panel {
+	.bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: var(--space-4) var(--space-6);
+		padding: var(--space-5) var(--margin) calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
+	}
+	.words {
 		display: grid;
-		gap: var(--space-4);
-		padding: clamp(1.5rem, 5vw, 2.5rem);
+		gap: var(--space-1);
+		max-width: 36em;
 	}
-	/* .panel: outranks the global h2.display size, which is for section headings */
-	.panel h2 {
+	h2 {
+		font-family: var(--font-display);
+		font-weight: 400;
 		font-size: var(--text-lede);
-	}
-	p {
-		color: var(--ink-2);
+		line-height: 1.2;
+		color: var(--paper-d);
 	}
 	.actions {
 		display: flex;
-		flex-wrap: wrap;
 		align-items: center;
-		gap: var(--space-4) var(--space-5);
-		margin-top: var(--space-2);
+		gap: var(--space-5);
 	}
 	.close {
-		min-width: var(--tap);
-		min-height: var(--tap);
-		padding: 0;
 		border: 0;
 		background: none;
-		color: inherit;
-		font: var(--label-weight) var(--text-label) / 1 var(--font-body);
-		letter-spacing: var(--label-tracking);
-		/* the underline follows the text, not the --tap high box */
-		--ul-offset: calc(50% - 0.5lh - 0.15em);
-		text-transform: uppercase;
+		padding: 0;
+		font: 500 var(--text-small) / 1.55 var(--font-body);
 		cursor: pointer;
 	}
 </style>

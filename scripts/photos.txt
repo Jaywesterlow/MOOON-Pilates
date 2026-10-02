@@ -8,7 +8,7 @@
 #
 # source URL -> target file | measured size | where on the page
 
-https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A5905-scaled.jpeg -> src/lib/assets/photos/hero.jpg | 1708x2560 | hero (DASHENKO: seated on the floor, matcha raised)
+https://mooonpilates.nl/wp-content/uploads/2026/08/IMG_6578-scaled.jpg -> src/lib/assets/photos/hero.jpg | 2560x1920 | hero: the reformer room as the ground under the logo
 https://mooonpilates.nl/wp-content/uploads/2026/08/Mooon-pilates-IMG_6060-2-scaled.jpg -> src/lib/assets/photos/reformer.jpg | 1920x2560 | what is reformer pilates (a reformer, close)
 https://mooonpilates.nl/wp-content/uploads/2026/08/Mooon-pilates-2-scaled.jpg -> src/lib/assets/photos/offer-reformer.jpg | 1920x2560 | offer: Reformer Pilates
 https://mooonpilates.nl/wp-content/uploads/2026/08/Mooon-pilatesIMG_6078-2-scaled.jpg -> src/lib/assets/photos/offer-e-reformer.jpg | 1920x2560 | offer: E-Reformer (at the screen)
@@ -16,7 +16,7 @@ https://mooonpilates.nl/wp-content/uploads/2025/05/bamboerollers-scaled.jpg -> s
 https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A5899-scaled.jpeg -> src/lib/assets/photos/offer-ayu.jpg | 1708x2560 | offer: AYU HOUSE (DASHENKO: matcha in hands)
 https://mooonpilates.nl/wp-content/uploads/2026/08/Mooon-pilatesIMG_6059-scaled.png -> src/lib/assets/photos/offer-academy.jpg | 1920x2560 | offer: Academy (PNG converted to JPG)
 https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A5677-scaled.jpeg -> src/lib/assets/photos/founders.jpg | 1796x2560 | founders' story (DASHENKO: two women at the round table)
-https://mooonpilates.nl/wp-content/uploads/2026/08/IMG_6578-scaled.jpg -> src/lib/assets/photos/moon.jpg | 2560x1920 | the studio: inside the 01b circle (the reformer room)
+https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A5905-scaled.jpeg -> src/lib/assets/photos/seated.jpg | 1708x2560 | not on the page since the rebuild (the moon is colour now); kept for a portrait hero on phones once the logo is SVG
 https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A5631-scaled.jpeg -> src/lib/assets/photos/studio-1.jpg | 1708x2560 | the studio, row (DASHENKO: on the sofa)
 https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A5930-scaled.jpeg -> src/lib/assets/photos/studio-2.jpg | 1708x2560 | the studio, row (DASHENKO: matcha by the plant)
 https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A6041-scaled.jpeg -> src/lib/assets/photos/studio-3.jpg | 1707x2560 | the studio, row (DASHENKO: the arched niche)

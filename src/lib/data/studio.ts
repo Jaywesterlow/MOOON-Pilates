@@ -165,7 +165,7 @@ export type Copy = {
 	faq: { group: string; items: Faq[] }[];
 	ui: {
 		nav: { label: string; book: string; menu: string; close: string; language: string };
-		hero: { lines: string[]; lede: string; book: string; alt: string };
+		hero: { lines: string[]; book: string; alt: string };
 		trust: { label: string };
 		about: { lines: string[]; lede: string; alt: string };
 		offer: { lines: string[]; lede: string; more: string };
@@ -179,7 +179,7 @@ export type Copy = {
 			names: string;
 			alt: string;
 		};
-		studio: { lines: string[]; lede: string; moonAlt: string };
+		studio: { lines: string[]; lede: string; moonLabel: string };
 		more: { lines: string[]; sub: string; body: string; contact: string; alt: string };
 		faq: { lines: string[] };
 		visit: {
@@ -194,6 +194,9 @@ export type Copy = {
 		};
 		footer: {
 			tagline: string;
+			contact: string;
+			follow: string;
+			more: string;
 			book: string;
 			top: string;
 			privacy: string;

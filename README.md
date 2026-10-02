@@ -1,6 +1,6 @@
 # MOOON Pilates
 
-Concept demo for MOOON Pilates Spijkenisse, built by JW Creative. SvelteKit, Svelte 5 with runes, TypeScript strict, plain CSS. Sister project of the Fuku Ramen demo, same conventions.
+Concept demo for MOOON Pilates Spijkenisse, built by JW Creative. SvelteKit, Svelte 5 with runes, TypeScript strict, plain CSS. The design is MOOON's own brand, built from the `site-design-rulebook` (recipe in `docs/recept.md`); nothing visible is shared with another JW Creative site.
 
 ```bash
 npm install
@@ -20,24 +20,25 @@ Deploys to Vercel with `@sveltejs/adapter-vercel`. Both pages are prerendered, s
 
 ## The page
 
-One landing page, aimed at one action: book a trial class ("Meet the reformer", €25).
+One landing page, aimed at one action: book a trial class ("Meet the reformer", €25). Everything hangs from one margin; the nav, the hero, every band and the footer pad with the same `--margin`.
 
-1. **Hero**: the logo large, "Move slowly, feel deeply", one line, the booking button, the address and "open today until 23:00".
+1. **Hero**: one screen under the bar. The reformer room as the ground, the logo central, "Move slowly, feel deeply", the booking button, the address and "open today until".
 2. **Trust line**: certified studio and instructors, Classical and Contemporary, beginners and advanced.
-3. **What is reformer pilates**: one paragraph, three benefits.
-4. **Offer**: Reformer Pilates, E-Reformer, Bodyroll, ĀYU HOUSE, Academy, each linking to MOOON's own page.
-5. **Your first class**: three steps, what to bring, the booking button.
-6. **Prices**: Meet the reformer, Try-out, the two class cards, Unlimited.
-7. **Founders' story**: Anjali, Nasrien and Monica, their own quote.
-8. **The studio**: the moon (01b) opens on the reformer room, then three photos from the shoot.
-9. **More than a studio**: private classes, birthdays, company outings, workshops, events.
-10. **FAQ**: their own questions and answers.
-11. **Visit & contact**: address, hours, WhatsApp, e-mail, the booking button, the front of the studio.
-12. **Footer**: the logo across the full width, socials, their legal links, "Conceptdemo · JW Creative".
+3. **What is reformer pilates**: one paragraph, three benefits, a reformer.
+4. **Offer**: Reformer Pilates, E-Reformer, Bodyroll, ĀYU HOUSE, Academy, five cards in a row that runs off the right edge, each linking to MOOON's own page.
+5. **Your first class**: three steps, what to bring, the booking button, on the panel colour.
+6. **Prices**: Meet the reformer on its dark block, Try-out, the two class cards, Unlimited.
+7. **The moon**: the signature. A circle in MOOON's night colour rises and fills the screen.
+8. **The studio** (on the moon's colour): "A soft way to feel strong", three photos from the shoot.
+9. **Founders' story** (on the moon's colour): Anjali, Nasrien and Monica, their own quote.
+10. **More than a studio**: private classes, birthdays, company outings, workshops, events.
+11. **FAQ**: their own questions and answers, title left, rows right.
+12. **Visit & contact**: address, hours, WhatsApp, e-mail, the booking button, the front of the studio edge to edge.
+13. **Footer**: a dark band, the logo margin to margin, contact, socials, the other language, legal links, "Conceptdemo · JW Creative".
 
 ## Languages
 
-Dutch at `/`, English at `/en`. One route, `src/routes/[[lang=locale]]`, renders both; the matcher in `src/params/locale.ts` accepts only `en`. Facts (address, hours, prices, photos) live once in `studio.ts`; the words live in `studio.nl.ts` and `studio.en.ts`, typed against the same `Copy`, so a missing line fails `npm run check`. `hooks.server.ts` fills `<html lang>`; each page carries its canonical, `hreflang` alternates (`nl`, `en`, `x-default` → `/`) and JSON-LD: `ExerciseGym` (address, opening hours Mo–Su 07:00–23:00, prices as `Offer`s), `FAQPage` and a `WebPage` with `inLanguage`. The NL / EN switch does a full page load, so `lang` and the reveals start clean.
+Dutch at `/`, English at `/en`. One route, `src/routes/[[lang=locale]]`, renders both; the matcher in `src/params/locale.ts` accepts only `en`. Facts (address, hours, prices, photos) live once in `studio.ts`; the words live in `studio.nl.ts` and `studio.en.ts`, typed against the same `Copy`, so a missing line fails `npm run check`. `hooks.server.ts` fills `<html lang>`; each page carries its canonical, `hreflang` alternates (`nl`, `en`, `x-default` → `/`) and JSON-LD: `ExerciseGym` (address, opening hours Mo–Su 07:00–23:00, prices as `Offer`s), `FAQPage` and a `WebPage` with `inLanguage`. The language link does a full page load, so `lang` and the reveals start clean.
 
 MOOON's English taglines ("Move slowly, feel deeply", "A soft way to feel strong", …) stay English on `/`, as on their own site.
 
@@ -45,7 +46,7 @@ MOOON's English taglines ("Move slowly, feel deeply", "A soft way to feel strong
 
 ```
 src/
-  app.css                     tokens, fonts, base, type, the reveal pre-state, the link styles
+  app.css                     tokens, the one margin (.frame), fonts, base, type, the reveal pre-state, links, dark bands
   routes/
     [[lang=locale]]/
       +layout.ts              prerender + the content for `/` or `/en`
@@ -62,51 +63,50 @@ src/
     data/schema.ts            ExerciseGym + FAQPage + WebPage from the same object
     state/opening.svelte.ts   rune class: the clock the site reads
     state/booking.svelte.ts   rune class: the demo dialog behind every booking button
-    motion/scroll.ts          GSAP + ScrollTrigger + Lenis on one clock
-    motion/attachments.ts     11b and 01b as Svelte attachments
+    motion/scroll.ts          GSAP + ScrollTrigger + Lenis on one clock, 16's curve as a CustomEase
+    motion/attachments.ts     revealWords (16), rise, wipe, moonRise (01b) as Svelte attachments
     assets/photos.ts          photos through enhanced-img
     assets/logo-*.png         MOOON's logo, black and white
-    components/               one file per section, plus the shared pieces
+    components/               Heading, Rise, Photo, Button, Logo, LangSwitch (the pieces); one file per section
 static/fonts/                 Aboreto and Afacad, latin + latin-ext
 scripts/photos.txt            which upload on mooonpilates.nl became which photo
-docs/                         prospect, structure, brand, photo check, animation sets, recipe, screenshots
+docs/                         prospect, structure, brand, photo check, recipe, screenshots
 ```
 
 ## What Svelte does here
 
-| Tool                                                     | Where                                   | Why                                                                                                     |
-| -------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `{@attach}` attachments                                  | `motion/attachments.ts`                 | Every reveal is set up and cleaned up with the element it moves                                         |
-| `$state` / `$derived` in a class                         | `state/opening.svelte.ts`               | One clock; "Open today until 23:00" in the hero and the visit section derive from it                    |
-| `$effect` with cleanup                                   | `+layout.svelte`                        | Starts and stops the clock, Lenis and the ScrollTrigger refresh                                         |
-| `prefersReducedMotion`                                   | attachments, button, layout             | Reveals, the moon, the magnet and smooth scroll switch off live with the visitor's setting              |
-| `scrollY`, `innerHeight` from `svelte/reactivity/window` | `Nav`                                   | The small logo and the solid bar appear once the hero's large logo has gone; no listener                |
-| `MediaQuery` + `Tween`                                   | `Button`                                | Magnetic button only with a real cursor; 200 ms expo-out as in library 27c                              |
-| Snippets                                                 | `Button`                                | The label renders twice (text and fill) from one snippet                                                |
-| `transition:fade`                                        | `Nav`                                   | Mobile menu                                                                                             |
-| `<svelte:element>`                                       | `RevealHeading`                         | One heading component for `h1` and `h2`                                                                 |
-| `load` + `prerender` + `entries`                         | `+layout.ts`, `+page.ts`                | Content reaches components as props, per language                                                       |
-| Optional param + matcher, `transformPageChunk`           | `[[lang=locale]]`, hooks                | `/` and `/en` from one set of components; `<html lang>` right in the prerendered HTML                   |
-| `<enhanced:img>`                                         | every photo and the logo                | AVIF and WebP, `srcset`, intrinsic size                                                                 |
-| `<dialog>` + `{@attach}`, rune class                     | `BookDialog`, `state/booking.svelte.ts` | Every booking button opens the demo dialog in the same frame; Esc, backdrop and focus return are native |
+| Tool                                           | Where                                   | Why                                                                                                     |
+| ---------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `{@attach}` attachments                        | `motion/attachments.ts`                 | Every reveal and the moon are set up and cleaned up with the element they move                          |
+| `$state` / `$derived` in a class               | `state/opening.svelte.ts`               | One clock; "Open today until 23:00" in the hero and the visit section derive from it                    |
+| `$effect` with cleanup                         | `+layout.svelte`                        | Starts and stops the clock, Lenis and the ScrollTrigger refresh                                         |
+| `prefersReducedMotion`                         | attachments, button, layout             | Reveals, the moon, the magnet and smooth scroll switch off live with the visitor's setting              |
+| `MediaQuery` + `Tween`                         | `Button`                                | Magnetic button only with a real cursor; 200 ms expo-out as in library 27c                              |
+| Snippets                                       | `Button`, `Rise`                        | The button label renders twice (text and fill) from one snippet; `Rise` wraps anything in its mask      |
+| `transition:fade`                              | `Nav`                                   | The phone menu                                                                                          |
+| `<svelte:element>`                             | `Heading`                               | One heading component for `h1` and `h2`                                                                 |
+| `load` + `prerender` + `entries`               | `+layout.ts`, `+page.ts`                | Content reaches components as props, per language                                                       |
+| Optional param + matcher, `transformPageChunk` | `[[lang=locale]]`, hooks                | `/` and `/en` from one set of components; `<html lang>` right in the prerendered HTML                   |
+| `<enhanced:img>`                               | every photo and the logo                | AVIF and WebP, `srcset`, intrinsic size                                                                 |
+| `<dialog>` + `{@attach}`, rune class           | `BookDialog`, `state/booking.svelte.ts` | Every booking button opens the demo dialog in the same frame; Esc, backdrop and focus return are native |
 
 ## Motion
 
-Three kinds of movement, no more. Library ids and timings verbatim:
+Three kinds of movement, no more. Library ids 16, 01b and 27c; the full account, with the one timing deviation, is in `docs/recept.md`.
 
-- **11b**, every heading: lines slide up from their mask, 110 % → 0, 1.2 s expo-out, 80 ms stagger, at `top 85%`, reset once below the screen. The hero heading runs the same curve in CSS on load, so it never waits for JavaScript.
-- **01b**, the signature, in the studio section: a circle opens on the reformer room, scrubbed `top bottom` → `top top`, `ease: none`. One change on purpose: in the library the centre stays on the bottom edge, so the top of the circle is always cut off. Here the disc is a square sized to fit between the nav and the bottom of every screen, and the circle rises while it grows (`circle(0% at 50% 100%)` → `circle(50% at 50% 50%)`): its bottom stays on the edge and its radius is always half its height, so the whole circle is visible at every frame. A full moon rising, the middle O of their logo.
-- **27c**, the booking buttons: the button leans 30 % toward the cursor, 200 ms expo-out, only with a real cursor. The fill comes in from the bottom and leaves through the top, with its own copy of the label.
+- **Reveal on enter (16)**: display headings as the library has it (words rise from under the line below, 1.4 s / 1.7 s, `cubic-bezier(.83,.01,.29,1)`); everything else rises out of a mask from below its line or, for a photo, opens with a wipe from the bottom, 0.7 s on the same curve. One stagger rule: 100 ms between whatever enters in the same frame.
+- **The moon (01b)**: a circle in `--night` grows with the scroll until it fills the screen, whole at every frame (it rises with its bottom on the bottom edge, then grows on from the middle). The studio and the founders continue on that colour. Scrub only, no pin.
+- **Hover (27c)**: buttons and cards fill from the bottom and empty through the top; every button leans 30 % toward the cursor, 200 ms expo-out, with a real cursor only.
 
-GSAP alone sets the start state of a reveal. Until it has, `html.js [data-reveal]` is `visibility: hidden` (no transform), with a 3 s CSS fallback in case JavaScript dies. Under `prefers-reduced-motion` nothing is hidden, the moon is open and Lenis is off. The demo dialog fades in over 0.45 s (opacity only) and holds the page still while open.
+GSAP alone sets the start state of a reveal. Until it has, `html.js [data-reveal]` is `visibility: hidden` (no transform), with a 3 s CSS fallback in case JavaScript dies. Under `prefers-reduced-motion` nothing is hidden, the moon stage is a short dark block and Lenis is off. The demo dialog fades in over 0.2 s (opacity only) and holds the page still while open.
 
 ## Photos and logo
 
-All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their black and white PNG (2350 × 810), never recoloured or cropped.
+All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their black and white PNG (2350 × 810), never recoloured or cropped. The hero ground is their reformer room (`IMG_6578`), the only landscape photo of theirs wide enough for a full-screen ground.
 
 ## Dependencies beyond the scaffold
 
-- `gsap`, `lenis`: the demo motion stack (11b, 01b, smooth scroll).
+- `gsap`, `lenis`: the demo motion stack (16, 01b, smooth scroll). `gsap/CustomEase` carries 16's curve.
 - `@sveltejs/enhanced-img`: image pipeline.
 
 ## Fonts
@@ -119,4 +119,5 @@ Self-hosted from `static/fonts/`, no Google Fonts request: Aboreto (headings) an
 - **Booking**: every booking button opens a "this is a concept demo" dialog, so the demo never takes a real booking. The no-JS href is MOOON's own Google form at its public `/viewform` URL; their site links the `/edit` URL, which shows "Request edit access". The `/viewform` URL was not opened from here. After the form, booking runs in the MOOON Pilates app (Android) or Virtuagym (Apple).
 - **Legal**: their terms PDF still carries the old name, Detox and Roll Studio. The footer links it as their own site does.
 - **People in the photos** are not named: the site does not say who is in the DASHENKO shoot. The founders are named only in their own signature.
+- **Logo as SVG**: Jaymar is rebuilding it; the hero and the moon are built so the parts can drop in.
 - **Favicon**: a simple moon mark in their colours; their own site icon (512 px JPG) was too soft to reuse.

@@ -160,9 +160,8 @@ export const nl: Copy = {
 		},
 		hero: {
 			lines: ['Move slowly,', 'feel deeply'],
-			lede: 'Reformer pilates in Spijkenisse, om je sterker, lichter en meer verbonden te voelen.',
 			book: 'Boek een proefles',
-			alt: 'Een vrouw zit ontspannen op de vloer van de studio en heft een glas matcha'
+			alt: 'De reformerzaal van MOOON in warm licht, met een scherm bij elke reformer'
 		},
 		trust: { label: 'Over de studio' },
 		about: {
@@ -200,7 +199,7 @@ export const nl: Copy = {
 		studio: {
 			lines: ['A soft way', 'to feel strong'],
 			lede: 'Een plek waar je de drukte van de dag achter je laat. Warme sfeerverlichting, rustige kleuren en een serene omgeving.',
-			moonAlt: 'De reformerzaal van MOOON in warm licht, met een scherm bij elke reformer'
+			moonLabel: 'Een volle maan in de kleur van MOOON vult het scherm'
 		},
 		more: {
 			lines: ['A space to connect'],
@@ -222,6 +221,9 @@ export const nl: Copy = {
 		},
 		footer: {
 			tagline: 'Where strength meets softness',
+			contact: 'Contact',
+			follow: 'Volg ons',
+			more: 'Verder',
 			book: 'Proefles boeken',
 			top: 'Naar boven',
 			privacy: 'Privacybeleid',

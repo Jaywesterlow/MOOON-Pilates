@@ -6,7 +6,7 @@
  * (April 2026, Canon EOS R5) first, then their own studio photos. `scripts/photos.txt` is the
  * record of which upload became which file.
  */
-// 2026/04/1Y8A5905-scaled.jpeg (DASHENKO shoot)
+// 2026/08/IMG_6578-scaled.jpg (the reformer room; the ground of the hero)
 import hero from './photos/hero.jpg?enhanced';
 // 2026/08/Mooon-pilates-IMG_6060-2-scaled.jpg
 import reformer from './photos/reformer.jpg?enhanced';
@@ -22,8 +22,6 @@ import offerAyu from './photos/offer-ayu.jpg?enhanced';
 import offerAcademy from './photos/offer-academy.jpg?enhanced';
 // 2026/04/1Y8A5677-scaled.jpeg (DASHENKO shoot)
 import founders from './photos/founders.jpg?enhanced';
-// 2026/08/IMG_6578-scaled.jpg
-import moon from './photos/moon.jpg?enhanced';
 // 2026/04/1Y8A5631-scaled.jpeg (DASHENKO shoot)
 import studio1 from './photos/studio-1.jpg?enhanced';
 // 2026/04/1Y8A5930-scaled.jpeg (DASHENKO shoot)
@@ -44,7 +42,6 @@ export const photos = {
 	offerAyu,
 	offerAcademy,
 	founders,
-	moon,
 	studio1,
 	studio2,
 	studio3,

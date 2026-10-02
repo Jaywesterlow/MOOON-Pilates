@@ -1,30 +1,38 @@
 <script lang="ts">
 	import type { Faq, UI } from '$lib/data/studio';
-	import RevealHeading from './RevealHeading.svelte';
+	import Heading from './Heading.svelte';
+	import Rise from './Rise.svelte';
 
 	type Props = { groups: { group: string; items: Faq[] }[]; text: UI['faq'] };
 	let { groups, text }: Props = $props();
 </script>
 
-<!-- MOOON's own questions and answers, from their "Prijzen en FAQs" page; FAQPage JSON-LD in the layout -->
-<section class="section faq" id="faq">
-	<div class="wrap grid">
+<!-- MOOON's own questions and answers, from their "Prijzen en FAQs" page; FAQPage JSON-LD in the layout.
+     A59: hairline rows, the whole question clickable, a plus on the right. -->
+<section class="section frame faq" id="faq">
+	<div class="grid">
 		<div class="head">
-			<RevealHeading lines={text.lines} />
+			<Heading lines={text.lines} />
 		</div>
 		<div class="groups">
 			{#each groups as group (group.group)}
 				<div class="group">
-					<h3>{group.group}</h3>
-					{#each group.items as item (item.question)}
-						<details>
-							<summary>
-								<span>{item.question}</span>
-								<span class="sign" aria-hidden="true"></span>
-							</summary>
-							<p>{item.answer}</p>
-						</details>
-					{/each}
+					<Rise><h3>{group.group}</h3></Rise>
+					<div class="rows">
+						{#each group.items as item (item.question)}
+							<details>
+								<summary>
+									<Rise>
+										<span class="question">
+											<span>{item.question}</span>
+											<span class="sign" aria-hidden="true"></span>
+										</span>
+									</Rise>
+								</summary>
+								<p class="small">{item.answer}</p>
+							</details>
+						{/each}
+					</div>
 				</div>
 			{/each}
 		</div>
@@ -45,27 +53,23 @@
 	.group h3 {
 		margin-bottom: var(--space-4);
 	}
-	details {
-		border-top: 1px solid var(--line);
-	}
-	details:last-child {
-		border-bottom: 1px solid var(--line);
-	}
 	summary {
+		cursor: pointer;
+		list-style: none;
+		color: var(--night);
+	}
+	summary::-webkit-details-marker {
+		display: none;
+	}
+	.question {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		gap: var(--space-5);
 		min-height: var(--tap);
 		padding-block: var(--space-4);
-		color: var(--night);
-		cursor: pointer;
-		list-style: none;
 	}
-	summary::-webkit-details-marker {
-		display: none;
-	}
-	/* a drawn plus that loses its upright when open; no movement, only a state */
+	/* a drawn plus that loses its upright when open; a state, not a movement */
 	.sign {
 		position: relative;
 		flex: none;
@@ -96,7 +100,6 @@
 	details p {
 		padding-bottom: var(--space-5);
 		max-width: 38em;
-		color: var(--ink-2);
 	}
 	@media (max-width: 900px) {
 		.grid {

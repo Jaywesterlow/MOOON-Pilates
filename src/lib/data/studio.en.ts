@@ -158,9 +158,8 @@ export const en: Copy = {
 		},
 		hero: {
 			lines: ['Move slowly,', 'feel deeply'],
-			lede: 'Reformer pilates in Spijkenisse, to help you feel stronger, lighter and more connected.',
 			book: 'Book a trial class',
-			alt: 'A woman sits at ease on the studio floor, raising a glass of matcha'
+			alt: 'The MOOON reformer room in warm light, with a screen at every reformer'
 		},
 		trust: { label: 'About the studio' },
 		about: {
@@ -198,7 +197,7 @@ export const en: Copy = {
 		studio: {
 			lines: ['A soft way', 'to feel strong'],
 			lede: 'A place where you leave the rush of the day behind. Warm light, calm colours and a serene space.',
-			moonAlt: 'The MOOON reformer room in warm light, with a screen at every reformer'
+			moonLabel: 'A full moon in MOOON’s colour fills the screen'
 		},
 		more: {
 			lines: ['A space to connect'],
@@ -220,6 +219,9 @@ export const en: Copy = {
 		},
 		footer: {
 			tagline: 'Where strength meets softness',
+			contact: 'Contact',
+			follow: 'Follow us',
+			more: 'More',
 			book: 'Book a trial class',
 			top: 'Back to top',
 			privacy: 'Privacy policy',

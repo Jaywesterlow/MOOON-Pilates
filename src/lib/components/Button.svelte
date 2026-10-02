@@ -3,36 +3,28 @@
 	import { expoOut } from 'svelte/easing';
 	import { prefersReducedMotion, Tween } from 'svelte/motion';
 	import { MediaQuery } from 'svelte/reactivity';
-	import Arrow from './Arrow.svelte';
 
+	/**
+	 * MOOON's button: a square block, Afacad in sentence case, the one action hue. On hover a fill
+	 * comes in from the bottom and leaves through the top, carrying its own copy of the label, so the
+	 * text is readable at every frame. Every button also takes 27c: it leans 30 % toward the cursor,
+	 * 200 ms expo-out, and settles back when the cursor leaves.
+	 */
 	type Props = {
 		href: string;
-		/** ink: solid on paper · paper: solid on the dark band · outline: ink outline on paper · light: paper outline on the dark band */
-		variant?: 'ink' | 'paper' | 'outline' | 'light';
-		size?: 'sm' | 'md' | 'lg';
-		arrow?: boolean;
+		/** night: solid on paper · paper: solid on the dark band · outline: night line on paper · light: paper line on the dark band */
+		variant?: 'night' | 'paper' | 'outline' | 'light';
 		external?: boolean;
-		/** 27c: the button leans 30 % toward the cursor. For the one button that matters. */
-		magnetic?: boolean;
 		onclick?: (event: MouseEvent & { currentTarget: EventTarget & HTMLAnchorElement }) => void;
 		children: Snippet;
 	};
 
-	let {
-		href,
-		variant = 'ink',
-		size = 'md',
-		arrow = true,
-		external = false,
-		magnetic = false,
-		onclick,
-		children
-	}: Props = $props();
+	let { href, variant = 'night', external = false, onclick, children }: Props = $props();
 
 	const hasCursor = new MediaQuery('(hover: hover)');
 	const pull = new Tween({ x: 0, y: 0 }, { duration: 200, easing: expoOut });
 
-	const magnetOn = $derived(magnetic && hasCursor.current && !prefersReducedMotion.current);
+	const magnetOn = $derived(hasCursor.current && !prefersReducedMotion.current);
 
 	function follow(event: MouseEvent & { currentTarget: HTMLAnchorElement }) {
 		if (!magnetOn) return;
@@ -48,15 +40,9 @@
 	}
 </script>
 
-{#snippet label()}
-	{@render children()}
-	{#if arrow}<Arrow />{/if}
-{/snippet}
-
-<!-- The fill carries its own copy of the label, clipped with it: the text is readable at every frame. -->
 <a
 	{href}
-	class={['btn', variant, size]}
+	class={['btn', variant]}
 	target={external ? '_blank' : undefined}
 	rel={external ? 'noopener' : undefined}
 	style:transform={magnetOn ? `translate(${pull.current.x}px, ${pull.current.y}px)` : undefined}
@@ -64,8 +50,8 @@
 	onmouseleave={release}
 	{onclick}
 >
-	<span>{@render label()}</span>
-	<span class="fill" aria-hidden="true">{@render label()}</span>
+	<span class="text">{@render children()}</span>
+	<span class="fill" aria-hidden="true">{@render children()}</span>
 </a>
 
 <style>
@@ -74,14 +60,13 @@
 		display: inline-grid;
 		isolation: isolate;
 		overflow: hidden;
-		border-radius: 999px;
-		border: 1px solid currentColor;
-		min-height: var(--tap);
-		font: var(--label-weight) var(--text-label) / 1 var(--font-body);
-		letter-spacing: var(--label-tracking);
-		text-transform: uppercase;
+		min-height: 3rem;
+		border: 1px solid var(--edge);
+		background: var(--ground);
+		color: var(--text);
+		font: 500 var(--text-small) / 1 var(--font-body);
 		will-change: transform;
-		transition: scale 0.2s var(--ease);
+		transition: scale 0.2s ease-out;
 	}
 	/* 27c press: the `scale` property, so it stacks on the magnetic translate instead of replacing it */
 	.btn:active {
@@ -92,32 +77,21 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: var(--space-2);
-		padding: var(--space-2) var(--space-5);
+		padding: var(--space-3) var(--space-5);
 		white-space: nowrap;
-	}
-	.sm > span {
-		padding-inline: var(--space-4);
-	}
-	.lg {
-		min-height: 3rem;
-	}
-	.lg > span {
-		padding-inline: var(--space-6);
 	}
 
 	/* one direction only: in from the bottom on hover, out through the top on leave */
 	.fill {
 		background: var(--fill);
 		color: var(--fill-text);
-		border-radius: 999px;
 		clip-path: inset(0 0 100% 0);
-		transition: clip-path 0.38s var(--ease);
+		transition: clip-path 0.38s var(--ease-rise);
 	}
 	.btn:hover .fill,
 	.btn:focus-visible .fill {
 		clip-path: inset(0 0 0 0);
-		animation: fill-in 0.38s var(--ease);
+		animation: fill-in 0.38s var(--ease-rise);
 	}
 	@keyframes fill-in {
 		from {
@@ -127,31 +101,32 @@
 			clip-path: inset(0 0 0 0);
 		}
 	}
-	.btn:hover :global(svg) {
-		transform: translateX(4px);
-	}
 
-	.ink {
-		background: var(--night);
-		color: var(--paper);
-		border-color: var(--night);
+	.night {
+		--ground: var(--night);
+		--edge: var(--night);
+		--text: var(--paper);
 		--fill: var(--olive);
 		--fill-text: var(--paper);
 	}
 	.paper {
-		background: var(--paper-d);
-		color: var(--night);
-		border-color: var(--paper-d);
+		--ground: var(--paper-d);
+		--edge: var(--paper-d);
+		--text: var(--night);
 		--fill: var(--olive);
 		--fill-text: var(--paper-d);
 	}
 	.outline {
-		color: var(--night);
+		--ground: transparent;
+		--edge: var(--night);
+		--text: var(--night);
 		--fill: var(--night);
 		--fill-text: var(--paper);
 	}
 	.light {
-		color: var(--paper-d);
+		--ground: transparent;
+		--edge: var(--paper-d);
+		--text: var(--paper-d);
 		--fill: var(--paper-d);
 		--fill-text: var(--night);
 	}

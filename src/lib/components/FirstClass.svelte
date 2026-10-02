@@ -2,7 +2,8 @@
 	import type { Studio, UI } from '$lib/data/studio';
 	import { booking } from '$lib/state/booking.svelte';
 	import Button from './Button.svelte';
-	import RevealHeading from './RevealHeading.svelte';
+	import Heading from './Heading.svelte';
+	import Rise from './Rise.svelte';
 
 	type Props = {
 		studio: Studio;
@@ -13,43 +14,44 @@
 	let { studio, steps, bring, text }: Props = $props();
 </script>
 
-<!-- the step that takes the doubt out of the first booking -->
-<section class="section first" id="first-class">
-	<div class="wrap">
-		<div class="head">
-			<RevealHeading lines={text.lines} />
-			<p class="lede">{text.lede}</p>
-		</div>
+<!-- the step that takes the doubt out of the first booking; a panel band, the copy on the margin -->
+<section class="section frame first" id="first-class">
+	<div class="head">
+		<Heading lines={text.lines} />
+		<Rise><p class="lede">{text.lede}</p></Rise>
+	</div>
 
-		<div class="grid">
-			<ol class="steps">
-				{#each steps as step, i (step.title)}
-					<li>
-						<span class="number" aria-hidden="true">{i + 1}</span>
-						<div>
-							<h3>{step.title}</h3>
-							<p>{step.line}</p>
-						</div>
-					</li>
-				{/each}
-			</ol>
+	<div class="grid">
+		<ol class="steps">
+			{#each steps as step, i (step.title)}
+				<li>
+					<Rise>
+						<!-- order is information here: these are steps -->
+						<span class="number numeric" aria-hidden="true">{i + 1}</span>
+						<h3>{step.title}</h3>
+						<p class="small">{step.line}</p>
+					</Rise>
+				</li>
+			{/each}
+		</ol>
 
-			<div class="bring">
+		<div class="bring">
+			<Rise>
 				<h3 class="label">{text.bring}</h3>
 				<ul>
 					{#each bring as item (item)}
 						<li>{item}</li>
 					{/each}
 				</ul>
-			</div>
+			</Rise>
 		</div>
+	</div>
 
-		<div class="cta">
-			<Button href={studio.booking.url} onclick={booking.open} size="lg" magnetic>
-				{text.book}
-			</Button>
-			<p class="small">{text.app}</p>
-		</div>
+	<div class="cta">
+		<Rise inline>
+			<Button href={studio.booking.url} onclick={booking.open}>{text.book}</Button>
+		</Rise>
+		<Rise><p class="small">{text.app}</p></Rise>
 	</div>
 </section>
 
@@ -67,37 +69,26 @@
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: var(--space-6);
 	}
-	.steps li {
-		display: grid;
-		gap: var(--space-4);
-		align-content: start;
+	.steps li,
+	.bring {
 		border-top: 1px solid var(--line);
 		padding-top: var(--space-4);
 	}
-	.steps div {
-		display: grid;
-		gap: var(--space-2);
-	}
-	.steps p {
-		color: var(--ink-2);
-	}
-	/* order is information here: these are steps */
 	.number {
+		display: block;
 		font-family: var(--font-display);
 		font-size: var(--text-h2);
 		line-height: 1;
 		color: var(--olive);
+		margin-bottom: var(--space-4);
 	}
-	.bring {
-		display: grid;
-		gap: var(--space-4);
-		align-content: start;
-		border-top: 1px solid var(--line);
-		padding-top: var(--space-4);
+	.steps h3 {
+		margin-bottom: var(--space-1);
 	}
 	.bring h3 {
 		font-family: var(--font-body);
 		color: var(--ink-2);
+		margin-bottom: var(--space-4);
 	}
 	.bring ul {
 		display: grid;
@@ -118,9 +109,6 @@
 		.steps {
 			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-6);
-		}
-		.steps li {
-			grid-template-columns: 3rem minmax(0, 1fr);
 		}
 	}
 </style>
