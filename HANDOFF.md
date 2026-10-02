@@ -22,24 +22,29 @@ Jaymar looked at it in a real browser. His points, confirmed in the code:
 
 1. **Copied from Fuku.** The previous session told the builder to "copy Fuku's conventions exactly". The nav, language switch, button (same shape, same fill hover, same magnet), demo dialog, arrow and heading reveal are Fuku's files with small edits. Visible design may never be copied from another site of his; only the invisible base may be shared (SvelteKit scaffold, GSAP/Lenis wiring in `src/lib/motion/scroll.ts`, locale routing, the dialog's open/close logic, the data typing).
 2. **No hero.** The large logo, text and photo were stacked into about two screens. A hero is one screen. The logo may be emphasised (it is their strongest asset), but not at the cost of the flow.
-3. **No logo in the nav.** It was hidden until the hero logo scrolled away. It reads as missing. The logo is always in the nav.
+3. **Nav logo appears without a transition.** Hiding it while the hero logo is on screen is a legitimate idea, but it pops in from nothing, so the left of the bar looks empty and then something appears for no reason. If the logo is to arrive later, the arrival needs a transition that explains it (for example the nav items sit left and slide over to make room). Otherwise the logo is simply always there.
+   **The nav ignores the page's margin.** The bar keeps its own left/right inset, and that inset appears nowhere else on the page, so there is no shared white space. Fuku has the same fault. Every section and the nav align to one margin, like Huis Hinterglemm, Eliteschilderwerk and the rest of his sites: nothing is centred, everything follows the margin, always.
 4. **Almost nothing animates.** Only headings (11b). Body text, photos, cards, the steps, the prices and the FAQ had no motion at all. The page felt bare.
 5. **Two hover languages.** Hero button: fill plus magnet. Offer cards: only an arrow. One site, one hover language.
 6. **01b stops too early.** The circle grew to the size of a photo and stopped. He wants a full takeover: a circle in a brand colour that grows until it fills the viewport, after which the next band continues on that colour. He prefers colour over a photo. It must never be clipped.
-7. **FAQ layout.** Title left, items right, with that hover, reminds him of his Trinity project. Not in this repo's history or in his component library, but it goes: FAQ in one column.
-8. **Questions about animation style.** He does not want to be asked which animation style to use. The AI decides from his library and says what it chose. Ask only when automation cannot decide, and then say that the question is there to improve the automation.
+7. **FAQ layout.** Title left, items right, with that hover, reminds him of his Trinity project; he later saw Huis Hinterglemm has it too. It may stay: it looks good. He will research FAQ sections and add what he finds to his dashboard/vault.
+8. **Centred sections.** None of his sites has one. If there is no template or knowledge for a centred section, stop and research first (he broadens the vault/dashboard, refreshes the MCP, then work continues). Never improvise one.
+9. **Questions about animation style.** He does not want to be asked which animation style to use. The AI decides from his library and says what it chose. Ask only when automation cannot decide, and then say that the question is there to improve the automation.
 
 ## The rebuild he agreed to (not started)
 
-- **Hero:** exactly one screen. Logo large but inside that screen, tagline "Move slowly, feel deeply", one line, one button "Boek een proefles", address and "vandaag open tot".
+- **Hero:** exactly one screen, a photo as the background, the MOOON Pilates logo central and in the middle. Nothing else is prescribed; the rest of the hero follows the one margin.
+- **Logo as SVG.** Jaymar rebuilds the logo himself: "MOOON" and "PILATES" as separate SVGs, and the three O's as loose SVG shapes, so they can grow (the moon moment can be built from the logo's own O). Until his SVGs land, the PNG stays; design the hero and the moon so the SVG parts can drop in.
 - **Own visual language** from `docs/merk.md`: their colours as tokens, Aboreto for headings, Afacad for text, their logo. Redesign nav, button, language switch, footer and dialog from scratch, using the `site-design-rulebook` skill from the vault. Keep the token discipline (four text steps, one label style, spacing scale, 44 px taps).
 - **Motion, three kinds, the same everywhere** (read each library entry verbatim with `read_animation`; timings are the library's):
   1. **Reveal on enter.** `16` for the display headings (H1, section H2). Everything else that enters the viewport, body text, cards, steps, prices, FAQ items, photos, uses the same direction and timing family as 16: text rises from below its line, photos open with a wipe from the bottom. One stagger rule per section. Text readable within 300 ms.
   2. **Signature, once.** `01b` as a full takeover: a circle in a brand colour (olive or the dark home gradient end, `#423D31`) grows with the scroll until it fills the viewport, whole at every frame and every viewport; the following band (the studio photos, the founders' quote) sits on that colour. Scrub, no scroll lock.
   3. **Hover, one language.** Buttons and cards both fill from the bottom and empty through the top; buttons also take `27c` (magnet). Nothing else moves on hover.
-- **FAQ:** one column, heading above the list, their six questions, `FAQPage` JSON-LD stays.
+- **FAQ:** the title-left/items-right layout may stay; their six questions, `FAQPage` JSON-LD stays. Jaymar is researching FAQ sections; check the vault for new material before touching it.
+- **One margin everywhere.** Nav, hero, every section, footer: the same left and right white space. No centred sections (see point 8).
 - **Sections** stay as in `docs/structuur.md`: hero, trust line, what is reformer pilates, offer, first class, prices, founders, studio, more than a studio, FAQ, visit, footer.
 - **Content:** unchanged, only their own facts and words (`src/lib/data/studio.nl.ts`, `studio.en.ts`). Prices must still be confirmed by MOOON.
+- **Research gaps stop the work.** Where the vault has no rule or template for something the design needs (a centred block, a nav that changes on scroll, a hero with a background photo), stop, name the gap, and let Jaymar broaden the vault first. Improvising there is what got this build rejected.
 - After the rebuild: update `CLAUDE.md` (the motion and design rules there describe the rejected build) and `docs/recept.md`.
 
 ## Facts about Jaymar for the mail (true, from him)
