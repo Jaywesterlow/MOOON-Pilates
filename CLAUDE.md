@@ -1,6 +1,6 @@
 # Working on this repo
 
-Concept demo for MOOON Pilates Spijkenisse by JW Creative. Read `docs/prospect.md` for the client and `README.md` for the state of the project and the open work.
+Concept demo for MOOON Pilates Spijkenisse by JW Creative. Read `HANDOFF.md` first: the first build was rejected and it says why and what the rebuild must be. Then `docs/prospect.md` for the client and `README.md` for the stack.
 
 ## How Jaymar wants you to work
 
