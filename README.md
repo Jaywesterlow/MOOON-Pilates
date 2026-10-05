@@ -35,7 +35,7 @@ One landing page, aimed at one action: book a trial class ("Meet the reformer", 
 11. **FAQ**: their own questions and answers, heading left, rows right.
 12. **Visit**: address, hours, contact in three columns.
 13. **Closing card**: the front of the studio under "Meet the reformer, €25" and the button.
-14. **Footer**: the logo margin to margin, the tagline, one row of links, legal links, "Conceptdemo · JW Creative".
+14. **Footer**: the logo margin to margin (it arrives as in the hero), the tagline, one row of links, legal links, "Conceptdemo · JW Creative"; the rows rise 100 ms apart.
 
 ## Languages
 
@@ -63,7 +63,7 @@ src/
     data/opening.ts           "open today until" as a pure function
     data/schema.ts            ExerciseGym + FAQPage + WebPage from the same object
     state/opening.svelte.ts   rune class: the clock the site reads
-    state/booking.svelte.ts   rune class: the demo dialog behind every booking button
+    state/demo.svelte.ts      rune class: the demo dialog behind every booking button and outward link
     motion/scroll.ts          GSAP + ScrollTrigger + Lenis on one clock, 16's curve as a CustomEase
     motion/attachments.ts     revealWords (16), rise, wipe, revealLogo, moonRise (01b) as Svelte attachments
     assets/photos.ts          photos through enhanced-img
@@ -78,21 +78,21 @@ docs/                         prospect, structure, brand, photo check, recipe, a
 
 ## What Svelte does here
 
-| Tool                                           | Where                                   | Why                                                                                                     |
-| ---------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `{@attach}` attachments                        | `motion/attachments.ts`                 | Every reveal and the moon are set up and cleaned up with the element they move                          |
-| `$state` / `$derived` in a class               | `state/opening.svelte.ts`               | One clock; "Open today until 23:00" in the hero and the visit section derive from it                    |
-| `$effect` with cleanup                         | `+layout.svelte`                        | Starts and stops the clock, Lenis and the ScrollTrigger refresh                                         |
-| `prefersReducedMotion`                         | attachments, button, layout             | Reveals, the moon, the magnet and smooth scroll switch off live with the visitor's setting              |
-| `MediaQuery` + `Tween`                         | `Button`                                | Magnetic button only with a real cursor; 200 ms expo-out as in library 27c                              |
-| Snippets                                       | `Button`, `Rise`                        | The button label renders twice (text and fill) from one snippet; `Rise` wraps anything in its mask      |
-| `transition:fade`                              | `Nav`                                   | The phone menu                                                                                          |
-| `<svelte:element>`                             | `Heading`                               | One heading component for `h1` and `h2`                                                                 |
-| `load` + `prerender` + `entries`               | `+layout.ts`, `+page.ts`                | Content reaches components as props, per language                                                       |
-| Optional param + matcher, `transformPageChunk` | `[[lang=locale]]`, hooks                | `/` and `/en` from one set of components; `<html lang>` right in the prerendered HTML                   |
-| `<enhanced:img>`                               | every photo                             | AVIF and WebP, `srcset`, intrinsic size                                                                 |
-| `slide` transition                             | `FaqItem.svelte`                        | The answer opens and closes with height, 250/200 ms, and is gone from the DOM when closed               |
-| `<dialog>` + `{@attach}`, rune class           | `BookDialog`, `state/booking.svelte.ts` | Every booking button opens the demo dialog in the same frame; Esc, backdrop and focus return are native |
+| Tool                                           | Where                                | Why                                                                                                     |
+| ---------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `{@attach}` attachments                        | `motion/attachments.ts`              | Every reveal and the moon are set up and cleaned up with the element they move                          |
+| `$state` / `$derived` in a class               | `state/opening.svelte.ts`            | One clock; "Open today until 23:00" in the hero and the visit section derive from it                    |
+| `$effect` with cleanup                         | `+layout.svelte`                     | Starts and stops the clock, Lenis and the ScrollTrigger refresh                                         |
+| `prefersReducedMotion`                         | attachments, button, layout          | Reveals, the moon, the magnet and smooth scroll switch off live with the visitor's setting              |
+| `MediaQuery` + `Tween`                         | `Button`                             | Magnetic button only with a real cursor; 200 ms expo-out as in library 27c                              |
+| Snippets                                       | `Button`, `Rise`                     | The button label renders twice (text and fill) from one snippet; `Rise` wraps anything in its mask      |
+| `transition:fade`                              | `Nav`                                | The phone menu                                                                                          |
+| `<svelte:element>`                             | `Heading`                            | One heading component for `h1` and `h2`                                                                 |
+| `load` + `prerender` + `entries`               | `+layout.ts`, `+page.ts`             | Content reaches components as props, per language                                                       |
+| Optional param + matcher, `transformPageChunk` | `[[lang=locale]]`, hooks             | `/` and `/en` from one set of components; `<html lang>` right in the prerendered HTML                   |
+| `<enhanced:img>`                               | every photo                          | AVIF and WebP, `srcset`, intrinsic size                                                                 |
+| `slide` transition                             | `FaqItem.svelte`                     | The answer opens and closes with height, 250/200 ms, and is gone from the DOM when closed               |
+| `<dialog>` + `{@attach}`, rune class           | `DemoDialog`, `state/demo.svelte.ts` | Every booking button opens the demo dialog in the same frame; Esc, backdrop and focus return are native |
 
 ## Motion
 
@@ -100,7 +100,7 @@ Three kinds of movement, no more. Library ids 16, 01b and 27c; the full account,
 
 - **Reveal on enter (16)**: display headings as the library has it (words rise from under the line below, 1.4 s / 1.7 s, `cubic-bezier(.83,.01,.29,1)`); everything else rises out of a mask from below its line or, for a photo, opens with a wipe from the bottom, 0.7 s on the same curve. One stagger rule: 100 ms between whatever enters in the same frame.
 - **The moon (01b)**: as the library has it. A circle in `--paper` opens from the bottom edge of the stage (`circle(0% at 50% 100%)` to `circle(120% at 50% 100%)`), so only its top half is seen: a dome that grows with the scroll until it fills the screen. The moon element is two screens tall and lies over the section before it, so the dome rises over the offer tiles instead of being cut flat by the stage's top; 120 % of that taller box rises and covers at the same moments as the library's 150 % of one screen. The first class and the prices continue on that colour. Scrub only, no pin.
-- **The logo at load**: from the inside out on 16's 1.4 s. The three O's are crescents and wax like moons: each one's SVG mask holds a shadow circle that starts over the whole ring and moves to the cut-out's place while it shrinks, so the thick side shows first. The middle O starts first, the outer two at 0.3 s; the M and the N rise out of a wipe from the bottom at 0.7 s, PILATES at 1.0 s. About 2.4 s in all.
+- **The logo**: in the hero at load, in the footer when it scrolls in, from the inside out on 16's 1.4 s. The three O's are crescents and wax like moons: each one's SVG mask holds a shadow circle that starts over the whole ring and moves to the cut-out's place while it shrinks, so the thick side shows first. The middle O starts first, the outer two at 0.3 s; the M and the N rise out of a wipe from the bottom at 0.7 s, PILATES at 1.0 s. About 2.4 s in all.
 - **Hover (27c)**: buttons and tiles fill from the bottom and empty through the top; every button leans 30 % toward the cursor, 200 ms expo-out, with a real cursor only. Text links roll (`Roll.svelte`): the label slides up out of its line while a copy comes in from below, 0.38 s on 16's curve. A rise mask lets its content overflow once the rise is done, so a magnet button is never clipped by it.
 
 GSAP alone sets the start state of a reveal. Until it has, `html.js [data-reveal]` is `visibility: hidden` (no transform), with a 3 s CSS fallback in case JavaScript dies. Under `prefers-reduced-motion` nothing is hidden, the moon stage is a short cream block and Lenis is off. The demo dialog fades in over 0.2 s (opacity only) and holds the page still while open.

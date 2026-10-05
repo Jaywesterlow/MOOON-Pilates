@@ -33,7 +33,7 @@ const STEP = 0.1;
 const WORD = 1.4;
 
 /** On the first screen at load: play now (after the shared stagger) instead of waiting for a scroll. */
-function onScreen(node: HTMLElement): boolean {
+function onScreen(node: Element): boolean {
 	const box = node.getBoundingClientRect();
 	return box.top < window.innerHeight && box.bottom > 0;
 }
@@ -165,7 +165,8 @@ export function wipe(): Attachment<HTMLElement> {
  * own centre, a little wider than it) and moves to the cut-out's place while it shrinks, so the
  * thick side of the crescent shows first and the thin side last. The middle O starts first, the
  * outer two 0.3 s later; the M and the N rise out of a wipe from the bottom at 0.7 s, PILATES at
- * 1.0 s. The markup holds the resting state; GSAP sets every start.
+ * 1.0 s. The markup holds the resting state; GSAP sets every start. On the first screen it plays
+ * at load; lower on the page (the footer) it plays when it enters.
  */
 export function revealLogo(): Attachment<SVGElement> {
 	return (node) => {
@@ -195,7 +196,7 @@ export function revealLogo(): Attachment<SVGElement> {
 		gsap.set(wipes, { clipPath: 'inset(100% 0% 0% 0%)' });
 		gsap.set(node, { visibility: 'visible' });
 
-		const timeline = gsap.timeline({ delay: staggerDelay() });
+		const timeline = gsap.timeline({ paused: true });
 		shadows.forEach((shadow, i) => {
 			timeline.to(
 				shadow,
@@ -211,7 +212,13 @@ export function revealLogo(): Attachment<SVGElement> {
 			);
 		}
 
+		const play = () => timeline.delay(staggerDelay()).play();
+		const trigger = onScreen(node)
+			? (play(), null)
+			: ScrollTrigger.create({ trigger: node, start: START, once: true, onEnter: play });
+
 		return () => {
+			trigger?.kill();
 			timeline.kill();
 			shadows.forEach((shadow, i) => gsap.set(shadow, { attr: rest[i] }));
 			gsap.set(wipes, { clearProps: 'clipPath' });

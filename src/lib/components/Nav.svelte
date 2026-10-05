@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { innerHeight, scrollY } from 'svelte/reactivity/window';
 	import type { Locale, NavLink, Studio, UI } from '$lib/data/studio';
-	import { booking } from '$lib/state/booking.svelte';
+	import { demo } from '$lib/state/demo.svelte';
 	import Button from './Button.svelte';
 	import LangSwitch from './LangSwitch.svelte';
 	import Logo from './Logo.svelte';
@@ -39,7 +39,7 @@
 	<div class="right">
 		<LangSwitch {locale} />
 		<div class="book">
-			<Button href={studio.booking.url} onclick={booking.open} size="sm">{text.book}</Button>
+			<Button href={studio.booking.url} onclick={demo.book} size="sm">{text.book}</Button>
 		</div>
 		<button
 			class="menu-button link label tap"
@@ -65,7 +65,7 @@
 				href={studio.booking.url}
 				onclick={(event) => {
 					close();
-					booking.open(event);
+					demo.book(event);
 				}}
 			>
 				{text.book}

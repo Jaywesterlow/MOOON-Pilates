@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Studio, UI } from '$lib/data/studio';
-	import { booking } from '$lib/state/booking.svelte';
+	import { demo } from '$lib/state/demo.svelte';
 	import Button from './Button.svelte';
 	import Heading from './Heading.svelte';
 	import Rise from './Rise.svelte';
@@ -50,7 +50,7 @@
 
 	<div class="cta">
 		<Rise inline>
-			<Button href={studio.booking.url} onclick={booking.open} variant="night">{text.book}</Button>
+			<Button href={studio.booking.url} onclick={demo.book} variant="night">{text.book}</Button>
 		</Rise>
 		<Rise><p class="small">{text.app}</p></Rise>
 	</div>

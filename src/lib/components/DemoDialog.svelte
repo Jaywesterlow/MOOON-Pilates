@@ -1,32 +1,35 @@
 <script lang="ts">
 	import type { UI } from '$lib/data/studio';
-	import { booking } from '$lib/state/booking.svelte';
+	import { demo } from '$lib/state/demo.svelte';
 	import Button from './Button.svelte';
 	import Roll from './Roll.svelte';
 
 	/**
-	 * Every booking button opens this, at once: the demo takes no real bookings. A cream bar along
-	 * the bottom of the screen, on the page's own margin, with the one line and two actions.
+	 * Every booking button and every link that leaves the page opens this, at once: the demo takes
+	 * no real bookings and links nowhere by accident. A cream bar along the bottom of the screen, on
+	 * the page's own margin, with one line and two actions; the first action is the link itself.
 	 */
-	type Props = { text: UI['demo']; href: string };
-	let { text, href }: Props = $props();
+	type Props = { text: UI['demo'] };
+	let { text }: Props = $props();
 </script>
 
 <dialog
 	class="dialog"
 	aria-labelledby="book-dialog-title"
-	{@attach booking.dialog}
-	onclose={booking.closed}
-	onclick={booking.backdrop}
+	{@attach demo.dialog}
+	onclose={demo.closed}
+	onclick={demo.backdrop}
 >
 	<div class="bar light">
 		<div class="words">
 			<h2 id="book-dialog-title">{text.title}</h2>
-			<p class="small">{text.line}</p>
+			<p class="small">{demo.kind === 'book' ? text.book : text.link}</p>
 		</div>
 		<div class="actions">
-			<Button {href} external variant="night">{text.link}</Button>
-			<button type="button" class="close link label tap" onclick={booking.close}>
+			<Button href={demo.href} external variant="night">
+				{demo.kind === 'book' ? text.toForm : text.follow}
+			</Button>
+			<button type="button" class="close link label tap" onclick={demo.close}>
 				<Roll>{text.close}</Roll>
 			</button>
 		</div>

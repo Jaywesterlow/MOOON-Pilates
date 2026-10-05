@@ -220,7 +220,15 @@ export type Copy = {
 			terms: string;
 			credit: string;
 		};
-		demo: { title: string; line: string; link: string; close: string };
+		/** the demo dialog: one line for a booking button, one for any other link that leaves the page */
+		demo: {
+			title: string;
+			book: string;
+			link: string;
+			toForm: string;
+			follow: string;
+			close: string;
+		};
 	};
 };
 

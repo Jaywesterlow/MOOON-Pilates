@@ -236,8 +236,10 @@ export const en: Copy = {
 		},
 		demo: {
 			title: 'This is a concept demo.',
-			line: 'On the real site, this is where you book your trial class. This demo takes no bookings.',
-			link: 'Go to the sign-up form',
+			book: 'On the real site, this is where you book your trial class. This demo takes no bookings.',
+			link: 'On the real site this link goes on. This demo stays here.',
+			toForm: 'Go to the sign-up form',
+			follow: 'Follow the link anyway',
 			close: 'Close'
 		}
 	}

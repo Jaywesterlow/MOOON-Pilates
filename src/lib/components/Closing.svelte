@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { photos } from '$lib/assets/photos';
 	import { euro, type Locale, type Price, type Studio, type UI } from '$lib/data/studio';
-	import { booking } from '$lib/state/booking.svelte';
+	import { demo } from '$lib/state/demo.svelte';
 	import Button from './Button.svelte';
 	import Heading from './Heading.svelte';
 	import Photo from './Photo.svelte';
@@ -24,7 +24,7 @@
 			<Heading lines={[price.name]} centred />
 			<Rise><p class="lede">{price.detail}</p></Rise>
 			<Rise inline>
-				<Button href={studio.booking.url} onclick={booking.open}>{text.book}</Button>
+				<Button href={studio.booking.url} onclick={demo.book}>{text.book}</Button>
 			</Rise>
 		</div>
 	</div>

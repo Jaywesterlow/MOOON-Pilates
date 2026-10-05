@@ -14,4 +14,4 @@ export { default as Faq } from './components/Faq.svelte';
 export { default as Visit } from './components/Visit.svelte';
 export { default as Closing } from './components/Closing.svelte';
 export { default as Footer } from './components/Footer.svelte';
-export { default as BookDialog } from './components/BookDialog.svelte';
+export { default as DemoDialog } from './components/DemoDialog.svelte';

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { photos } from '$lib/assets/photos';
 	import type { OpeningWords, Studio, UI } from '$lib/data/studio';
-	import { booking } from '$lib/state/booking.svelte';
+	import { demo } from '$lib/state/demo.svelte';
 	import { opening } from '$lib/state/opening.svelte';
 	import Button from './Button.svelte';
 	import Logo from './Logo.svelte';
@@ -36,13 +36,13 @@
 		</div>
 		<Heading level="h1" lines={text.lines} centred />
 		<Rise inline>
-			<Button href={studio.booking.url} onclick={booking.open}>{text.book}</Button>
+			<Button href={studio.booking.url} onclick={demo.book}>{text.book}</Button>
 		</Rise>
 	</div>
 
 	<div class="corners frame small">
 		<Rise>
-			<a class="link" href={studio.address.maps} target="_blank" rel="noopener">
+			<a class="link" href={studio.address.maps} onclick={demo.open} target="_blank" rel="noopener">
 				<Roll>{studio.address.street}, {studio.address.city}</Roll>
 			</a>
 		</Rise>

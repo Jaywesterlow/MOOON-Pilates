@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { demo } from '$lib/state/demo.svelte';
 	import { photos } from '$lib/assets/photos';
 	import type { Studio, UI } from '$lib/data/studio';
 	import Heading from './Heading.svelte';
@@ -29,10 +30,18 @@
 			<Rise>
 				<div class="contact">
 					<p class="label">{text.contact}</p>
-					<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener">
+					<a
+						class="link tap"
+						href={studio.whatsapp.href}
+						onclick={demo.open}
+						target="_blank"
+						rel="noopener"
+					>
 						<Roll>WhatsApp {studio.whatsapp.display}</Roll>
 					</a>
-					<a class="link tap" href="mailto:{studio.email}"><Roll>{studio.email}</Roll></a>
+					<a class="link tap" href="mailto:{studio.email}" onclick={demo.open}
+						><Roll>{studio.email}</Roll></a
+					>
 				</div>
 			</Rise>
 		</div>

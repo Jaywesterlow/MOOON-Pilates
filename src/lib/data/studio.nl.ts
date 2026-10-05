@@ -238,8 +238,10 @@ export const nl: Copy = {
 		},
 		demo: {
 			title: 'Dit is een conceptdemo.',
-			line: 'Op de echte site boek je hier je proefles. Deze demo neemt geen boekingen aan.',
-			link: 'Naar het aanmeldformulier',
+			book: 'Op de echte site boek je hier je proefles. Deze demo neemt geen boekingen aan.',
+			link: 'Op de echte site gaat deze link verder. Deze demo blijft hier.',
+			toForm: 'Naar het aanmeldformulier',
+			follow: 'Toch naar de link',
 			close: 'Sluiten'
 		}
 	}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { demo } from '$lib/state/demo.svelte';
 	import type { Snippet } from 'svelte';
 	import type { Picture } from 'vite-imagetools';
 	import Photo from './Photo.svelte';
@@ -20,7 +21,7 @@
 </script>
 
 {#if href}
-	<a class="tile" {href} target="_blank" rel="noopener">
+	<a class="tile" {href} onclick={demo.open} target="_blank" rel="noopener">
 		<Photo {src} {alt} {sizes} {position} ratio="3 / 4" />
 		<span class="fill" aria-hidden="true"></span>
 		{#if children}<span class="words">{@render children()}</span>{/if}

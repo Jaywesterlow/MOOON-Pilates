@@ -1,13 +1,16 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { site, type Locale, type Studio, type UI } from '$lib/data/studio';
-	import { booking } from '$lib/state/booking.svelte';
+	import { demo } from '$lib/state/demo.svelte';
 	import Logo from './Logo.svelte';
+	import Rise from './Rise.svelte';
 	import Roll from './Roll.svelte';
 
 	/**
 	 * The sector's footer: the night ground, the logo once more, margin to margin (A06), one row
-	 * of small-caps links with the tagline beside it, and the legal row with the credit (A60).
+	 * of small-caps links with the tagline beside it, and the legal row with the credit (A60). The
+	 * logo arrives as in the hero (the O's wax, the rest wipes) when the footer scrolls in; the
+	 * tagline, the links and the legal row rise after it, 100 ms apart.
 	 */
 	type Props = { studio: Studio; text: UI['footer']; locale: Locale };
 	let { studio, text, locale }: Props = $props();
@@ -20,58 +23,86 @@
 
 <footer class="frame">
 	<div class="mark">
-		<Logo alt={studio.fullName} />
+		<Logo alt={studio.fullName} reveal />
 	</div>
 
 	<div class="row">
-		<p class="tag" lang="en">{text.tagline}</p>
-		<ul class="links label">
-			<li>
-				<a class="link tap" href={studio.booking.url} onclick={booking.open}
-					><Roll>{text.book}</Roll></a
-				>
-			</li>
-			<li><a class="link tap" href="mailto:{studio.email}"><Roll>{studio.email}</Roll></a></li>
-			<li>
-				<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener"
-					><Roll>WhatsApp</Roll></a
-				>
-			</li>
-			{#each studio.socials as social (social.name)}
+		<Rise><p class="tag" lang="en">{text.tagline}</p></Rise>
+		<Rise
+			><ul class="links label">
 				<li>
-					<a class="link tap" href={social.href} target="_blank" rel="noopener"
-						><Roll>{social.name}</Roll></a
+					<a class="link tap" href={studio.booking.url} onclick={demo.book}
+						><Roll>{text.book}</Roll></a
 					>
 				</li>
-			{/each}
-			<li>
-				<a class="link tap" href={otherHref} hreflang={other} lang={other} data-sveltekit-reload
-					><Roll>{site.languages[other].name}</Roll></a
-				>
-			</li>
-			<li><a class="link tap" href="#top"><Roll>{text.top}</Roll></a></li>
-		</ul>
+				<li>
+					<a class="link tap" href="mailto:{studio.email}" onclick={demo.open}
+						><Roll>{studio.email}</Roll></a
+					>
+				</li>
+				<li>
+					<a
+						class="link tap"
+						href={studio.whatsapp.href}
+						onclick={demo.open}
+						target="_blank"
+						rel="noopener"><Roll>WhatsApp</Roll></a
+					>
+				</li>
+				{#each studio.socials as social (social.name)}
+					<li>
+						<a
+							class="link tap"
+							href={social.href}
+							onclick={demo.open}
+							target="_blank"
+							rel="noopener"><Roll>{social.name}</Roll></a
+						>
+					</li>
+				{/each}
+				<li>
+					<a class="link tap" href={otherHref} hreflang={other} lang={other} data-sveltekit-reload
+						><Roll>{site.languages[other].name}</Roll></a
+					>
+				</li>
+				<li><a class="link tap" href="#top"><Roll>{text.top}</Roll></a></li>
+			</ul></Rise
+		>
 	</div>
 
 	<div class="base small">
-		<ul class="legal">
-			<li>
-				<a class="link tap" href={studio.legal.privacy} target="_blank" rel="noopener"
-					><Roll>{text.privacy}</Roll></a
-				>
-			</li>
-			<li>
-				<a class="link tap" href={studio.legal.houseRules} target="_blank" rel="noopener"
-					><Roll>{text.houseRules}</Roll></a
-				>
-			</li>
-			<li>
-				<a class="link tap" href={studio.legal.terms} target="_blank" rel="noopener"
-					><Roll>{text.terms}</Roll></a
-				>
-			</li>
-		</ul>
-		<p>{text.credit}</p>
+		<Rise
+			><ul class="legal">
+				<li>
+					<a
+						class="link tap"
+						href={studio.legal.privacy}
+						onclick={demo.open}
+						target="_blank"
+						rel="noopener"><Roll>{text.privacy}</Roll></a
+					>
+				</li>
+				<li>
+					<a
+						class="link tap"
+						href={studio.legal.houseRules}
+						onclick={demo.open}
+						target="_blank"
+						rel="noopener"><Roll>{text.houseRules}</Roll></a
+					>
+				</li>
+				<li>
+					<a
+						class="link tap"
+						href={studio.legal.terms}
+						onclick={demo.open}
+						target="_blank"
+						rel="noopener"><Roll>{text.terms}</Roll></a
+					>
+				</li>
+			</ul></Rise
+		>
+		<Rise><p>{text.credit}</p></Rise>
 	</div>
 </footer>
 

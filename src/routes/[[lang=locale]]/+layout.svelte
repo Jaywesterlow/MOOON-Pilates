@@ -3,12 +3,12 @@
 	import '../../app.css';
 
 	import { prefersReducedMotion } from 'svelte/motion';
-	import { BookDialog, Footer, Nav } from '$lib';
+	import { DemoDialog, Footer, Nav } from '$lib';
 	import favicon from '$lib/assets/favicon.svg';
 	import { locales, site } from '$lib/data/studio';
 	import { studioSchema } from '$lib/data/schema';
 	import { holdScroll, refreshWhenSettled, startSmoothScroll } from '$lib/motion/scroll';
-	import { booking } from '$lib/state/booking.svelte';
+	import { demo } from '$lib/state/demo.svelte';
 	import { opening } from '$lib/state/opening.svelte';
 
 	let { data, children } = $props();
@@ -49,7 +49,7 @@
 	$effect(() => refreshWhenSettled());
 
 	// the page behind the demo dialog stays where it is
-	$effect(() => holdScroll(booking.isOpen));
+	$effect(() => holdScroll(demo.isOpen));
 </script>
 
 <svelte:head>
@@ -77,4 +77,4 @@
 
 <Footer studio={data.studio} text={data.ui.footer} locale={data.locale} />
 
-<BookDialog text={data.ui.demo} href={data.studio.booking.url} />
+<DemoDialog text={data.ui.demo} />
