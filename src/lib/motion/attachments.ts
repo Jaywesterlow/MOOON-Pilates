@@ -29,6 +29,8 @@ const START = 'top 90%';
 const DURATION = 0.7;
 /** 16's own step between lines. */
 const STEP = 0.1;
+/** 16's own duration for a line. */
+const WORD = 1.4;
 
 /** On the first screen at load: play now (after the shared stagger) instead of waiting for a scroll. */
 function onScreen(node: HTMLElement): boolean {
@@ -158,33 +160,61 @@ export function wipe(): Attachment<HTMLElement> {
 }
 
 /**
- * The logo at load: its six parts come up one by one out of a mask from below, on 16's curve,
- * from the inside out: the middle O, then the outer O's, then the M and the N, then PILATES.
- * Each part's mask is a clip on the part itself (a wipe from the bottom), so the logo as a whole
- * never moves and nothing ever overlaps another part.
+ * The logo at load, from the inside out, on 16's own 1.4 s. The three O's are crescents and wax
+ * like a moon: each one's mask holds a shadow circle that starts over the whole ring (the ring's
+ * own centre, a little wider than it) and moves to the cut-out's place while it shrinks, so the
+ * thick side of the crescent shows first and the thin side last. The middle O starts first, the
+ * outer two 0.3 s later; the M and the N rise out of a wipe from the bottom at 0.7 s, PILATES at
+ * 1.0 s. The markup holds the resting state; GSAP sets every start.
  */
 export function revealLogo(): Attachment<SVGElement> {
 	return (node) => {
 		if (prefersReducedMotion.current) return;
 
-		const order: Record<string, number> = { o2: 0, o1: 1, o3: 1, m: 2, n: 2, pilates: 3 };
-		const parts = Array.from(node.querySelectorAll<SVGGElement>('[data-part]'));
-		gsap.set(parts, { clipPath: 'inset(100% 0% 0% 0%)' });
+		const at: Record<string, number> = { o2: 0, o1: 0.3, o3: 0.3, m: 0.7, n: 0.7, pilates: 1 };
+		const shadows = Array.from(node.querySelectorAll<SVGCircleElement>('[data-shadow]'));
+		const wipes = Array.from(node.querySelectorAll<SVGGElement>('[data-part]')).filter(
+			(part) => !shadows.some((shadow) => shadow.dataset.shadow === part.dataset.part)
+		);
+		const number = (el: Element, name: string) => Number(el.getAttribute(name));
+		const rest = shadows.map((shadow) => ({
+			cx: number(shadow, 'cx'),
+			cy: number(shadow, 'cy'),
+			r: number(shadow, 'r')
+		}));
+
+		for (const shadow of shadows) {
+			gsap.set(shadow, {
+				attr: {
+					cx: number(shadow, 'data-cx'),
+					cy: number(shadow, 'data-cy'),
+					r: number(shadow, 'data-outer') + 4
+				}
+			});
+		}
+		gsap.set(wipes, { clipPath: 'inset(100% 0% 0% 0%)' });
 		gsap.set(node, { visibility: 'visible' });
 
 		const timeline = gsap.timeline({ delay: staggerDelay() });
-		for (const part of parts) {
-			const step = order[part.dataset.part ?? ''] ?? 3;
+		shadows.forEach((shadow, i) => {
+			timeline.to(
+				shadow,
+				{ attr: rest[i], duration: WORD, ease: RISE },
+				at[shadow.dataset.shadow ?? ''] ?? 0
+			);
+		});
+		for (const part of wipes) {
 			timeline.to(
 				part,
-				{ clipPath: 'inset(0% 0% 0% 0%)', duration: DURATION, ease: RISE },
-				step * STEP * 2
+				{ clipPath: 'inset(0% 0% 0% 0%)', duration: WORD, ease: RISE },
+				at[part.dataset.part ?? ''] ?? 1
 			);
 		}
 
 		return () => {
 			timeline.kill();
-			gsap.set(parts, { clearProps: 'clipPath' });
+			shadows.forEach((shadow, i) => gsap.set(shadow, { attr: rest[i] }));
+			gsap.set(wipes, { clearProps: 'clipPath' });
 		};
 	};
 }
@@ -201,11 +231,14 @@ export function moonRise(): Attachment<HTMLElement> {
 		const moon = stage.querySelector<HTMLElement>('[data-moon]');
 		if (!moon || prefersReducedMotion.current) return;
 
+		// the moon is two screens tall (Moon.svelte), so it reaches over the section before it and the
+		// dome is never cut flat; 120 % of that box rises and covers at the same moments as the
+		// library's 150 % of one screen
 		const tween = gsap.fromTo(
 			moon,
 			{ clipPath: 'circle(0% at 50% 100%)' },
 			{
-				clipPath: 'circle(150% at 50% 100%)',
+				clipPath: 'circle(120% at 50% 100%)',
 				ease: 'none',
 				scrollTrigger: { trigger: stage, start: 'top bottom', end: 'top top', scrub: true }
 			}

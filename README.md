@@ -67,7 +67,7 @@ src/
     motion/scroll.ts          GSAP + ScrollTrigger + Lenis on one clock, 16's curve as a CustomEase
     motion/attachments.ts     revealWords (16), rise, wipe, revealLogo, moonRise (01b) as Svelte attachments
     assets/photos.ts          photos through enhanced-img
-    assets/logo-parts.ts      MOOON's logo as six SVG paths (M, O, O, O, N, PILATES), generated
+    assets/logo-parts.ts      MOOON's logo as six SVG paths (M, O, O, O, N, PILATES) and the O's circles, generated
     assets/logo-*.png         MOOON's logo PNGs, the trace source
     components/               Heading, Rise, Photo, Tile, Button, Logo, Roll, FaqItem, LangSwitch (the pieces); one file per section
 static/fonts/                 Aboreto and Afacad, latin + latin-ext
@@ -99,15 +99,15 @@ docs/                         prospect, structure, brand, photo check, recipe, a
 Three kinds of movement, no more. Library ids 16, 01b and 27c; the full account, with the one timing deviation, is in `docs/recept.md`.
 
 - **Reveal on enter (16)**: display headings as the library has it (words rise from under the line below, 1.4 s / 1.7 s, `cubic-bezier(.83,.01,.29,1)`); everything else rises out of a mask from below its line or, for a photo, opens with a wipe from the bottom, 0.7 s on the same curve. One stagger rule: 100 ms between whatever enters in the same frame.
-- **The moon (01b)**: as the library has it. A circle in `--paper` opens from the bottom edge of the screen (`circle(0% at 50% 100%)` to `circle(150% at 50% 100%)`), so only its top half is seen: a dome that grows with the scroll until it fills the screen. The first class and the prices continue on that colour. Scrub only, no pin.
-- **The logo at load**: the hero logo's six parts open with the same wipe as the photos, from the inside out: the middle O, then the outer O's, then the M and the N, then PILATES, 200 ms apart.
+- **The moon (01b)**: as the library has it. A circle in `--paper` opens from the bottom edge of the stage (`circle(0% at 50% 100%)` to `circle(120% at 50% 100%)`), so only its top half is seen: a dome that grows with the scroll until it fills the screen. The moon element is two screens tall and lies over the section before it, so the dome rises over the offer tiles instead of being cut flat by the stage's top; 120 % of that taller box rises and covers at the same moments as the library's 150 % of one screen. The first class and the prices continue on that colour. Scrub only, no pin.
+- **The logo at load**: from the inside out on 16's 1.4 s. The three O's are crescents and wax like moons: each one's SVG mask holds a shadow circle that starts over the whole ring and moves to the cut-out's place while it shrinks, so the thick side shows first. The middle O starts first, the outer two at 0.3 s; the M and the N rise out of a wipe from the bottom at 0.7 s, PILATES at 1.0 s. About 2.4 s in all.
 - **Hover (27c)**: buttons and tiles fill from the bottom and empty through the top; every button leans 30 % toward the cursor, 200 ms expo-out, with a real cursor only. Text links roll (`Roll.svelte`): the label slides up out of its line while a copy comes in from below, 0.38 s on 16's curve. A rise mask lets its content overflow once the rise is done, so a magnet button is never clipped by it.
 
 GSAP alone sets the start state of a reveal. Until it has, `html.js [data-reveal]` is `visibility: hidden` (no transform), with a 3 s CSS fallback in case JavaScript dies. Under `prefers-reduced-motion` nothing is hidden, the moon stage is a short cream block and Lenis is off. The demo dialog fades in over 0.2 s (opacity only) and holds the page still while open.
 
 ## Photos and logo
 
-All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their 2350 × 810 PNG traced into six SVG paths (`scripts/trace-logo.py` with potracer; the three overlapping O's split by fitting a circle to each ring), rendered inline by `Logo.svelte` with `currentColor`, never recoloured or cropped. The PNGs stay in the repo as the trace source. The hero ground is their reformer room (`IMG_6578`), the only landscape photo of theirs wide enough for a full-screen ground; the front of the studio carries the closing card.
+All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their 2350 × 810 PNG traced into six SVG paths (`scripts/trace-logo.py` with potracer). The three O's are crescents, each a circle with a smaller circle cut out off centre, and they overlap: the script fits that pair of circles to each ring (within about a pixel), gives every ink pixel to the ring whose model holds it, a crossing to both, and traces each ring on its own; the circles are kept in `logoRings` for the reveal. Rendered inline by `Logo.svelte` with `currentColor`, never recoloured or cropped. The PNGs stay in the repo as the trace source. The hero ground is their reformer room (`IMG_6578`), the only landscape photo of theirs wide enough for a full-screen ground; the front of the studio carries the closing card.
 
 ## Dependencies beyond the scaffold
 
