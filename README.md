@@ -1,6 +1,6 @@
 # MOOON Pilates
 
-Concept demo for MOOON Pilates Spijkenisse, built by JW Creative. SvelteKit, Svelte 5 with runes, TypeScript strict, plain CSS. The design is MOOON's own brand, built from the `site-design-rulebook` (recipe in `docs/recept.md`); nothing visible is shared with another JW Creative site.
+Concept demo for MOOON Pilates Spijkenisse, built by JW Creative. SvelteKit, Svelte 5 with runes, TypeScript strict, plain CSS. The design is the sector's look from the `site-design-rulebook` (Dark luxury club, for premium reformer studios) in MOOON's own brand: recipe in `docs/recept.md`, measured audit in `docs/audit.md`. Nothing visible is shared with another JW Creative site.
 
 ```bash
 npm install
@@ -20,21 +20,22 @@ Deploys to Vercel with `@sveltejs/adapter-vercel`. Both pages are prerendered, s
 
 ## The page
 
-One landing page, aimed at one action: book a trial class ("Meet the reformer", €25). Everything hangs from one margin; the nav, the hero, every band and the footer pad with the same `--margin`.
+One landing page, aimed at one action: book a trial class ("Meet the reformer", €25). A dark-first page in MOOON's night, one cream band opened by the moon. Everything hangs from one margin; three sections are centred (hero, statement, closing card), the rest start on the key line.
 
-1. **Hero**: one screen under the bar. The reformer room as the ground, the logo central, "Move slowly, feel deeply", the booking button, the address and "open today until".
-2. **Trust line**: certified studio and instructors, Classical and Contemporary, beginners and advanced.
-3. **What is reformer pilates**: one paragraph, three benefits, a reformer.
-4. **Offer**: Reformer Pilates, E-Reformer, Bodyroll, ĀYU HOUSE, Academy, five cards in a row that runs off the right edge, each linking to MOOON's own page.
-5. **Your first class**: three steps, what to bring, the booking button, on the panel colour.
-6. **Prices**: Meet the reformer on its dark block, Try-out, the two class cards, Unlimited.
-7. **The moon**: the signature. A circle in MOOON's night colour rises and fills the screen.
-8. **The studio** (on the moon's colour): "A soft way to feel strong", three photos from the shoot.
-9. **Founders' story** (on the moon's colour): Anjali, Nasrien and Monica, their own quote.
-10. **More than a studio**: private classes, birthdays, company outings, workshops, events.
-11. **FAQ**: their own questions and answers, title left, rows right.
-12. **Visit & contact**: address, hours, WhatsApp, e-mail, the booking button, the front of the studio edge to edge.
-13. **Footer**: a dark band, the logo margin to margin, contact, socials, the other language, legal links, "Conceptdemo · JW Creative".
+1. **Hero**: one screen. The reformer room as the ground, the logo, "Move slowly, feel deeply" and the booking button on the axis, the address and "open today until" in the corners.
+2. **Statement**: "Where strength meets softness" and the trust line, centred.
+3. **What is reformer pilates**: copy and three benefits beside a reformer (5/7).
+4. **Offer**: Reformer Pilates, E-Reformer, Bodyroll, ĀYU HOUSE, Academy as photo tiles in a row that runs off the right edge, each linking to MOOON's own page.
+5. **The moon**: the signature. A cream circle rises over the night and fills the screen.
+6. **Your first class** (on the cream): three steps, what to bring, the booking button.
+7. **Prices** (on the cream): Meet the reformer on its night block, Try-out, the two class cards, Unlimited.
+8. **Founders' story**: Anjali, Nasrien and Monica, their own quote (7/5).
+9. **The studio**: "A soft way to feel strong", four photos from the shoot in a second carousel.
+10. **More than a studio**: private classes, birthdays, company outings, workshops, events (5/7).
+11. **FAQ**: their own questions and answers, heading left, rows right.
+12. **Visit**: address, hours, contact in three columns.
+13. **Closing card**: the front of the studio under "Meet the reformer, €25" and the button.
+14. **Footer**: the logo margin to margin, the tagline, one row of links, legal links, "Conceptdemo · JW Creative".
 
 ## Languages
 
@@ -67,10 +68,10 @@ src/
     motion/attachments.ts     revealWords (16), rise, wipe, moonRise (01b) as Svelte attachments
     assets/photos.ts          photos through enhanced-img
     assets/logo-*.png         MOOON's logo, black and white
-    components/               Heading, Rise, Photo, Button, Logo, LangSwitch (the pieces); one file per section
+    components/               Heading, Rise, Photo, Tile, Button, Logo, LangSwitch (the pieces); one file per section
 static/fonts/                 Aboreto and Afacad, latin + latin-ext
 scripts/photos.txt            which upload on mooonpilates.nl became which photo
-docs/                         prospect, structure, brand, photo check, recipe, screenshots
+docs/                         prospect, structure, brand, photo check, recipe, audit, screenshots
 ```
 
 ## What Svelte does here
@@ -95,14 +96,14 @@ docs/                         prospect, structure, brand, photo check, recipe, s
 Three kinds of movement, no more. Library ids 16, 01b and 27c; the full account, with the one timing deviation, is in `docs/recept.md`.
 
 - **Reveal on enter (16)**: display headings as the library has it (words rise from under the line below, 1.4 s / 1.7 s, `cubic-bezier(.83,.01,.29,1)`); everything else rises out of a mask from below its line or, for a photo, opens with a wipe from the bottom, 0.7 s on the same curve. One stagger rule: 100 ms between whatever enters in the same frame.
-- **The moon (01b)**: a circle in `--night` grows with the scroll until it fills the screen, whole at every frame (it rises with its bottom on the bottom edge, then grows on from the middle). The studio and the founders continue on that colour. Scrub only, no pin.
-- **Hover (27c)**: buttons and cards fill from the bottom and empty through the top; every button leans 30 % toward the cursor, 200 ms expo-out, with a real cursor only.
+- **The moon (01b)**: a circle in `--paper` rises over the night page and grows with the scroll until it fills the screen, whole at every frame (its bottom on the bottom edge while it rises, then on from the middle). The first class and the prices continue on that colour. Scrub only, no pin.
+- **Hover (27c)**: buttons and tiles fill from the bottom and empty through the top; every button leans 30 % toward the cursor, 200 ms expo-out, with a real cursor only.
 
-GSAP alone sets the start state of a reveal. Until it has, `html.js [data-reveal]` is `visibility: hidden` (no transform), with a 3 s CSS fallback in case JavaScript dies. Under `prefers-reduced-motion` nothing is hidden, the moon stage is a short dark block and Lenis is off. The demo dialog fades in over 0.2 s (opacity only) and holds the page still while open.
+GSAP alone sets the start state of a reveal. Until it has, `html.js [data-reveal]` is `visibility: hidden` (no transform), with a 3 s CSS fallback in case JavaScript dies. Under `prefers-reduced-motion` nothing is hidden, the moon stage is a short cream block and Lenis is off. The demo dialog fades in over 0.2 s (opacity only) and holds the page still while open.
 
 ## Photos and logo
 
-All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their black and white PNG (2350 × 810), never recoloured or cropped. The hero ground is their reformer room (`IMG_6578`), the only landscape photo of theirs wide enough for a full-screen ground.
+All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their black and white PNG (2350 × 810), never recoloured or cropped. The hero ground is their reformer room (`IMG_6578`), the only landscape photo of theirs wide enough for a full-screen ground; the front of the studio carries the closing card.
 
 ## Dependencies beyond the scaffold
 

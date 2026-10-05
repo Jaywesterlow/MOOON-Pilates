@@ -106,7 +106,8 @@ export const nl: Copy = {
 	studio: [
 		'Een vrouw lacht op de bank in de studio',
 		'Matcha bij de plant, met de ogen dicht',
-		'De verlichte nis met kaarsen en groen'
+		'De verlichte nis met kaarsen en groen',
+		'Ontspannen op de vloer van de studio, met een glas matcha'
 	],
 	occasions: ['Privélessen', 'Verjaardagen', 'Bedrijfsuitjes', 'Workshops', 'Evenementen'],
 	faq: [
@@ -163,18 +164,21 @@ export const nl: Copy = {
 			book: 'Boek een proefles',
 			alt: 'De reformerzaal van MOOON in warm licht, met een scherm bij elke reformer'
 		},
-		trust: { label: 'Over de studio' },
+		statement: { lines: ['Where strength', 'meets softness'], label: 'Over de studio' },
 		about: {
+			label: 'Reformer pilates',
 			lines: ['Wat is reformer pilates?'],
 			lede: 'Door gecontroleerde, vloeiende bewegingen werk je diep aan je lichaam. Aan kracht, flexibiliteit en balans, zonder dat het zwaar of belastend aanvoelt.',
 			alt: 'Een reformer van dichtbij, met de schouderkussens en de voetbalk'
 		},
 		offer: {
+			label: 'Aanbod',
 			lines: ['A space designed for you'],
 			lede: 'Beweging, herstel en een moment van rust, onder één dak.',
 			more: 'Lees meer'
 		},
 		first: {
+			label: 'Beginnen',
 			lines: ['Je eerste les'],
 			lede: 'Geen haast, geen moeten. Alleen een moment voor jezelf.',
 			bring: 'Neem mee',
@@ -182,6 +186,7 @@ export const nl: Copy = {
 			app: 'Boeken gaat daarna via de MOOON Pilates app (Android) of de Virtuagym app (Apple).'
 		},
 		prices: {
+			label: 'Tarieven',
 			lines: ['Prijzen'],
 			lede: 'Reformer pilates. Een E-Reformer sessie kost één credit, net als een les.',
 			perClass: 'per les',
@@ -189,6 +194,7 @@ export const nl: Copy = {
 			note: 'Betalen kan met pin, iDEAL, creditcard, contant, cadeaubon of in termijnen.'
 		},
 		founders: {
+			label: 'Oprichters',
 			lines: ['Created with intention.', 'Built with care'],
 			body: 'Wat hier is ontstaan, begon ooit als een persoonlijk verlangen. Een verlangen naar meer rust, meer balans en een plek waar je echt even loskomt van alles.',
 			quote: 'What started as a personal need, became a place for others to feel.',
@@ -197,33 +203,32 @@ export const nl: Copy = {
 			alt: 'Twee vrouwen aan de ronde tafel in de studio, met een laptop en kaarsen'
 		},
 		studio: {
+			label: 'De studio',
 			lines: ['A soft way', 'to feel strong'],
 			lede: 'Een plek waar je de drukte van de dag achter je laat. Warme sfeerverlichting, rustige kleuren en een serene omgeving.',
 			moonLabel: 'Een volle maan in de kleur van MOOON vult het scherm'
 		},
 		more: {
+			label: 'Meer dan een studio',
 			lines: ['A space to connect'],
-			sub: 'Meer dan een studio',
 			body: 'Naast de reformer lessen openen we onze deuren ook voor privélessen, verjaardagen, bedrijfsuitjes, workshops en exclusieve evenementen. We denken graag met je mee.',
 			contact: 'Neem contact op',
 			alt: 'Twee vrouwen lachen samen aan tafel in de studio'
 		},
-		faq: { lines: ['Veelgestelde vragen'] },
+		faq: { label: 'Vragen', lines: ['Veelgestelde vragen'] },
 		visit: {
+			label: 'Bezoek',
 			lines: ['A moment for you,', 'every day'],
 			find: 'Adres',
 			hours: 'Openingstijden',
 			contact: 'Contact',
 			whatsapp: 'WhatsApp',
 			route: 'Route',
-			book: 'Boek een proefles',
 			alt: 'De voorgevel van MOOON aan de Zuidpassage'
 		},
+		closing: { label: 'Proefles', book: 'Boek Meet the reformer' },
 		footer: {
-			tagline: 'Where strength meets softness',
-			contact: 'Contact',
-			follow: 'Volg ons',
-			more: 'Verder',
+			tagline: 'Soft where you need it. Strong where it matters.',
 			book: 'Proefles boeken',
 			top: 'Naar boven',
 			privacy: 'Privacybeleid',

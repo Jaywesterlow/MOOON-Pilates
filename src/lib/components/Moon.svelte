@@ -2,10 +2,11 @@
 	import { moonRise } from '$lib/motion/attachments';
 
 	/**
-	 * The signature moment (01b as a full takeover): a circle in MOOON's night colour rises and
-	 * grows with the scroll until it fills the screen; the studio band that follows sits on that
-	 * colour. The stage is taller than one screen: the first screen of it is the rise, the rest the
-	 * fill-out to the corners (see `moonRise`). Built to take the O of their logo once that is an SVG.
+	 * The signature moment (01b as a full takeover): a circle in MOOON's cream rises over the night
+	 * page and grows with the scroll until it fills the screen; the light band that follows (the
+	 * first class, the prices) sits on that colour. The stage is taller than one screen: the first
+	 * screen of it is the rise, the rest the fill-out to the corners (see `moonRise`). Built to take
+	 * the O of their logo once that is an SVG.
 	 */
 	type Props = { label: string };
 	let { label }: Props = $props();
@@ -23,10 +24,10 @@
 	.moon {
 		position: absolute;
 		inset: 0;
-		background: var(--night);
+		background: var(--paper);
 		clip-path: circle(0px at 50% 0px);
 	}
-	/* under reduced motion the circle is already full: the band simply starts here */
+	/* under reduced motion the circle is already full: the light band simply starts here */
 	@media (prefers-reduced-motion: reduce) {
 		.stage {
 			height: 40svh;

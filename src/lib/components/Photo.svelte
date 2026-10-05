@@ -35,7 +35,8 @@
 	.photo {
 		position: relative;
 		overflow: hidden;
-		background: var(--panel);
+		border-radius: var(--r);
+		background: var(--olive);
 	}
 	.fill {
 		position: absolute;

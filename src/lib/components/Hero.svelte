@@ -9,16 +9,17 @@
 	import Rise from './Rise.svelte';
 
 	/**
-	 * One screen: the reformer room as the ground, the logo in the middle (the one centred thing
-	 * on the page, by MOOON's own asset), and the rest on the margin at the bottom: the tagline,
-	 * the booking button, the address and today's hours.
+	 * One screen, the sector's hero: the reformer room as the ground, edge to edge, and on the
+	 * axis the logo, the tagline and the one booking button (GA19). The address and today's hours
+	 * sit in the two bottom corners on the margin, the one line of metadata a full-bleed band may
+	 * carry (GF06).
 	 */
 	type Props = { studio: Studio; text: UI['hero']; words: OpeningWords };
 	let { studio, text, words }: Props = $props();
 </script>
 
 <header class="hero" id="top">
-	<div class="ground">
+	<div class="ground photo">
 		<enhanced:img
 			src={photos.hero}
 			alt={text.alt}
@@ -28,30 +29,23 @@
 		/>
 	</div>
 
-	<!-- I22/I23: a flat overlay for the logo over the whole photo, a scrim behind the text at the bottom -->
-	<div class="mark">
-		<Logo alt={studio.fullName} tone="light" eager sizes="(min-width: 900px) 36vw, 70vw" />
+	<div class="stack">
+		<div class="mark">
+			<Logo alt={studio.fullName} tone="light" eager sizes="(min-width: 900px) 36vw, 70vw" />
+		</div>
+		<Heading level="h1" lines={text.lines} centred />
+		<Rise inline>
+			<Button href={studio.booking.url} onclick={booking.open}>{text.book}</Button>
+		</Rise>
 	</div>
 
-	<div class="foot frame">
-		<div class="copy">
-			<Heading level="h1" lines={text.lines} />
-			<Rise inline>
-				<Button href={studio.booking.url} onclick={booking.open} variant="paper">
-					{text.book}
-				</Button>
-			</Rise>
-		</div>
+	<div class="corners frame small">
 		<Rise>
-			<ul class="facts small">
-				<li>
-					<a class="link" href={studio.address.maps} target="_blank" rel="noopener">
-						{studio.address.street}, {studio.address.city}
-					</a>
-				</li>
-				<li class="numeric">{opening.headline(words)}</li>
-			</ul>
+			<a class="link" href={studio.address.maps} target="_blank" rel="noopener">
+				{studio.address.street}, {studio.address.city}
+			</a>
 		</Rise>
+		<Rise><span class="numeric">{opening.headline(words)}</span></Rise>
 	</div>
 </header>
 
@@ -59,10 +53,10 @@
 	.hero {
 		position: relative;
 		display: grid;
-		align-content: end;
-		height: calc(100svh - var(--nav-h));
-		min-height: 34rem;
-		color: var(--paper-d);
+		grid-template-rows: 1fr auto;
+		height: 100svh;
+		min-height: 36rem;
+		color: var(--paper);
 		overflow: hidden;
 	}
 	.ground {
@@ -70,83 +64,57 @@
 		inset: 0;
 		background: var(--night);
 	}
-	.ground :global(picture) {
-		display: contents;
-	}
 	.ground :global(img) {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
 		object-position: 50% 55%;
 	}
-	/* the flat overlay (I22, large text: 42 % of black and up; here 50 % of their night) and
-	   the eased scrim that rises behind the copy at the bottom (I23) */
+	/* I22: a flat overlay of their night at 50 % for the logo and the large tagline */
 	.ground::after {
 		content: '';
 		position: absolute;
 		inset: 0;
-		background:
-			linear-gradient(
-				to top,
-				rgb(66 61 49 / 0.7) 0%,
-				rgb(66 61 49 / 0.55) 12%,
-				rgb(66 61 49 / 0.3) 26%,
-				rgb(66 61 49 / 0.1) 38%,
-				transparent 48%
-			),
-			rgb(66 61 49 / 0.5);
+		background: rgb(66 61 49 / 0.5);
 	}
-	.mark {
-		position: absolute;
-		inset: 0;
+	/* GA14: logo to heading 24, heading to button 32; the stack sits a little above the middle */
+	.stack {
+		position: relative;
 		display: grid;
-		place-items: center;
-		pointer-events: none;
+		justify-items: center;
+		align-content: center;
+		gap: var(--space-5);
+		padding: var(--nav-h) var(--margin) 0;
+		text-align: center;
+	}
+	.stack > :last-child {
+		margin-top: var(--space-2);
 	}
 	.mark :global(.logo) {
-		--logo-h: min(24svh, 12.4vw, 11rem);
+		--logo-h: min(20svh, 11vw, 9.5rem);
 	}
-	.foot {
+	.corners {
 		position: relative;
 		display: flex;
-		align-items: flex-end;
 		justify-content: space-between;
-		gap: var(--space-6);
-		padding-bottom: var(--space-7);
-	}
-	.copy {
-		display: grid;
-		justify-items: start;
 		gap: var(--space-5);
+		padding-bottom: var(--space-6);
+		color: var(--muted);
 	}
-	.hero :global(.display) {
-		color: var(--paper-d);
+	.corners .link {
+		color: var(--muted);
 	}
-	.facts {
-		display: grid;
-		gap: var(--space-1);
-		text-align: right;
-		color: var(--muted-d);
+	.corners .link:hover {
+		color: var(--paper);
 	}
-	.facts .link {
-		color: var(--muted-d);
-	}
-	.facts .link:hover {
-		color: var(--paper-d);
-	}
-
 	@media (max-width: 900px) {
 		.mark :global(.logo) {
-			--logo-h: min(20svh, 24vw);
+			--logo-h: min(16svh, 22vw);
 		}
-		.foot {
+		.corners {
 			flex-direction: column;
-			align-items: flex-start;
-			gap: var(--space-5);
-			padding-bottom: var(--space-6);
-		}
-		.facts {
-			text-align: left;
+			gap: var(--space-1);
+			padding-bottom: var(--space-5);
 		}
 	}
 </style>

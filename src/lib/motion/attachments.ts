@@ -23,12 +23,18 @@ import { gsap, RISE, ScrollTrigger } from './scroll';
  * `visibility: visible` inline in the same frame. No CSS transform ever sits on these elements.
  */
 
-/** Where a reveal starts: as the top of the element passes 94% of the screen (so the bottom of the first screen plays at load). */
-const START = 'top 94%';
+/** Where a reveal below the first screen starts: the top of the element at 90% of the screen. */
+const START = 'top 90%';
 /** The duration for the rises and wipes outside the display headings: the expressive family's upper bound. */
 const DURATION = 0.7;
 /** 16's own step between lines. */
 const STEP = 0.1;
+
+/** On the first screen at load: play now (after the shared stagger) instead of waiting for a scroll. */
+function onScreen(node: HTMLElement): boolean {
+	const box = node.getBoundingClientRect();
+	return box.top < window.innerHeight && box.bottom > 0;
+}
 
 /* Elements whose triggers fire in the same frame share one stagger: 0, 0.1, 0.2 … capped at six. */
 let inFrame = 0;
@@ -74,15 +80,13 @@ export function revealWords(): Attachment<HTMLElement> {
 				);
 		});
 
-		const trigger = ScrollTrigger.create({
-			trigger: node,
-			start: START,
-			once: true,
-			onEnter: () => timeline.delay(staggerDelay()).play()
-		});
+		const play = () => timeline.delay(staggerDelay()).play();
+		const trigger = onScreen(node)
+			? (play(), null)
+			: ScrollTrigger.create({ trigger: node, start: START, once: true, onEnter: play });
 
 		return () => {
-			trigger.kill();
+			trigger?.kill();
 			timeline.kill();
 			gsap.set([...lines, ...clips], { clearProps: 'transform' });
 		};
@@ -101,15 +105,14 @@ export function rise(): Attachment<HTMLElement> {
 		gsap.set(node, { visibility: 'visible' });
 
 		const tween = gsap.to(node, { yPercent: 0, duration: DURATION, ease: RISE, paused: true });
-		const trigger = ScrollTrigger.create({
-			trigger: node.parentElement ?? node,
-			start: START,
-			once: true,
-			onEnter: () => tween.delay(staggerDelay()).play()
-		});
+		const mask = node.parentElement ?? node;
+		const play = () => tween.delay(staggerDelay()).play();
+		const trigger = onScreen(mask)
+			? (play(), null)
+			: ScrollTrigger.create({ trigger: mask, start: START, once: true, onEnter: play });
 
 		return () => {
-			trigger.kill();
+			trigger?.kill();
 			tween.kill();
 			gsap.set(node, { clearProps: 'transform' });
 		};
@@ -133,15 +136,13 @@ export function wipe(): Attachment<HTMLElement> {
 			ease: RISE,
 			paused: true
 		});
-		const trigger = ScrollTrigger.create({
-			trigger: node,
-			start: START,
-			once: true,
-			onEnter: () => tween.delay(staggerDelay()).play()
-		});
+		const play = () => tween.delay(staggerDelay()).play();
+		const trigger = onScreen(node)
+			? (play(), null)
+			: ScrollTrigger.create({ trigger: node, start: START, once: true, onEnter: play });
 
 		return () => {
-			trigger.kill();
+			trigger?.kill();
 			tween.kill();
 			gsap.set(node, { clearProps: 'clipPath' });
 		};

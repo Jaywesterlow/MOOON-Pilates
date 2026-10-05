@@ -124,7 +124,8 @@ const offerFacts = [
 const studioFacts = [
 	{ photo: 'studio1' },
 	{ photo: 'studio2' },
-	{ photo: 'studio3' }
+	{ photo: 'studio3' },
+	{ photo: 'seated' }
 ] as const satisfies readonly { photo: PhotoKey }[];
 
 const navFacts = ['#offer', '#prices', '#faq', '#visit'] as const;
@@ -166,12 +167,28 @@ export type Copy = {
 	ui: {
 		nav: { label: string; book: string; menu: string; close: string; language: string };
 		hero: { lines: string[]; book: string; alt: string };
-		trust: { label: string };
-		about: { lines: string[]; lede: string; alt: string };
-		offer: { lines: string[]; lede: string; more: string };
-		first: { lines: string[]; lede: string; bring: string; book: string; app: string };
-		prices: { lines: string[]; lede: string; perClass: string; book: string; note: string };
+		/** the centred statement under the hero: one of MOOON's own taglines, and the trust line */
+		statement: { lines: string[]; label: string };
+		about: { label: string; lines: string[]; lede: string; alt: string };
+		offer: { label: string; lines: string[]; lede: string; more: string };
+		first: {
+			label: string;
+			lines: string[];
+			lede: string;
+			bring: string;
+			book: string;
+			app: string;
+		};
+		prices: {
+			label: string;
+			lines: string[];
+			lede: string;
+			perClass: string;
+			book: string;
+			note: string;
+		};
 		founders: {
+			label: string;
 			lines: string[];
 			body: string;
 			quote: string;
@@ -179,24 +196,23 @@ export type Copy = {
 			names: string;
 			alt: string;
 		};
-		studio: { lines: string[]; lede: string; moonLabel: string };
-		more: { lines: string[]; sub: string; body: string; contact: string; alt: string };
-		faq: { lines: string[] };
+		studio: { label: string; lines: string[]; lede: string; moonLabel: string };
+		more: { label: string; lines: string[]; body: string; contact: string; alt: string };
+		faq: { label: string; lines: string[] };
 		visit: {
+			label: string;
 			lines: string[];
 			find: string;
 			hours: string;
 			contact: string;
 			whatsapp: string;
 			route: string;
-			book: string;
 			alt: string;
 		};
+		/** the closing card: the trial class once more, on the front of the studio */
+		closing: { label: string; book: string };
 		footer: {
 			tagline: string;
-			contact: string;
-			follow: string;
-			more: string;
 			book: string;
 			top: string;
 			privacy: string;

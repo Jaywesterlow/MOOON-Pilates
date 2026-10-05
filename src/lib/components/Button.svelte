@@ -5,21 +5,31 @@
 	import { MediaQuery } from 'svelte/reactivity';
 
 	/**
-	 * MOOON's button: a square block, Afacad in sentence case, the one action hue. On hover a fill
-	 * comes in from the bottom and leaves through the top, carrying its own copy of the label, so the
-	 * text is readable at every frame. Every button also takes 27c: it leans 30 % toward the cursor,
-	 * 200 ms expo-out, and settles back when the cursor leaves.
+	 * MOOON's button: the page's one radius, the label style in small caps, no chroma. On the night
+	 * ground it is filled cream, on the cream band filled night. On hover a fill comes in from the
+	 * bottom and leaves through the top, carrying its own copy of the label, so the text is readable
+	 * at every frame. Every button also takes 27c: it leans 30 % toward the cursor, 200 ms expo-out,
+	 * and settles back when the cursor leaves.
 	 */
 	type Props = {
 		href: string;
-		/** night: solid on paper · paper: solid on the dark band · outline: night line on paper · light: paper line on the dark band */
-		variant?: 'night' | 'paper' | 'outline' | 'light';
+		/** paper: filled cream (on the night ground) · night: filled night (on the cream band) · outline: cream line */
+		variant?: 'paper' | 'night' | 'outline';
+		/** md: 48 px, the page's primary · sm: 36 px, the bar's copy of it, one step smaller (NB19) */
+		size?: 'md' | 'sm';
 		external?: boolean;
 		onclick?: (event: MouseEvent & { currentTarget: EventTarget & HTMLAnchorElement }) => void;
 		children: Snippet;
 	};
 
-	let { href, variant = 'night', external = false, onclick, children }: Props = $props();
+	let {
+		href,
+		variant = 'paper',
+		size = 'md',
+		external = false,
+		onclick,
+		children
+	}: Props = $props();
 
 	const hasCursor = new MediaQuery('(hover: hover)');
 	const pull = new Tween({ x: 0, y: 0 }, { duration: 200, easing: expoOut });
@@ -42,7 +52,7 @@
 
 <a
 	{href}
-	class={['btn', variant]}
+	class={['btn', variant, size]}
 	target={external ? '_blank' : undefined}
 	rel={external ? 'noopener' : undefined}
 	style:transform={magnetOn ? `translate(${pull.current.x}px, ${pull.current.y}px)` : undefined}
@@ -62,11 +72,18 @@
 		overflow: hidden;
 		min-height: 3rem;
 		border: 1px solid var(--edge);
+		border-radius: var(--r);
 		background: var(--ground);
 		color: var(--text);
-		font: 500 var(--text-small) / 1 var(--font-body);
+		font: var(--label-weight) var(--text-label) / 1 var(--font-body);
+		letter-spacing: var(--label-tracking);
+		text-transform: uppercase;
+		white-space: nowrap;
 		will-change: transform;
 		transition: scale 0.2s ease-out;
+	}
+	.sm {
+		min-height: 2.25rem;
 	}
 	/* 27c press: the `scale` property, so it stacks on the magnetic translate instead of replacing it */
 	.btn:active {
@@ -78,7 +95,9 @@
 		align-items: center;
 		justify-content: center;
 		padding: var(--space-3) var(--space-5);
-		white-space: nowrap;
+	}
+	.sm > span {
+		padding: var(--space-2) var(--space-4);
 	}
 
 	/* one direction only: in from the bottom on hover, out through the top on leave */
@@ -102,6 +121,13 @@
 		}
 	}
 
+	.paper {
+		--ground: var(--paper);
+		--edge: var(--paper);
+		--text: var(--night);
+		--fill: var(--olive);
+		--fill-text: var(--paper);
+	}
 	.night {
 		--ground: var(--night);
 		--edge: var(--night);
@@ -109,25 +135,11 @@
 		--fill: var(--olive);
 		--fill-text: var(--paper);
 	}
-	.paper {
-		--ground: var(--paper-d);
-		--edge: var(--paper-d);
-		--text: var(--night);
-		--fill: var(--olive);
-		--fill-text: var(--paper-d);
-	}
 	.outline {
 		--ground: transparent;
-		--edge: var(--night);
-		--text: var(--night);
-		--fill: var(--night);
-		--fill-text: var(--paper);
-	}
-	.light {
-		--ground: transparent;
-		--edge: var(--paper-d);
-		--text: var(--paper-d);
-		--fill: var(--paper-d);
+		--edge: var(--paper);
+		--text: var(--paper);
+		--fill: var(--paper);
 		--fill-text: var(--night);
 	}
 </style>

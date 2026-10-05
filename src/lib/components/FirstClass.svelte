@@ -5,6 +5,7 @@
 	import Heading from './Heading.svelte';
 	import Rise from './Rise.svelte';
 
+	/** The first section on the moon's colour: the step that takes the doubt out of the first booking. */
 	type Props = {
 		studio: Studio;
 		steps: { title: string; line: string }[];
@@ -14,14 +15,14 @@
 	let { studio, steps, bring, text }: Props = $props();
 </script>
 
-<!-- the step that takes the doubt out of the first booking; a panel band, the copy on the margin -->
-<section class="section frame first" id="first-class">
+<section class="section frame light first" id="first-class">
 	<div class="head">
+		<Rise><p class="label">{text.label}</p></Rise>
 		<Heading lines={text.lines} />
 		<Rise><p class="lede">{text.lede}</p></Rise>
 	</div>
 
-	<div class="grid">
+	<div class="split">
 		<ol class="steps">
 			{#each steps as step, i (step.title)}
 				<li>
@@ -49,7 +50,7 @@
 
 	<div class="cta">
 		<Rise inline>
-			<Button href={studio.booking.url} onclick={booking.open}>{text.book}</Button>
+			<Button href={studio.booking.url} onclick={booking.open} variant="night">{text.book}</Button>
 		</Rise>
 		<Rise><p class="small">{text.app}</p></Rise>
 	</div>
@@ -57,11 +58,11 @@
 
 <style>
 	.first {
-		background: var(--panel);
+		padding-top: var(--space-6);
 	}
-	.grid {
+	.split {
 		display: grid;
-		grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
 		gap: var(--space-8);
 	}
 	.steps {
@@ -86,8 +87,6 @@
 		margin-bottom: var(--space-1);
 	}
 	.bring h3 {
-		font-family: var(--font-body);
-		color: var(--ink-2);
 		margin-bottom: var(--space-4);
 	}
 	.bring ul {
@@ -105,7 +104,7 @@
 		max-width: 28em;
 	}
 	@media (max-width: 900px) {
-		.grid,
+		.split,
 		.steps {
 			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-6);

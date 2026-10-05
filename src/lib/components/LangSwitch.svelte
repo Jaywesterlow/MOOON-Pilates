@@ -3,8 +3,8 @@
 	import { site, type Locale } from '$lib/data/studio';
 
 	/**
-	 * One link to the other language, named by its own code. A full page load on purpose:
-	 * `<html lang>` and the reveals start clean.
+	 * One link to the other language, named by its own code, in the bar's link style. A full page
+	 * load on purpose: `<html lang>` and the reveals start clean.
 	 */
 	type Props = { locale: Locale };
 	let { locale }: Props = $props();
@@ -14,7 +14,7 @@
 </script>
 
 <a
-	class="link tap lang"
+	class="link label tap"
 	{href}
 	hreflang={other}
 	lang={other}
@@ -23,11 +23,3 @@
 >
 	{site.languages[other].code}
 </a>
-
-<style>
-	.lang {
-		font-size: var(--text-small);
-		font-weight: 500;
-		padding-inline: var(--space-2);
-	}
-</style>

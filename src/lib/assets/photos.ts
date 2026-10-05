@@ -30,6 +30,8 @@ import studio2 from './photos/studio-2.jpg?enhanced';
 import studio3 from './photos/studio-3.jpg?enhanced';
 // 2026/04/1Y8A5691-scaled.jpeg (DASHENKO shoot)
 import more from './photos/more.jpg?enhanced';
+// 2026/04/1Y8A5905-scaled.jpeg (DASHENKO shoot)
+import seated from './photos/seated.jpg?enhanced';
 // 2026/08/Voorzijde-gevel-Mooon-studios.jpg
 import visit from './photos/visit.jpg?enhanced';
 
@@ -46,6 +48,7 @@ export const photos = {
 	studio2,
 	studio3,
 	more,
+	seated,
 	visit
 };
 

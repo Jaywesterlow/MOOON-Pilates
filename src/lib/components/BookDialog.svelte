@@ -4,7 +4,7 @@
 	import Button from './Button.svelte';
 
 	/**
-	 * Every booking button opens this, at once: the demo takes no real bookings. A night bar along
+	 * Every booking button opens this, at once: the demo takes no real bookings. A cream bar along
 	 * the bottom of the screen, on the page's own margin, with the one line and two actions.
 	 */
 	type Props = { text: UI['demo']; href: string };
@@ -18,14 +18,16 @@
 	onclose={booking.closed}
 	onclick={booking.backdrop}
 >
-	<div class="bar dark">
+	<div class="bar light">
 		<div class="words">
 			<h2 id="book-dialog-title">{text.title}</h2>
 			<p class="small">{text.line}</p>
 		</div>
 		<div class="actions">
-			<Button {href} external variant="light">{text.link}</Button>
-			<button type="button" class="close link tap" onclick={booking.close}>{text.close}</button>
+			<Button {href} external variant="night">{text.link}</Button>
+			<button type="button" class="close link label tap" onclick={booking.close}
+				>{text.close}</button
+			>
 		</div>
 	</div>
 </dialog>
@@ -41,11 +43,10 @@
 		padding: 0;
 		border: 0;
 		background: transparent;
-		color: var(--muted-d);
 	}
 	/* the backdrop is the whole screen; a click on it closes */
 	.dialog::backdrop {
-		background: rgb(66 61 49 / 0.4);
+		background: rgb(66 61 49 / 0.6);
 	}
 	/* no scrolling behind the dialog, also when Lenis is off (reduced motion) */
 	:global(html:has(dialog[open])) {
@@ -81,7 +82,7 @@
 		font-weight: 400;
 		font-size: var(--text-lede);
 		line-height: 1.2;
-		color: var(--paper-d);
+		color: var(--night);
 	}
 	.actions {
 		display: flex;
@@ -92,7 +93,6 @@
 		border: 0;
 		background: none;
 		padding: 0;
-		font: 500 var(--text-small) / 1.55 var(--font-body);
 		cursor: pointer;
 	}
 </style>

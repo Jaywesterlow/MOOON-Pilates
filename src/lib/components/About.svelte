@@ -5,14 +5,16 @@
 	import Photo from './Photo.svelte';
 	import Rise from './Rise.svelte';
 
+	/** The page's split, 5/7: copy on the key line, the reformer on the large side (GB02). */
 	type Props = { text: UI['about']; benefits: { title: string; line: string }[] };
 	let { text, benefits }: Props = $props();
 </script>
 
 <section class="section frame about" id="about">
-	<div class="grid">
+	<div class="split">
 		<div>
 			<div class="head">
+				<Rise><p class="label">{text.label}</p></Rise>
 				<Heading lines={text.lines} />
 				<Rise><p class="lede">{text.lede}</p></Rise>
 			</div>
@@ -30,16 +32,17 @@
 		<Photo
 			src={photos.reformer}
 			alt={text.alt}
-			sizes="(min-width: 900px) 40vw, 100vw"
-			ratio="4 / 5"
+			sizes="(min-width: 900px) 55vw, 100vw"
+			ratio="5 / 4"
+			position="50% 40%"
 		/>
 	</div>
 </section>
 
 <style>
-	.grid {
+	.split {
 		display: grid;
-		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 		gap: var(--space-8);
 		align-items: center;
 	}
@@ -50,9 +53,13 @@
 		margin-bottom: var(--space-1);
 	}
 	@media (max-width: 900px) {
-		.grid {
+		.split {
 			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-7);
+		}
+		/* GB26: the visual first on a phone */
+		.split > :global(.photo) {
+			order: -1;
 		}
 	}
 </style>

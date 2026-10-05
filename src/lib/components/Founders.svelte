@@ -5,21 +5,25 @@
 	import Photo from './Photo.svelte';
 	import Rise from './Rise.svelte';
 
-	/** The founders' story, still on the moon's colour: the band ends with their own words. */
+	/** Back on the night ground: the page's split mirrored (GB05), the founders on the large side, their words on the small. */
 	type Props = { text: UI['founders'] };
 	let { text }: Props = $props();
 </script>
 
-<section class="section frame dark founders" id="story">
-	<div class="grid">
+<section class="section frame founders" id="story">
+	<div class="split">
 		<Photo
 			src={photos.founders}
 			alt={text.alt}
-			sizes="(min-width: 900px) 40vw, 100vw"
-			ratio="4 / 5"
+			sizes="(min-width: 900px) 55vw, 100vw"
+			ratio="5 / 4"
+			position="50% 60%"
 		/>
 		<div class="copy">
-			<Heading lines={text.lines} />
+			<div class="head">
+				<Rise><p class="label">{text.label}</p></Rise>
+				<Heading lines={text.lines} />
+			</div>
 			<Rise><p>{text.body}</p></Rise>
 			<figure>
 				<Rise>
@@ -28,7 +32,7 @@
 					</blockquote>
 				</Rise>
 				<Rise>
-					<figcaption>
+					<figcaption class="small">
 						<span lang="en">{text.signature}</span>
 						<span class="names">{text.names}</span>
 					</figcaption>
@@ -39,24 +43,23 @@
 </section>
 
 <style>
-	.grid {
+	.split {
 		display: grid;
-		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
 		gap: var(--space-8);
 		align-items: center;
-	}
-	.founders :global(.photo) {
-		background: var(--olive);
 	}
 	.copy {
 		display: grid;
 		gap: var(--space-5);
-		max-width: 36rem;
+	}
+	.copy .head {
+		margin-bottom: 0;
 	}
 	figure {
 		display: grid;
 		gap: var(--space-4);
-		margin-top: var(--space-5);
+		margin-top: var(--space-4);
 		padding-top: var(--space-6);
 		border-top: 1px solid var(--line-d);
 	}
@@ -65,18 +68,17 @@
 		font-family: var(--font-display);
 		font-size: var(--text-lede);
 		line-height: 1.3;
-		color: var(--paper-d);
+		color: var(--paper);
 		text-indent: -0.45em;
 	}
 	figcaption {
 		display: grid;
-		font-size: var(--text-small);
 	}
 	.names {
-		color: var(--paper-d);
+		color: var(--paper);
 	}
 	@media (max-width: 900px) {
-		.grid {
+		.split {
 			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-7);
 		}

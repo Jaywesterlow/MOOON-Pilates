@@ -5,8 +5,8 @@
 	import Logo from './Logo.svelte';
 
 	/**
-	 * The footer: a night band with the logo once more, margin to margin (A06), then the tagline
-	 * and three labelled columns (A60), and the legal row with the credit.
+	 * The sector's footer: the night ground, the logo once more, margin to margin (A06), one row
+	 * of small-caps links with the tagline beside it, and the legal row with the credit (A60).
 	 */
 	type Props = { studio: Studio; text: UI['footer']; locale: Locale };
 	let { studio, text, locale }: Props = $props();
@@ -17,52 +17,31 @@
 	);
 </script>
 
-<footer class="frame dark">
+<footer class="frame">
 	<div class="mark">
-		<Logo alt={studio.fullName} tone="light" sizes="(min-width: 1280px) 1136px, 100vw" />
+		<Logo alt={studio.fullName} tone="light" sizes="(min-width: 1350px) 1350px, 100vw" />
 	</div>
 
-	<div class="cols">
+	<div class="row">
 		<p class="tag" lang="en">{text.tagline}</p>
-
-		<div class="col">
-			<h2 class="label">{text.contact}</h2>
-			<address>
-				{studio.address.street}<br />
-				{studio.address.postalCode}
-				{studio.address.city}
-			</address>
-			<a class="link tap" href="mailto:{studio.email}">{studio.email}</a><br />
-			<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener">
-				WhatsApp {studio.whatsapp.display}
-			</a>
-		</div>
-
-		<div class="col">
-			<h2 class="label">{text.follow}</h2>
-			<ul>
-				{#each studio.socials as social (social.name)}
-					<li>
-						<a class="link tap" href={social.href} target="_blank" rel="noopener">{social.name}</a>
-					</li>
-				{/each}
-			</ul>
-		</div>
-
-		<div class="col">
-			<h2 class="label">{text.more}</h2>
-			<ul>
+		<ul class="links label">
+			<li><a class="link tap" href={studio.booking.url} onclick={booking.open}>{text.book}</a></li>
+			<li><a class="link tap" href="mailto:{studio.email}">{studio.email}</a></li>
+			<li>
+				<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener">WhatsApp</a>
+			</li>
+			{#each studio.socials as social (social.name)}
 				<li>
-					<a class="link tap" href={studio.booking.url} onclick={booking.open}>{text.book}</a>
+					<a class="link tap" href={social.href} target="_blank" rel="noopener">{social.name}</a>
 				</li>
-				<li>
-					<a class="link tap" href={otherHref} hreflang={other} lang={other} data-sveltekit-reload>
-						{site.languages[other].name}
-					</a>
-				</li>
-				<li><a class="link tap" href="#top">{text.top}</a></li>
-			</ul>
-		</div>
+			{/each}
+			<li>
+				<a class="link tap" href={otherHref} hreflang={other} lang={other} data-sveltekit-reload>
+					{site.languages[other].name}
+				</a>
+			</li>
+			<li><a class="link tap" href="#top">{text.top}</a></li>
+		</ul>
 	</div>
 
 	<div class="base small">
@@ -89,7 +68,8 @@
 
 <style>
 	footer {
-		padding-block: var(--section) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+		padding-block: var(--sparse) calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+		border-top: 1px solid var(--line-d);
 	}
 	/* A06: the logo spans the content width exactly */
 	.mark {
@@ -98,10 +78,12 @@
 	.mark :global(img) {
 		width: 100%;
 	}
-	.cols {
-		display: grid;
-		grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(0, 2fr) minmax(0, 3fr);
-		gap: var(--space-6);
+	.row {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: var(--space-5) var(--space-7);
 		margin-top: var(--space-8);
 	}
 	.tag {
@@ -109,22 +91,19 @@
 		font-family: var(--font-display);
 		font-size: var(--text-lede);
 		line-height: 1.2;
-		color: var(--paper-d);
-		max-width: 12em;
+		color: var(--paper);
+		max-width: 22ch;
 	}
-	.col .label {
-		font-family: var(--font-body);
-		color: var(--muted-d);
-		margin-bottom: var(--space-3);
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 var(--space-6);
 	}
-	.col address {
-		margin-bottom: var(--space-2);
+	.links .link {
+		color: var(--paper);
 	}
-	.col .link {
-		color: var(--paper-d);
-	}
-	.col .link:hover {
-		color: var(--muted-d);
+	.links .link:hover {
+		color: var(--muted);
 	}
 	.base {
 		display: flex;
@@ -141,9 +120,14 @@
 		gap: var(--space-2) var(--space-5);
 	}
 	@media (max-width: 900px) {
-		.cols {
-			grid-template-columns: minmax(0, 1fr);
-			gap: var(--space-6);
+		.row {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--space-5);
+		}
+		.links {
+			flex-direction: column;
+			gap: 0;
 		}
 		.base {
 			flex-direction: column;

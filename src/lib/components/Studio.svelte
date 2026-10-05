@@ -2,16 +2,17 @@
 	import { photos } from '$lib/assets/photos';
 	import type { StudioPhoto, UI } from '$lib/data/studio';
 	import Heading from './Heading.svelte';
-	import Photo from './Photo.svelte';
 	import Rise from './Rise.svelte';
+	import Tile from './Tile.svelte';
 
-	/** On the moon's colour: the studio, in the photos from the DASHENKO shoot. */
+	/** The studio in the DASHENKO photos: the sector's carousel once more, larger tiles, bleeding right (SB10). */
 	type Props = { items: StudioPhoto[]; text: UI['studio'] };
 	let { items, text }: Props = $props();
 </script>
 
-<section class="frame dark studio" id="studio">
-	<div class="head">
+<section class="section studio" id="studio">
+	<div class="head frame">
+		<Rise><p class="label">{text.label}</p></Rise>
 		<Heading lines={text.lines} />
 		<Rise><p class="lede">{text.lede}</p></Rise>
 	</div>
@@ -19,32 +20,38 @@
 	<ul class="row">
 		{#each items as item (item.photo)}
 			<li>
-				<Photo
-					src={photos[item.photo]}
-					alt={item.alt}
-					sizes="(min-width: 900px) 28vw, 32vw"
-					ratio="2 / 3"
-				/>
+				<Tile src={photos[item.photo]} alt={item.alt} sizes="(min-width: 900px) 27vw, 72vw" />
 			</li>
 		{/each}
 	</ul>
 </section>
 
 <style>
-	.studio {
-		padding-block: var(--space-7) var(--section);
-	}
 	.row {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: var(--space-5);
+		grid-auto-flow: column;
+		grid-auto-columns: clamp(16rem, 27vw, 24rem);
+		gap: var(--space-4);
+		padding-inline-start: var(--margin);
+		overflow-x: auto;
+		scroll-snap-type: x proximity;
+		scroll-padding-inline-start: var(--margin);
+		scrollbar-width: none;
 	}
-	.row :global(.photo) {
-		background: var(--olive);
+	.row::-webkit-scrollbar {
+		display: none;
+	}
+	.row::after {
+		content: '';
+		width: 1px;
+	}
+	.row li {
+		scroll-snap-align: start;
 	}
 	@media (max-width: 900px) {
 		.row {
-			gap: var(--space-2);
+			grid-auto-columns: 72vw;
+			scroll-snap-type: x mandatory;
 		}
 	}
 </style>

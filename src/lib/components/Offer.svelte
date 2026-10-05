@@ -2,13 +2,13 @@
 	import { photos } from '$lib/assets/photos';
 	import type { Offer, UI } from '$lib/data/studio';
 	import Heading from './Heading.svelte';
-	import Photo from './Photo.svelte';
 	import Rise from './Rise.svelte';
+	import Tile from './Tile.svelte';
 
 	/**
-	 * Five cards in one row that starts on the left margin and runs off the right edge of the
-	 * screen (B01: the card row's break), scrolling sideways. Each card is one link; on hover a
-	 * panel fills it from the bottom and leaves through the top, as the buttons do.
+	 * The sector's break (SB10, B16): five photo tiles in one row that starts on the left margin
+	 * and runs off the right edge of the screen, the last one cut, scrolling sideways. Each tile is
+	 * one link to MOOON's own page.
 	 */
 	type Props = { items: Offer[]; text: UI['offer'] };
 	let { items, text }: Props = $props();
@@ -16,6 +16,7 @@
 
 <section class="section offer" id="offer">
 	<div class="head frame">
+		<Rise><p class="label">{text.label}</p></Rise>
 		<Heading lines={text.lines} />
 		<Rise><p class="lede">{text.lede}</p></Rise>
 	</div>
@@ -23,91 +24,61 @@
 	<ul class="row">
 		{#each items as item (item.href)}
 			<li>
-				<a class="card" href={item.href} target="_blank" rel="noopener">
-					<span class="fill" aria-hidden="true"></span>
-					<Photo
-						src={photos[item.photo]}
-						alt={item.alt}
-						sizes="(min-width: 900px) 22vw, 68vw"
-						ratio="3 / 4"
-					/>
+				<Tile
+					src={photos[item.photo]}
+					alt={item.alt}
+					sizes="(min-width: 900px) 21vw, 72vw"
+					href={item.href}
+				>
 					<Rise>
 						<h3>{item.title}</h3>
-						<p class="small">{item.line}</p>
-						<span class="more">{text.more}</span>
+						<span class="line small">{item.line}</span>
+						<span class="more label">{text.more}</span>
 					</Rise>
-				</a>
+				</Tile>
 			</li>
 		{/each}
 	</ul>
 </section>
 
 <style>
+	/* B31: the row starts on the margin; the end has no padding, so the last tile is cut at the edge */
 	.row {
 		display: grid;
 		grid-auto-flow: column;
-		grid-auto-columns: clamp(16rem, 22vw, 20rem);
+		grid-auto-columns: clamp(15rem, 21vw, 19rem);
 		gap: var(--space-4);
-		padding-inline: var(--margin);
+		padding-inline-start: var(--margin);
 		overflow-x: auto;
 		scroll-snap-type: x proximity;
-		scroll-padding-inline: var(--margin);
+		scroll-padding-inline-start: var(--margin);
 		scrollbar-width: none;
 	}
 	.row::-webkit-scrollbar {
 		display: none;
 	}
+	.row::after {
+		content: '';
+		width: 1px;
+	}
 	.row li {
 		scroll-snap-align: start;
 	}
-	.card {
-		position: relative;
-		isolation: isolate;
-		display: grid;
-		grid-template-rows: auto 1fr;
-		gap: var(--space-4);
-		padding: var(--space-4);
-		margin: calc(var(--space-4) * -1);
-	}
-	.card :global(.photo) {
-		margin: 0;
-	}
-	/* the same fill as the buttons: in from the bottom, out through the top */
-	.fill {
-		position: absolute;
-		inset: 0;
-		z-index: -1;
-		background: var(--panel);
-		clip-path: inset(0 0 100% 0);
-		transition: clip-path 0.38s var(--ease-rise);
-	}
-	.card:hover .fill,
-	.card:focus-visible .fill {
-		clip-path: inset(0 0 0 0);
-		animation: fill-in 0.38s var(--ease-rise);
-	}
-	@keyframes fill-in {
-		from {
-			clip-path: inset(100% 0 0 0);
-		}
-		to {
-			clip-path: inset(0 0 0 0);
-		}
-	}
 	h3 {
-		margin-bottom: var(--space-1);
+		color: var(--paper);
+	}
+	.line {
+		display: block;
+		color: var(--muted);
+		margin-bottom: var(--space-2);
 	}
 	.more {
-		display: inline-flex;
-		align-items: center;
-		min-height: var(--tap);
-		font-size: var(--text-small);
-		font-weight: 500;
-		color: var(--night);
+		color: var(--paper);
 	}
 	@media (max-width: 900px) {
+		/* MB05: a tile at 72 % of the screen, the next one showing a quarter */
 		.row {
-			grid-auto-columns: 68vw;
+			grid-auto-columns: 72vw;
 			scroll-snap-type: x mandatory;
 		}
 	}

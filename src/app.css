@@ -41,51 +41,58 @@
 		U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* ── Tokens ── every colour is one of MOOON's own (Elementor kit on mooonpilates.nl, docs/merk.md) */
+/* ── Tokens ── every colour is one of MOOON's own (Elementor kit on mooonpilates.nl, docs/merk.md).
+   The page is dark-first, the sector's look for a premium reformer studio (docs/recept.md):
+   the ground is their night, the one light band and the moon are their cream. */
 :root {
-	/* page and panel: the kit's page-transition cream and its tertiary */
+	/* the ground: the dark end of their home gradient */
+	--night: #423d31;
+	/* the light band, the moon, the text on the ground: their page-transition cream */
 	--paper: #f0ece6;
-	--panel: #e2dcd5;
-	/* text: the kit's "text" colour, and "secondary" for quieter lines */
+	/* quieter text on the ground: their tertiary */
+	--muted: #e2dcd5;
+	/* hairlines on the ground: cream at 14 %, about 1.3:1 against the night */
+	--line-d: rgb(240 236 230 / 0.14);
+	/* on the light band: their text colours and their sand for hairlines */
 	--ink: #5c5545;
 	--ink-2: #6b6661;
-	/* the one action hue (the dark end of their home gradient) and its fill (the kit's "primary") */
-	--night: #423d31;
-	--olive: #6e7269;
-	/* hairlines: the kit's "accent" sand */
 	--line: #c4b39c;
-	/* on the dark bands */
-	--paper-d: #f0ece6;
-	--muted-d: #e2dcd5;
-	--line-d: rgb(240 236 230 / 0.25);
+	--panel: #e2dcd5;
+	/* the hover fill, their primary */
+	--olive: #6e7269;
 
 	--font-display: 'Aboreto', 'Didot', 'Times New Roman', serif;
 	--font-body: 'Afacad', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 	/* ── The one margin ──
-	   Every band, the nav, the hero and the footer pad with this, so one left edge and one right
-	   edge run down the whole page. Grows with the viewport until the frame is reached. */
-	--gutter: clamp(20px, 5vw, 72px);
-	--max: 1280px;
+	   A wide frame, 1350 at 1440 with 45 px gutters (the sector's frame class), 24 px on a phone.
+	   Every band, the nav, the hero and the footer pad with it: one left edge, one right edge. */
+	--gutter: clamp(24px, 3.125vw, 45px);
+	--max: 1350px;
 	--margin: max(var(--gutter), calc((100% - var(--max)) / 2));
-	--section: clamp(88px, 12vw, 160px);
+	/* section padding per side: the sector's gap of about 96 px between sections at 1440 */
+	--section: clamp(32px, 3.333vw, 48px);
+	/* the one sparse step, twice the standard, for the statement and the closing card */
+	--sparse: calc(var(--section) * 2);
 
+	/* the one radius: tiles and buttons */
+	--r: 8px;
 	/* state changes (hover, focus): colour only, 150 ms */
 	--state: 0.15s ease-out;
 	/* 16, the library's curve for every reveal */
 	--ease-rise: cubic-bezier(0.83, 0.01, 0.29, 1);
 
-	/* type scale: four text steps, one price step, then the two heading sizes. Nothing under 12px. */
-	--text-label: 0.75rem;
+	/* type scale: label, small, body, lede, price, h2, h1. Nothing under 13px. */
+	--text-label: 0.8125rem;
 	--text-small: 0.9375rem;
 	--text-body: 1.125rem;
 	--text-lede: clamp(1.25rem, 1.8vw, 1.5rem);
 	--text-price: 2.25rem;
 	--text-h2: clamp(1.875rem, 3.6vw, 3rem);
 	--text-h1: clamp(2.25rem, 4.4vw, 4rem);
-	/* every uppercase label: --text-label, this weight and this tracking */
+	/* the one caps style: labels, nav links, buttons */
 	--label-weight: 500;
-	--label-tracking: 0.12em;
+	--label-tracking: 0.1em;
 
 	/* spacing scale (4 · 8 · 12 · 16 · 24 · 32 · 48 · 72 px) */
 	--space-1: 0.25rem;
@@ -99,10 +106,15 @@
 
 	/* the smallest tap target */
 	--tap: 2.75rem;
-	/* the nav's height: part of the first screen, the hero fills the rest */
+	/* the bar: 72 px, 56 px on a phone */
 	--nav-h: 4.5rem;
 
-	color-scheme: light;
+	color-scheme: dark;
+}
+@media (max-width: 900px) {
+	:root {
+		--nav-h: 3.5rem;
+	}
 }
 
 /* ── Base ── */
@@ -118,8 +130,8 @@ html {
 }
 body {
 	margin: 0;
-	background: var(--paper);
-	color: var(--ink);
+	background: var(--night);
+	color: var(--paper);
 	font: 400 var(--text-body) / 1.55 var(--font-body);
 	-webkit-font-smoothing: antialiased;
 	overflow-x: clip;
@@ -176,6 +188,9 @@ blockquote p {
 .section {
 	padding-block: var(--section);
 }
+.sparse {
+	padding-block: var(--sparse);
+}
 
 /* ── Type ── */
 .display {
@@ -183,7 +198,7 @@ blockquote p {
 	font-weight: 400;
 	letter-spacing: 0.01em;
 	line-height: 1.08;
-	color: var(--night);
+	color: var(--paper);
 	text-wrap: balance;
 }
 h1.display {
@@ -198,7 +213,7 @@ h3 {
 	font-weight: 400;
 	font-size: var(--text-lede);
 	line-height: 1.2;
-	color: var(--night);
+	color: var(--paper);
 	text-wrap: balance;
 }
 .lede {
@@ -208,23 +223,31 @@ h3 {
 }
 .small {
 	font-size: var(--text-small);
-	color: var(--ink-2);
+	color: var(--muted);
 }
 .label {
+	font-family: var(--font-body);
 	font-size: var(--text-label);
 	font-weight: var(--label-weight);
 	letter-spacing: var(--label-tracking);
+	line-height: 1.4;
 	text-transform: uppercase;
+	color: var(--muted);
 }
 .numeric {
 	font-variant-numeric: tabular-nums;
 }
-/* T21: a section header, then 48px to what follows */
+/* a section header on the key line: label, heading, lede; then 48px to what follows (T21) */
 .head {
 	display: grid;
+	justify-items: start;
 	gap: var(--space-5);
 	margin-bottom: var(--space-7);
 	max-width: 46rem;
+}
+/* T21: the label sits 12px above its heading; the label's mask is the head's first child */
+.head > :first-child {
+	margin-bottom: calc(var(--space-3) * -1);
 }
 
 /* ── Reveal pre-state ──
@@ -246,21 +269,21 @@ h3 {
 }
 
 /* ── Links ──
-   One hover language on the page: fills on buttons and cards. A text link only changes colour. */
+   One hover language on the page: fills on buttons and tiles. A text link only changes colour. */
 .link {
-	color: var(--ink-2);
+	color: var(--muted);
 	transition: color var(--state);
 }
 .link:hover,
 .link[aria-current='page'] {
-	color: var(--night);
+	color: var(--paper);
 }
 /* a link inside running text: always underlined */
 .ul {
 	text-decoration: underline;
 	text-decoration-thickness: 1px;
 	text-underline-offset: 0.2em;
-	text-decoration-color: var(--line);
+	text-decoration-color: var(--line-d);
 	transition: text-decoration-color var(--state);
 }
 .ul:hover {
@@ -275,35 +298,41 @@ h3 {
 	margin-block: calc((1lh - var(--tap)) / 2);
 }
 
-/* ── Hairline rows ── the one edge technique on light ground */
+/* ── Hairline rows ── the one edge technique */
 .rows > * {
-	border-top: 1px solid var(--line);
+	border-top: 1px solid var(--line-d);
 }
 .rows > :last-child {
-	border-bottom: 1px solid var(--line);
+	border-bottom: 1px solid var(--line-d);
 }
 
-/* ── Dark bands ── */
-.dark {
-	background: var(--night);
-	color: var(--muted-d);
+/* ── The light band ── the moon's colour, carried by the first class and the prices */
+.light {
+	background: var(--paper);
+	color: var(--ink);
 }
-.dark .display,
-.dark h3 {
-	color: var(--paper-d);
+.light .display,
+.light h3 {
+	color: var(--night);
 }
-.dark .small,
-.dark .link {
-	color: var(--muted-d);
+.light .small,
+.light .label,
+.light .link {
+	color: var(--ink-2);
 }
-.dark .link:hover {
-	color: var(--paper-d);
+.light .link:hover {
+	color: var(--night);
 }
-.dark .rows > * {
-	border-color: var(--line-d);
+.light .rows > * {
+	border-color: var(--line);
 }
-.dark .ul {
-	text-decoration-color: var(--line-d);
+.light .ul {
+	text-decoration-color: var(--line);
+}
+
+/* ── Photos ── <enhanced:img> renders a <picture>; the <img> is the layout child */
+.photo :is(picture) {
+	display: contents;
 }
 
 /* ── Reduced motion ── */

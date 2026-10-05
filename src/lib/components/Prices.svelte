@@ -5,6 +5,7 @@
 	import Heading from './Heading.svelte';
 	import Rise from './Rise.svelte';
 
+	/** On the moon's colour: the trial class highlighted with the one device, a night block (A51); the rest as rows. */
 	type Props = { studio: Studio; prices: Price[]; text: UI['prices']; locale: Locale };
 	let { studio, prices, text, locale }: Props = $props();
 
@@ -12,25 +13,23 @@
 	const rest = $derived(prices.filter((price) => !price.featured));
 </script>
 
-<section class="section frame prices" id="prices">
+<section class="section frame light prices" id="prices">
 	<div class="head">
+		<Rise><p class="label">{text.label}</p></Rise>
 		<Heading lines={text.lines} />
 		<Rise><p class="lede">{text.lede}</p></Rise>
 	</div>
 
-	<div class="grid">
+	<div class="split">
 		{#if featured}
-			<!-- A51: the trial class is the one highlighted price, with the one device: the dark fill -->
-			<div class="featured dark">
+			<div class="featured">
 				<Rise>
 					<h3>{featured.name}</h3>
 					<p class="amount numeric">{euro(featured.amount, locale)}</p>
 					<p class="detail">{featured.detail}</p>
 				</Rise>
 				<Rise inline>
-					<Button href={studio.booking.url} onclick={booking.open} variant="paper">
-						{text.book}
-					</Button>
+					<Button href={studio.booking.url} onclick={booking.open}>{text.book}</Button>
 				</Rise>
 			</div>
 		{/if}
@@ -67,7 +66,7 @@
 </section>
 
 <style>
-	.grid {
+	.split {
 		display: grid;
 		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 		gap: var(--space-8);
@@ -78,6 +77,13 @@
 		gap: var(--space-5);
 		justify-items: start;
 		padding: var(--space-6);
+		border-radius: var(--r);
+		background: var(--night);
+		color: var(--muted);
+	}
+	.featured h3,
+	.featured .amount {
+		color: var(--paper);
 	}
 	.featured h3 {
 		margin-bottom: var(--space-3);
@@ -91,9 +97,6 @@
 		line-height: 1;
 		color: var(--night);
 		white-space: nowrap;
-	}
-	.featured .amount {
-		color: var(--paper-d);
 	}
 	/* T43: the period at half the price size */
 	.period {
@@ -119,7 +122,7 @@
 		margin-top: var(--space-6);
 	}
 	@media (max-width: 900px) {
-		.grid {
+		.split {
 			grid-template-columns: minmax(0, 1fr);
 			gap: var(--space-6);
 		}

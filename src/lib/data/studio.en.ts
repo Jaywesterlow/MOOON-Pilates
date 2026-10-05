@@ -105,7 +105,8 @@ export const en: Copy = {
 	studio: [
 		'A woman laughing on the sofa in the studio',
 		'Matcha by the plant, eyes closed',
-		'The lit niche with candles and greenery'
+		'The lit niche with candles and greenery',
+		'At ease on the studio floor, with a glass of matcha'
 	],
 	occasions: ['Private classes', 'Birthdays', 'Company outings', 'Workshops', 'Events'],
 	faq: [
@@ -161,18 +162,21 @@ export const en: Copy = {
 			book: 'Book a trial class',
 			alt: 'The MOOON reformer room in warm light, with a screen at every reformer'
 		},
-		trust: { label: 'About the studio' },
+		statement: { lines: ['Where strength', 'meets softness'], label: 'About the studio' },
 		about: {
+			label: 'Reformer pilates',
 			lines: ['What is reformer pilates?'],
 			lede: 'Controlled, flowing movements work deep into your body. Strength, flexibility and balance, without it ever feeling heavy or straining.',
 			alt: 'A reformer up close, with the shoulder rests and the foot bar'
 		},
 		offer: {
+			label: 'Classes',
 			lines: ['A space designed for you'],
 			lede: 'Movement, recovery and a moment of calm, under one roof.',
 			more: 'Read more'
 		},
 		first: {
+			label: 'Getting started',
 			lines: ['Your first class'],
 			lede: 'No rush, no musts. Just a moment for yourself.',
 			bring: 'Bring',
@@ -180,6 +184,7 @@ export const en: Copy = {
 			app: 'After that you book in the MOOON Pilates app (Android) or the Virtuagym app (Apple).'
 		},
 		prices: {
+			label: 'Rates',
 			lines: ['Prices'],
 			lede: 'Reformer pilates. An E-Reformer session costs one credit, just like a class.',
 			perClass: 'per class',
@@ -187,6 +192,7 @@ export const en: Copy = {
 			note: 'Pay by debit card, iDEAL, credit card, cash, gift card or in instalments.'
 		},
 		founders: {
+			label: 'Founders',
 			lines: ['Created with intention.', 'Built with care'],
 			body: 'What grew here started as a personal longing. A longing for more calm, more balance, and a place where you can truly let go of everything for a while.',
 			quote: 'What started as a personal need, became a place for others to feel.',
@@ -195,33 +201,32 @@ export const en: Copy = {
 			alt: 'Two women at the round table in the studio, with a laptop and candles'
 		},
 		studio: {
+			label: 'The studio',
 			lines: ['A soft way', 'to feel strong'],
 			lede: 'A place where you leave the rush of the day behind. Warm light, calm colours and a serene space.',
 			moonLabel: 'A full moon in MOOON’s colour fills the screen'
 		},
 		more: {
+			label: 'More than a studio',
 			lines: ['A space to connect'],
-			sub: 'More than a studio',
 			body: 'Besides our reformer classes, we open our doors for private classes, birthdays, company outings, workshops and exclusive events. We are happy to think along with you.',
 			contact: 'Get in touch',
 			alt: 'Two women laughing together at a table in the studio'
 		},
-		faq: { lines: ['Frequently asked questions'] },
+		faq: { label: 'Questions', lines: ['Frequently asked questions'] },
 		visit: {
+			label: 'Visit',
 			lines: ['A moment for you,', 'every day'],
 			find: 'Address',
 			hours: 'Opening hours',
 			contact: 'Contact',
 			whatsapp: 'WhatsApp',
 			route: 'Directions',
-			book: 'Book a trial class',
 			alt: 'The front of MOOON on the Zuidpassage'
 		},
+		closing: { label: 'Trial class', book: 'Book Meet the reformer' },
 		footer: {
-			tagline: 'Where strength meets softness',
-			contact: 'Contact',
-			follow: 'Follow us',
-			more: 'More',
+			tagline: 'Soft where you need it. Strong where it matters.',
 			book: 'Book a trial class',
 			top: 'Back to top',
 			privacy: 'Privacy policy',
