@@ -4,15 +4,15 @@ Drafted on 5 October 2026 from `jay@jwcreative.nl` to `info@mooonpilates.nl`, af
 
 ```
 To:      info@mooonpilates.nl
-Subject: de drie manen
+Subject: move slowly, feel deeply
 
 Hoi Anjali, Nasrien en Monica,
 
-Jullie drie manen zijn zo goed getekend dat de rest van de site er, eerlijk gezegd, niet bij in de buurt komt. Als webdesigner kreeg ik daar jeuk van: dit kan zoals dat logo. Mijn vriendin geeft pilates; ik heb één reformerles met haar overleefd, net aan.
+"Move slowly, feel deeply." Mijn vriendin geeft pilates en nam me één keer mee op de reformer: langzaam ging het zeker, makkelijk allerminst. Sindsdien lees ik jullie zin anders, en op jullie huidige site voel je er nog weinig van.
 
-Dus ik heb het gebouwd, met jullie foto's, jullie woorden en de manen die één voor één opkomen als je binnenkomt: https://mooon-pilates.vercel.app
+Dus ik heb hem als vertrekpunt genomen en een site voor MOOON gebouwd, met jullie foto's en jullie woorden: https://mooon-pilates.vercel.app
 
-Het kost jullie niets. Deze week bel ik even om te horen of het als MOOON voelt.
+Het kost jullie niets. Deze week bel ik even om te horen of het klopt.
 
 Jaymar Westerlow
 JW Creative
@@ -21,9 +21,9 @@ jwcreative.nl
 
 ## Why this draft
 
-- **Way in: their logo.** The three moons are the one thing Jaymar admires about MOOON, and the demo now animates them, so the mail opens on the detail that is most theirs and lands on the thing made from it. Order: story with the gap inside it, connection, gift, free and the call.
-- **The connection is his own words** (5 October 2026): the logo is very well designed and the rest of the site did not follow suit; as a web designer he got the itch "this can be better if I'd make it like this". Plus the pilates line he gave the same day: he did one class with his girlfriend, who teaches pilates, and found it rather difficult, told lightly.
-- **The gap** is one clause: the rest of the site does not come near the logo. No other finding from `docs/prospect.md` (the broken form link, the old terms, the English meta description) is in the mail; those are for a follow-up if one is ever needed.
+- **Way in: their own words.** The tagline "Move slowly, feel deeply" opens the mail, and Jaymar's one reformer class (slow, yes; easy, not at all) gives it back to them through his own experience. Jaymar chose this way in over the logo on 5 October. Order: their words, his experience, the gap, the gift, free and the call.
+- **The connection is his own words** (5 October 2026): his girlfriend teaches pilates and he did one class with her, which he found rather difficult, told lightly.
+- **The gap** is one clause: their current site shows little of that line. The logo, the broken form link, the old terms and the English meta description stay out; they are for a follow-up if one is ever needed.
 - **His promise:** "deze week bel ik". Only he can keep it.
 
 ## What is true about Jaymar (for every later draft)
@@ -36,9 +36,10 @@ jwcreative.nl
 ## Follow-up call
 
 - WhatsApp 0181 201212 (the only number on their site). Open ma–zo 07:00–23:00.
-- Open the call with the three moons: what they think of seeing them rise one by one.
+- Open the call with the tagline: whether the site feels like "move slowly, feel deeply" to them.
 - The prices in the demo are from their old domain and must still be confirmed by them; say so if it comes up.
 
 ## Drafts
 
-- 5 October 2026, "de drie manen": the one above. Earlier concept uid 38 ("move slowly, feel deeply", first build) was replaced and may be deleted.
+- 5 October 2026, "move slowly, feel deeply" (uid 40): the one above.
+- Superseded: uid 39 ("de drie manen", opened on the logo; Jaymar chose the tagline instead) and uid 38 (the first build's concept). Delete both; do not reuse their wording.
