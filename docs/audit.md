@@ -63,6 +63,6 @@ Crucial rules the second build broke: none at system level. Against the sector: 
 
 ## Stays by intent
 
-See the deviations in `docs/recept.md`: the night instead of near-black, radius 8 instead of pills, prices on the page, labels on headings, 13 px caps nav links, 18 px sheet links, motion class B with 01b as a takeover, 0.7 s on the non-heading reveals, the one middle dot in the credit, the footer logo whole, the carousel tiles past the viewport edge inside their scroller.
+See the deviations in `docs/recept.md`: the night instead of near-black, radius 8 instead of pills, prices on the page, labels on headings, 13 px caps nav links, 18 px sheet links, motion class B with 01b as the signature, 0.7 s on the non-heading reveals, the one middle dot in the credit, the footer logo whole, the carousel tiles past the viewport edge inside their scroller.
 
 Not measured: Lighthouse; the moon and the reveals in a real browser.

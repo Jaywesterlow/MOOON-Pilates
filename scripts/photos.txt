@@ -23,8 +23,8 @@ https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A6041-scaled.jpeg -> src/l
 https://mooonpilates.nl/wp-content/uploads/2026/04/1Y8A5691-scaled.jpeg -> src/lib/assets/photos/more.jpg | 1896x2560 | more than a studio (DASHENKO: laughing at the table)
 https://mooonpilates.nl/wp-content/uploads/2026/08/Voorzijde-gevel-Mooon-studios.jpg -> src/lib/assets/photos/visit.jpg | 2334x1459 | visit & contact (the front of the studio)
 
-https://mooonpilates.nl/wp-content/uploads/2023/11/Logo-Mooon-Pilates-Final-black.png -> src/lib/assets/logo-black.png | 2350x810 | nav, footer, dialog (on paper)
-https://mooonpilates.nl/wp-content/uploads/2026/05/Logo-Mooon-Pilates-Final-white.png -> src/lib/assets/logo-white.png | 2350x810 | the dark studio band
+https://mooonpilates.nl/wp-content/uploads/2023/11/Logo-Mooon-Pilates-Final-black.png -> src/lib/assets/logo-black.png | 2350x810 | trace source for src/lib/assets/logo-parts.ts (scripts/trace-logo.py); the page renders the SVG
+https://mooonpilates.nl/wp-content/uploads/2026/05/Logo-Mooon-Pilates-Final-white.png -> src/lib/assets/logo-white.png | 2350x810 | kept for reference, not rendered
 
 # Not used: the 1Y8A56xx sofa portraits (5616, 5662, 5663) and 6024 work as people shots but
 # repeat the sofa; IMG_65xx are near-duplicates of the screen; IMG_3428 (816 px) and IMG_3442

@@ -2,6 +2,7 @@
 	import type { UI } from '$lib/data/studio';
 	import { booking } from '$lib/state/booking.svelte';
 	import Button from './Button.svelte';
+	import Roll from './Roll.svelte';
 
 	/**
 	 * Every booking button opens this, at once: the demo takes no real bookings. A cream bar along
@@ -25,9 +26,9 @@
 		</div>
 		<div class="actions">
 			<Button {href} external variant="night">{text.link}</Button>
-			<button type="button" class="close link label tap" onclick={booking.close}
-				>{text.close}</button
-			>
+			<button type="button" class="close link label tap" onclick={booking.close}>
+				<Roll>{text.close}</Roll>
+			</button>
 		</div>
 	</div>
 </dialog>

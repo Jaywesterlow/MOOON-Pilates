@@ -4,6 +4,7 @@
 	import Heading from './Heading.svelte';
 	import Photo from './Photo.svelte';
 	import Rise from './Rise.svelte';
+	import Roll from './Roll.svelte';
 
 	/** The page's split again, copy on the key line, the photo on the large side. */
 	type Props = { studio: Studio; occasions: string[]; text: UI['more'] };
@@ -29,9 +30,9 @@
 				<div class="contact">
 					<p class="label">{text.contact}</p>
 					<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener">
-						WhatsApp {studio.whatsapp.display}
+						<Roll>WhatsApp {studio.whatsapp.display}</Roll>
 					</a>
-					<a class="link tap" href="mailto:{studio.email}">{studio.email}</a>
+					<a class="link tap" href="mailto:{studio.email}"><Roll>{studio.email}</Roll></a>
 				</div>
 			</Rise>
 		</div>

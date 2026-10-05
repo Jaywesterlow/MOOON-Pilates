@@ -104,8 +104,15 @@ export function rise(): Attachment<HTMLElement> {
 		gsap.set(node, { yPercent: 100 });
 		gsap.set(node, { visibility: 'visible' });
 
-		const tween = gsap.to(node, { yPercent: 0, duration: DURATION, ease: RISE, paused: true });
 		const mask = node.parentElement ?? node;
+		// once up, the mask opens: a button inside may lean out of it toward the cursor (27c)
+		const tween = gsap.to(node, {
+			yPercent: 0,
+			duration: DURATION,
+			ease: RISE,
+			paused: true,
+			onComplete: () => (mask.style.overflow = 'visible')
+		});
 		const play = () => tween.delay(staggerDelay()).play();
 		const trigger = onScreen(mask)
 			? (play(), null)
@@ -114,6 +121,7 @@ export function rise(): Attachment<HTMLElement> {
 		return () => {
 			trigger?.kill();
 			tween.kill();
+			mask.style.overflow = '';
 			gsap.set(node, { clearProps: 'transform' });
 		};
 	};
@@ -150,61 +158,64 @@ export function wipe(): Attachment<HTMLElement> {
 }
 
 /**
- * 01b as a full takeover — the one signature moment. A circle in MOOON's night colour grows
- * with the scroll, `ease: none`, no pin, no scroll lock, until it fills the screen; the band
- * after it continues on the same colour.
- *
- * The library's circle keeps its centre on the bottom edge, so its top half is always cut off.
- * Here the circle is whole at every frame and every viewport: while the stage scrolls in, the
- * circle sits in the middle of the part of the stage that is on screen, its radius half of
- * that part's height (never more than half the screen's width), so its bottom rides the bottom
- * edge and nothing is clipped: a full moon rising. Once the stage's top reaches the top of the
- * screen the circle stays in the middle of the screen and grows on to the corners. The stage
- * is taller than the screen; that extra height is the scroll in which it fills out.
+ * The logo at load: its six parts come up one by one out of a mask from below, on 16's curve,
+ * from the inside out: the middle O, then the outer O's, then the M and the N, then PILATES.
+ * Each part's mask is a clip on the part itself (a wipe from the bottom), so the logo as a whole
+ * never moves and nothing ever overlaps another part.
+ */
+export function revealLogo(): Attachment<SVGElement> {
+	return (node) => {
+		if (prefersReducedMotion.current) return;
+
+		const order: Record<string, number> = { o2: 0, o1: 1, o3: 1, m: 2, n: 2, pilates: 3 };
+		const parts = Array.from(node.querySelectorAll<SVGGElement>('[data-part]'));
+		gsap.set(parts, { clipPath: 'inset(100% 0% 0% 0%)' });
+		gsap.set(node, { visibility: 'visible' });
+
+		const timeline = gsap.timeline({ delay: staggerDelay() });
+		for (const part of parts) {
+			const step = order[part.dataset.part ?? ''] ?? 3;
+			timeline.to(
+				part,
+				{ clipPath: 'inset(0% 0% 0% 0%)', duration: DURATION, ease: RISE },
+				step * STEP * 2
+			);
+		}
+
+		return () => {
+			timeline.kill();
+			gsap.set(parts, { clearProps: 'clipPath' });
+		};
+	};
+}
+
+/**
+ * 01b as a full takeover — the one signature moment, as the library has it: a circle grows from
+ * the bottom edge of its stage, `circle(0% at 50% 100%)` to `circle(150% at 50% 100%)`, scrubbed
+ * from `top bottom` to `top top`, `ease: none`. Only the top half of the circle shows: a moon
+ * rising over the edge, whole across the screen the moment the stage fills it. No pin, no scroll
+ * lock; the band after the stage continues on the moon's colour.
  */
 export function moonRise(): Attachment<HTMLElement> {
 	return (stage) => {
 		const moon = stage.querySelector<HTMLElement>('[data-moon]');
 		if (!moon || prefersReducedMotion.current) return;
 
-		const paint = (progress: number) => {
-			const vh = window.innerHeight;
-			const vw = window.innerWidth;
-			const height = stage.offsetHeight;
-			const travelled = progress * height;
-
-			let radius: number;
-			let centre: number;
-			if (travelled <= vh) {
-				// rising: inscribed in the visible part of the stage, bottom on the bottom edge
-				centre = travelled / 2;
-				radius = Math.min(travelled / 2, vw / 2);
-			} else {
-				// filling: centred on the screen, growing to the corners
-				const extra = height - vh;
-				const fill = extra > 0 ? (travelled - vh) / extra : 1;
-				const whole = Math.min(vh, vw) / 2;
-				const corner = Math.hypot(vw, vh) / 2 + 1;
-				centre = travelled - vh / 2;
-				radius = whole + fill * (corner - whole);
+		const tween = gsap.fromTo(
+			moon,
+			{ clipPath: 'circle(0% at 50% 100%)' },
+			{
+				clipPath: 'circle(150% at 50% 100%)',
+				ease: 'none',
+				scrollTrigger: { trigger: stage, start: 'top bottom', end: 'top top', scrub: true }
 			}
-			moon.style.clipPath = `circle(${radius.toFixed(1)}px at 50% ${centre.toFixed(1)}px)`;
-		};
-
-		const trigger = ScrollTrigger.create({
-			trigger: stage,
-			start: 'top bottom',
-			end: 'bottom bottom',
-			scrub: true,
-			onUpdate: (self) => paint(self.progress),
-			onRefresh: (self) => paint(self.progress)
-		});
-		paint(trigger.progress);
+		);
 		gsap.set(moon, { visibility: 'visible' });
 
 		return () => {
-			trigger.kill();
-			moon.style.clipPath = '';
+			tween.scrollTrigger?.kill();
+			tween.kill();
+			gsap.set(moon, { clearProps: 'clipPath' });
 		};
 	};
 }

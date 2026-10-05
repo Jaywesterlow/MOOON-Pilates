@@ -26,7 +26,7 @@ One landing page, aimed at one action: book a trial class ("Meet the reformer", 
 2. **Statement**: "Where strength meets softness" and the trust line, centred.
 3. **What is reformer pilates**: copy and three benefits beside a reformer (5/7).
 4. **Offer**: Reformer Pilates, E-Reformer, Bodyroll, ĀYU HOUSE, Academy as photo tiles in a row that runs off the right edge, each linking to MOOON's own page.
-5. **The moon**: the signature. A cream circle rises over the night and fills the screen.
+5. **The moon**: the signature. A cream dome rises from the bottom edge over the night and fills the screen.
 6. **Your first class** (on the cream): three steps, what to bring, the booking button.
 7. **Prices** (on the cream): Meet the reformer on its night block, Try-out, the two class cards, Unlimited.
 8. **Founders' story**: Anjali, Nasrien and Monica, their own quote (7/5).
@@ -65,12 +65,14 @@ src/
     state/opening.svelte.ts   rune class: the clock the site reads
     state/booking.svelte.ts   rune class: the demo dialog behind every booking button
     motion/scroll.ts          GSAP + ScrollTrigger + Lenis on one clock, 16's curve as a CustomEase
-    motion/attachments.ts     revealWords (16), rise, wipe, moonRise (01b) as Svelte attachments
+    motion/attachments.ts     revealWords (16), rise, wipe, revealLogo, moonRise (01b) as Svelte attachments
     assets/photos.ts          photos through enhanced-img
-    assets/logo-*.png         MOOON's logo, black and white
-    components/               Heading, Rise, Photo, Tile, Button, Logo, LangSwitch (the pieces); one file per section
+    assets/logo-parts.ts      MOOON's logo as six SVG paths (M, O, O, O, N, PILATES), generated
+    assets/logo-*.png         MOOON's logo PNGs, the trace source
+    components/               Heading, Rise, Photo, Tile, Button, Logo, Roll, FaqItem, LangSwitch (the pieces); one file per section
 static/fonts/                 Aboreto and Afacad, latin + latin-ext
 scripts/photos.txt            which upload on mooonpilates.nl became which photo
+scripts/trace-logo.py         traces the logo PNG into the six paths of assets/logo-parts.ts
 docs/                         prospect, structure, brand, photo check, recipe, audit, screenshots
 ```
 
@@ -88,7 +90,8 @@ docs/                         prospect, structure, brand, photo check, recipe, a
 | `<svelte:element>`                             | `Heading`                               | One heading component for `h1` and `h2`                                                                 |
 | `load` + `prerender` + `entries`               | `+layout.ts`, `+page.ts`                | Content reaches components as props, per language                                                       |
 | Optional param + matcher, `transformPageChunk` | `[[lang=locale]]`, hooks                | `/` and `/en` from one set of components; `<html lang>` right in the prerendered HTML                   |
-| `<enhanced:img>`                               | every photo and the logo                | AVIF and WebP, `srcset`, intrinsic size                                                                 |
+| `<enhanced:img>`                               | every photo                             | AVIF and WebP, `srcset`, intrinsic size                                                                 |
+| `slide` transition                             | `FaqItem.svelte`                        | The answer opens and closes with height, 250/200 ms, and is gone from the DOM when closed               |
 | `<dialog>` + `{@attach}`, rune class           | `BookDialog`, `state/booking.svelte.ts` | Every booking button opens the demo dialog in the same frame; Esc, backdrop and focus return are native |
 
 ## Motion
@@ -96,14 +99,15 @@ docs/                         prospect, structure, brand, photo check, recipe, a
 Three kinds of movement, no more. Library ids 16, 01b and 27c; the full account, with the one timing deviation, is in `docs/recept.md`.
 
 - **Reveal on enter (16)**: display headings as the library has it (words rise from under the line below, 1.4 s / 1.7 s, `cubic-bezier(.83,.01,.29,1)`); everything else rises out of a mask from below its line or, for a photo, opens with a wipe from the bottom, 0.7 s on the same curve. One stagger rule: 100 ms between whatever enters in the same frame.
-- **The moon (01b)**: a circle in `--paper` rises over the night page and grows with the scroll until it fills the screen, whole at every frame (its bottom on the bottom edge while it rises, then on from the middle). The first class and the prices continue on that colour. Scrub only, no pin.
-- **Hover (27c)**: buttons and tiles fill from the bottom and empty through the top; every button leans 30 % toward the cursor, 200 ms expo-out, with a real cursor only.
+- **The moon (01b)**: as the library has it. A circle in `--paper` opens from the bottom edge of the screen (`circle(0% at 50% 100%)` to `circle(150% at 50% 100%)`), so only its top half is seen: a dome that grows with the scroll until it fills the screen. The first class and the prices continue on that colour. Scrub only, no pin.
+- **The logo at load**: the hero logo's six parts open with the same wipe as the photos, from the inside out: the middle O, then the outer O's, then the M and the N, then PILATES, 200 ms apart.
+- **Hover (27c)**: buttons and tiles fill from the bottom and empty through the top; every button leans 30 % toward the cursor, 200 ms expo-out, with a real cursor only. Text links roll (`Roll.svelte`): the label slides up out of its line while a copy comes in from below, 0.38 s on 16's curve. A rise mask lets its content overflow once the rise is done, so a magnet button is never clipped by it.
 
 GSAP alone sets the start state of a reveal. Until it has, `html.js [data-reveal]` is `visibility: hidden` (no transform), with a 3 s CSS fallback in case JavaScript dies. Under `prefers-reduced-motion` nothing is hidden, the moon stage is a short cream block and Lenis is off. The demo dialog fades in over 0.2 s (opacity only) and holds the page still while open.
 
 ## Photos and logo
 
-All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their black and white PNG (2350 × 810), never recoloured or cropped. The hero ground is their reformer room (`IMG_6578`), the only landscape photo of theirs wide enough for a full-screen ground; the front of the studio carries the closing card.
+All MOOON's own, downloaded from mooonpilates.nl on 1 October 2026 and looked at before use: the DASHENKO shoot (April 2026) first, then their studio photos. No stock, no AI images, no screenshots, no HEIC. `scripts/photos.txt` records which upload became which file. The logo is their 2350 × 810 PNG traced into six SVG paths (`scripts/trace-logo.py` with potracer; the three overlapping O's split by fitting a circle to each ring), rendered inline by `Logo.svelte` with `currentColor`, never recoloured or cropped. The PNGs stay in the repo as the trace source. The hero ground is their reformer room (`IMG_6578`), the only landscape photo of theirs wide enough for a full-screen ground; the front of the studio carries the closing card.
 
 ## Dependencies beyond the scaffold
 
@@ -120,5 +124,5 @@ Self-hosted from `static/fonts/`, no Google Fonts request: Aboreto (headings) an
 - **Booking**: every booking button opens a "this is a concept demo" dialog, so the demo never takes a real booking. The no-JS href is MOOON's own Google form at its public `/viewform` URL; their site links the `/edit` URL, which shows "Request edit access". The `/viewform` URL was not opened from here. After the form, booking runs in the MOOON Pilates app (Android) or Virtuagym (Apple).
 - **Legal**: their terms PDF still carries the old name, Detox and Roll Studio. The footer links it as their own site does.
 - **People in the photos** are not named: the site does not say who is in the DASHENKO shoot. The founders are named only in their own signature.
-- **Logo as SVG**: Jaymar is rebuilding it; the hero and the moon are built so the parts can drop in.
+- **Logo paths**: traced from the PNG, not drawn. If Jaymar redraws the logo, his paths replace `logo-parts.ts` under the same six ids. The moon is still the library's circle, not the logo's O.
 - **Favicon**: a simple moon mark in their colours; their own site icon (512 px JPG) was too soft to reuse.

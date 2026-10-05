@@ -3,6 +3,7 @@
 	import { site, type Locale, type Studio, type UI } from '$lib/data/studio';
 	import { booking } from '$lib/state/booking.svelte';
 	import Logo from './Logo.svelte';
+	import Roll from './Roll.svelte';
 
 	/**
 	 * The sector's footer: the night ground, the logo once more, margin to margin (A06), one row
@@ -19,47 +20,55 @@
 
 <footer class="frame">
 	<div class="mark">
-		<Logo alt={studio.fullName} tone="light" sizes="(min-width: 1350px) 1350px, 100vw" />
+		<Logo alt={studio.fullName} />
 	</div>
 
 	<div class="row">
 		<p class="tag" lang="en">{text.tagline}</p>
 		<ul class="links label">
-			<li><a class="link tap" href={studio.booking.url} onclick={booking.open}>{text.book}</a></li>
-			<li><a class="link tap" href="mailto:{studio.email}">{studio.email}</a></li>
 			<li>
-				<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener">WhatsApp</a>
+				<a class="link tap" href={studio.booking.url} onclick={booking.open}
+					><Roll>{text.book}</Roll></a
+				>
+			</li>
+			<li><a class="link tap" href="mailto:{studio.email}"><Roll>{studio.email}</Roll></a></li>
+			<li>
+				<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener"
+					><Roll>WhatsApp</Roll></a
+				>
 			</li>
 			{#each studio.socials as social (social.name)}
 				<li>
-					<a class="link tap" href={social.href} target="_blank" rel="noopener">{social.name}</a>
+					<a class="link tap" href={social.href} target="_blank" rel="noopener"
+						><Roll>{social.name}</Roll></a
+					>
 				</li>
 			{/each}
 			<li>
-				<a class="link tap" href={otherHref} hreflang={other} lang={other} data-sveltekit-reload>
-					{site.languages[other].name}
-				</a>
+				<a class="link tap" href={otherHref} hreflang={other} lang={other} data-sveltekit-reload
+					><Roll>{site.languages[other].name}</Roll></a
+				>
 			</li>
-			<li><a class="link tap" href="#top">{text.top}</a></li>
+			<li><a class="link tap" href="#top"><Roll>{text.top}</Roll></a></li>
 		</ul>
 	</div>
 
 	<div class="base small">
 		<ul class="legal">
 			<li>
-				<a class="link tap" href={studio.legal.privacy} target="_blank" rel="noopener">
-					{text.privacy}
-				</a>
+				<a class="link tap" href={studio.legal.privacy} target="_blank" rel="noopener"
+					><Roll>{text.privacy}</Roll></a
+				>
 			</li>
 			<li>
-				<a class="link tap" href={studio.legal.houseRules} target="_blank" rel="noopener">
-					{text.houseRules}
-				</a>
+				<a class="link tap" href={studio.legal.houseRules} target="_blank" rel="noopener"
+					><Roll>{text.houseRules}</Roll></a
+				>
 			</li>
 			<li>
-				<a class="link tap" href={studio.legal.terms} target="_blank" rel="noopener">
-					{text.terms}
-				</a>
+				<a class="link tap" href={studio.legal.terms} target="_blank" rel="noopener"
+					><Roll>{text.terms}</Roll></a
+				>
 			</li>
 		</ul>
 		<p>{text.credit}</p>
@@ -75,8 +84,9 @@
 	.mark {
 		--logo-h: auto;
 	}
-	.mark :global(img) {
+	.mark :global(.logo) {
 		width: 100%;
+		height: auto;
 	}
 	.row {
 		display: flex;

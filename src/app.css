@@ -278,6 +278,29 @@ h3 {
 .link[aria-current='page'] {
 	color: var(--paper);
 }
+/* the hover of a text link, in the page's one direction: a second copy of the words comes up from
+   below while the first leaves through the top (`Roll.svelte`) */
+.roll {
+	display: inline-grid;
+	overflow: hidden;
+	vertical-align: top;
+}
+.roll > span {
+	grid-area: 1 / 1;
+	display: block;
+	transition: transform 0.38s var(--ease-rise);
+}
+.roll > span:last-child {
+	transform: translateY(100%);
+}
+:is(a, button):hover .roll > span:first-child,
+:is(a, button):focus-visible .roll > span:first-child {
+	transform: translateY(-100%);
+}
+:is(a, button):hover .roll > span:last-child,
+:is(a, button):focus-visible .roll > span:last-child {
+	transform: translateY(0);
+}
 /* a link inside running text: always underlined */
 .ul {
 	text-decoration: underline;

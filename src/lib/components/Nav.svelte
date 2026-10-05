@@ -6,6 +6,7 @@
 	import Button from './Button.svelte';
 	import LangSwitch from './LangSwitch.svelte';
 	import Logo from './Logo.svelte';
+	import Roll from './Roll.svelte';
 
 	/**
 	 * A two-zone bar over the hero (NA01): the logo on the left margin, the links, the language
@@ -26,12 +27,12 @@
 
 <nav class={['nav', 'frame', { scrolled: scrolled || menuOpen }]} aria-label={text.label}>
 	<a class="brand" href="#top" onclick={close}>
-		<Logo alt={studio.name} tone="light" eager />
+		<Logo alt={studio.name} />
 	</a>
 
 	<ul class="links">
 		{#each links as link (link.href)}
-			<li><a class="link label tap" href={link.href}>{link.label}</a></li>
+			<li><a class="link label tap" href={link.href}><Roll>{link.label}</Roll></a></li>
 		{/each}
 	</ul>
 
@@ -46,7 +47,7 @@
 			aria-controls="menu"
 			onclick={() => (menuOpen = !menuOpen)}
 		>
-			{menuOpen ? text.close : text.menu}
+			<Roll>{menuOpen ? text.close : text.menu}</Roll>
 		</button>
 	</div>
 </nav>
@@ -56,7 +57,7 @@
 	<div class="menu frame" id="menu" transition:fade={{ duration: 200 }}>
 		<ul class="rows">
 			{#each links as link (link.href)}
-				<li><a class="row" href={link.href} onclick={close}>{link.label}</a></li>
+				<li><a class="row" href={link.href} onclick={close}><Roll>{link.label}</Roll></a></li>
 			{/each}
 		</ul>
 		<div class="menu-book">

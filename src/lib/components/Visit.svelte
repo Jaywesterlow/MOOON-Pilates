@@ -3,6 +3,7 @@
 	import { opening } from '$lib/state/opening.svelte';
 	import Heading from './Heading.svelte';
 	import Rise from './Rise.svelte';
+	import Roll from './Roll.svelte';
 
 	/** The practical facts on the key line: address, hours, contact, in three columns. */
 	type Props = { studio: Studio; text: UI['visit']; words: OpeningWords };
@@ -26,7 +27,7 @@
 					{studio.address.city}
 				</p>
 				<a class="link tap" href={studio.address.maps} target="_blank" rel="noopener">
-					{text.route}
+					<Roll>{text.route}</Roll>
 				</a>
 			</Rise>
 		</div>
@@ -48,11 +49,10 @@
 			<Rise>
 				<h3 class="label">{text.contact}</h3>
 				<a class="link tap" href={studio.whatsapp.href} target="_blank" rel="noopener">
-					{text.whatsapp}
-					{studio.whatsapp.display}
+					<Roll>{text.whatsapp} {studio.whatsapp.display}</Roll>
 				</a>
 				<br />
-				<a class="link tap" href="mailto:{studio.email}">{studio.email}</a>
+				<a class="link tap" href="mailto:{studio.email}"><Roll>{studio.email}</Roll></a>
 			</Rise>
 		</div>
 	</div>

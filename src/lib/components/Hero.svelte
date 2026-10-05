@@ -7,6 +7,7 @@
 	import Logo from './Logo.svelte';
 	import Heading from './Heading.svelte';
 	import Rise from './Rise.svelte';
+	import Roll from './Roll.svelte';
 
 	/**
 	 * One screen, the sector's hero: the reformer room as the ground, edge to edge, and on the
@@ -31,7 +32,7 @@
 
 	<div class="stack">
 		<div class="mark">
-			<Logo alt={studio.fullName} tone="light" eager sizes="(min-width: 900px) 36vw, 70vw" />
+			<Logo alt={studio.fullName} reveal />
 		</div>
 		<Heading level="h1" lines={text.lines} centred />
 		<Rise inline>
@@ -42,7 +43,7 @@
 	<div class="corners frame small">
 		<Rise>
 			<a class="link" href={studio.address.maps} target="_blank" rel="noopener">
-				{studio.address.street}, {studio.address.city}
+				<Roll>{studio.address.street}, {studio.address.city}</Roll>
 			</a>
 		</Rise>
 		<Rise><span class="numeric">{opening.headline(words)}</span></Rise>

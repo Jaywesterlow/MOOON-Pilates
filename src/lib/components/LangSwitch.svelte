@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { site, type Locale } from '$lib/data/studio';
+	import Roll from './Roll.svelte';
 
 	/**
 	 * One link to the other language, named by its own code, in the bar's link style. A full page
@@ -21,5 +22,5 @@
 	aria-label={site.languages[other].name}
 	data-sveltekit-reload
 >
-	{site.languages[other].code}
+	<Roll>{site.languages[other].code}</Roll>
 </a>

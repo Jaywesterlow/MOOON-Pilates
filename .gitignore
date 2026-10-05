@@ -26,3 +26,6 @@ vite.config.ts.timestamp-*
 
 # Claude Code worktrees: other checkouts of this repo, not ours to format or lint
 .claude/worktrees/
+
+# check render from scripts/trace-logo.py
+scripts/logo-check.svg
