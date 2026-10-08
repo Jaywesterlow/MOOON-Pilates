@@ -23,21 +23,19 @@
 				<h3 class="label">{text.find}</h3>
 				<p>
 					{studio.fullName}<br />
-					{#if studio.address.street}{studio.address.street}<br />{/if}
+					{studio.address.street}<br />
 					{studio.address.postalCode}
 					{studio.address.city}
 				</p>
-				{#if studio.address.maps}
-					<a
-						class="link tap"
-						href={studio.address.maps}
-						onclick={demo.open}
-						target="_blank"
-						rel="noopener"
-					>
-						<Roll>{text.route}</Roll>
-					</a>
-				{/if}
+				<a
+					class="link tap"
+					href={studio.address.maps}
+					onclick={demo.open}
+					target="_blank"
+					rel="noopener"
+				>
+					<Roll>{text.route}</Roll>
+				</a>
 			</Rise>
 		</div>
 
@@ -57,26 +55,19 @@
 		<div class="col">
 			<Rise>
 				<h3 class="label">{text.contact}</h3>
-				{#if !studio.whatsapp.href && !studio.email}
-					<p class="small">{text.portfolioContact}</p>
-				{/if}
-				{#if studio.whatsapp.href}
-					<a
-						class="link tap"
-						href={studio.whatsapp.href}
-						onclick={demo.open}
-						target="_blank"
-						rel="noopener"
-					>
-						<Roll>{text.whatsapp} {studio.whatsapp.display}</Roll>
-					</a>
-					<br />
-				{/if}
-				{#if studio.email}
-					<a class="link tap" href="mailto:{studio.email}" onclick={demo.open}
-						><Roll>{studio.email}</Roll></a
-					>
-				{/if}
+				<a
+					class="link tap"
+					href={studio.whatsapp.href}
+					onclick={demo.open}
+					target="_blank"
+					rel="noopener"
+				>
+					<Roll>{text.whatsapp} {studio.whatsapp.display}</Roll>
+				</a>
+				<br />
+				<a class="link tap" href={studio.mailHref} onclick={demo.open}
+					><Roll>{studio.email}</Roll></a
+				>
 			</Rise>
 		</div>
 	</div>

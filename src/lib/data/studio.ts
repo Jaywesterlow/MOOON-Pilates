@@ -36,11 +36,24 @@ export type Hours = {
 	closes: string;
 };
 
+/**
+ * Portfolio mode, 8 Oct 2026: MOOON kept their own site, warmly, and the demo stands in Jaymar's
+ * portfolio. Everything still shows, because it shows what he makes: the booking buttons, the
+ * WhatsApp line, the mail address, the street and the route. None of it works any more: every
+ * href is a dead `#`, the demo dialog has no link to follow, and the JSON-LD carries no contact.
+ * Set this to false and every link is live again.
+ */
+export const portfolio = true;
+
+/** A dead link in portfolio mode, the real one otherwise. */
+const live = (href: string) => (portfolio ? '#' : href);
+
 /** Language-neutral facts: the same on every page and in the JSON-LD. */
 export const facts = {
 	name: 'MOOON Pilates',
 	fullName: 'MOOON Pilates Spijkenisse',
 	url: 'https://mooonpilates.nl/',
+	portfolio,
 	/**
 	 * Booking today: a Google form ("proefles boeken"), after which MOOON makes an account in
 	 * the Virtuagym app. Their site links the form's /edit URL, which shows "Request edit access";
@@ -48,31 +61,26 @@ export const facts = {
 	 * Every booking link keeps this as its href, for visitors without JavaScript and for a new tab;
 	 * a plain click opens the demo dialog, so the demo can never take a real booking.
 	 */
-	/**
-	 * Portfolio mode, 8 Oct 2026: MOOON kept their own site, warmly, and agreed the demo may stand in
-	 * Jaymar's portfolio. So no way to reach or book them from here: the booking form, the app
-	 * links, the mail address, the WhatsApp line and the street address are out. The city stays.
-	 * Every booking button still opens the demo dialog, which now says where the real site would
-	 * book, with no link to follow.
-	 */
-	portfolio: true,
 	booking: {
-		url: '',
-		android: '',
-		apple: ''
+		url: live('https://docs.google.com/forms/d/1Iac0tKM0_6hmCPMBvERE96OpbaqkdLAbAa9h7t0NpS0/viewform'),
+		android: live(
+			'https://play.google.com/store/apps/details?id=digifit.android.virtuagym.pro.mooonpilates'
+		),
+		apple: live('https://apps.apple.com/us/app/virtuagym-fitness-workouts/id808207399')
 	},
-	email: '',
+	email: 'info@mooonpilates.nl',
+	mailHref: live('mailto:info@mooonpilates.nl'),
 	whatsapp: {
-		display: '',
-		href: '',
-		schema: ''
+		display: '0181 201212',
+		href: live('https://wa.me/31181201212'),
+		schema: '+31181201212'
 	},
 	address: {
-		street: '',
-		postalCode: '',
+		street: 'Zuidpassage 24',
+		postalCode: '3201 DG',
 		city: 'Spijkenisse',
 		country: 'NL',
-		maps: ''
+		maps: live('https://maps.google.com/?q=Zuidpassage+24,+3201+DG+Spijkenisse')
 	},
 	socials: [
 		{ name: 'Instagram', href: 'https://www.instagram.com/mooonpilates.spijkenisse/' },
@@ -204,7 +212,7 @@ export type Copy = {
 			alt: string;
 		};
 		studio: { label: string; lines: string[]; lede: string; moonLabel: string };
-		more: { label: string; lines: string[]; body: string; contact: string; portfolioContact: string; alt: string };
+		more: { label: string; lines: string[]; body: string; contact: string; alt: string };
 		faq: { label: string; lines: string[] };
 		visit: {
 			label: string;
@@ -212,7 +220,6 @@ export type Copy = {
 			find: string;
 			hours: string;
 			contact: string;
-			portfolioContact: string;
 			whatsapp: string;
 			route: string;
 			alt: string;
@@ -235,6 +242,8 @@ export type Copy = {
 			link: string;
 			toForm: string;
 			follow: string;
+			portfolioBook: string;
+			portfolioLink: string;
 			close: string;
 		};
 	};

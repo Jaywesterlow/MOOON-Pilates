@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { UI } from '$lib/data/studio';
+	import { portfolio } from '$lib/data/studio';
 	import { demo } from '$lib/state/demo.svelte';
 	import Button from './Button.svelte';
 	import Roll from './Roll.svelte';
@@ -23,7 +24,13 @@
 	<div class="bar light">
 		<div class="words">
 			<h2 id="book-dialog-title">{text.title}</h2>
-			<p class="small">{demo.kind === 'book' ? text.book : text.link}</p>
+			<p class="small">
+				{#if portfolio}
+					{demo.kind === 'book' ? text.portfolioBook : text.portfolioLink}
+				{:else}
+					{demo.kind === 'book' ? text.book : text.link}
+				{/if}
+			</p>
 		</div>
 		<div class="actions">
 			{#if demo.href}

@@ -7,7 +7,12 @@
  *
  * The demo must never take a real booking at MOOON. Every link keeps its real href, for visitors
  * without JavaScript and for a new tab. Production would simply not have this dialog.
+ *
+ * In portfolio mode (`facts.portfolio`) every href is already dead and the dialog offers no link:
+ * it just says this is a portfolio demo and where the real site would go.
  */
+import { portfolio } from '$lib/data/studio';
+
 export type DemoKind = 'book' | 'link';
 
 class Demo {
@@ -30,15 +35,20 @@ class Demo {
 	};
 
 	#show(event: MouseEvent & { currentTarget: EventTarget & HTMLElement }, kind: DemoKind) {
-		// a new tab or window on purpose: let the browser follow the link
-		if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+		// a new tab or window on purpose: let the browser follow the link (in portfolio mode it is a
+		// dead `#`, so the dialog shows instead)
+		if (
+			!portfolio &&
+			(event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+		) {
 			return;
 		}
 		if (!this.#dialog) return;
 		event.preventDefault();
 		this.#opener = event.currentTarget;
 		this.kind = kind;
-		this.href = event.currentTarget.getAttribute('href') ?? '';
+		// in portfolio mode the dialog has no link to follow
+		this.href = portfolio ? '' : (event.currentTarget.getAttribute('href') ?? '');
 		if (!this.#dialog.open) this.#dialog.showModal();
 		this.isOpen = true;
 	}

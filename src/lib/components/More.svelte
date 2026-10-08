@@ -30,24 +30,18 @@
 			<Rise>
 				<div class="contact">
 					<p class="label">{text.contact}</p>
-					{#if studio.whatsapp.href}
-						<a
-							class="link tap"
-							href={studio.whatsapp.href}
-							onclick={demo.open}
-							target="_blank"
-							rel="noopener"
-						>
-							<Roll>WhatsApp {studio.whatsapp.display}</Roll>
-						</a>
-					{/if}
-					{#if studio.email}
-						<a class="link tap" href="mailto:{studio.email}" onclick={demo.open}
-							><Roll>{studio.email}</Roll></a
-						>
-					{:else}
-						<p class="small">{text.portfolioContact}</p>
-					{/if}
+					<a
+						class="link tap"
+						href={studio.whatsapp.href}
+						onclick={demo.open}
+						target="_blank"
+						rel="noopener"
+					>
+						<Roll>WhatsApp {studio.whatsapp.display}</Roll>
+					</a>
+					<a class="link tap" href={studio.mailHref} onclick={demo.open}
+						><Roll>{studio.email}</Roll></a
+					>
 				</div>
 			</Rise>
 		</div>

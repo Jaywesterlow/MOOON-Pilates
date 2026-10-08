@@ -213,7 +213,6 @@ export const nl: Copy = {
 			lines: ['A space to connect'],
 			body: 'Naast de reformer lessen openen we onze deuren ook voor privélessen, verjaardagen, bedrijfsuitjes, workshops en exclusieve evenementen. We denken graag met je mee.',
 			contact: 'Neem contact op',
-			portfolioContact: 'Via de echte site van MOOON.',
 			alt: 'Twee vrouwen lachen samen aan tafel in de studio'
 		},
 		faq: { label: 'Vragen', lines: ['Veelgestelde vragen'] },
@@ -223,7 +222,6 @@ export const nl: Copy = {
 			find: 'Adres',
 			hours: 'Openingstijden',
 			contact: 'Contact',
-			portfolioContact: 'Dit is een demo uit het portfolio van JW Creative. Contact loopt via de echte site van MOOON.',
 			whatsapp: 'WhatsApp',
 			route: 'Route',
 			alt: 'De voorgevel van MOOON'
@@ -244,6 +242,8 @@ export const nl: Copy = {
 			link: 'Op de echte site gaat deze link verder. Deze demo blijft hier.',
 			toForm: 'Naar het aanmeldformulier',
 			follow: 'Toch naar de link',
+			portfolioBook: 'Op de echte site boek je hier je proefles. Dit is een portfolio-demo van JW Creative: boeken kan alleen via de echte site van MOOON.',
+			portfolioLink: 'Op de echte site gaat deze link verder. Dit is een portfolio-demo van JW Creative, dus hier stopt hij.',
 			close: 'Sluiten'
 		}
 	}

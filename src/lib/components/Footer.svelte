@@ -35,24 +35,20 @@
 						><Roll>{text.book}</Roll></a
 					>
 				</li>
-				{#if studio.email}
-					<li>
-						<a class="link tap" href="mailto:{studio.email}" onclick={demo.open}
-							><Roll>{studio.email}</Roll></a
-						>
-					</li>
-				{/if}
-				{#if studio.whatsapp.href}
-					<li>
-						<a
-							class="link tap"
-							href={studio.whatsapp.href}
-							onclick={demo.open}
-							target="_blank"
-							rel="noopener"><Roll>WhatsApp</Roll></a
-						>
-					</li>
-				{/if}
+				<li>
+					<a class="link tap" href={studio.mailHref} onclick={demo.open}
+						><Roll>{studio.email}</Roll></a
+					>
+				</li>
+				<li>
+					<a
+						class="link tap"
+						href={studio.whatsapp.href}
+						onclick={demo.open}
+						target="_blank"
+						rel="noopener"><Roll>WhatsApp</Roll></a
+					>
+				</li>
 				{#each studio.socials as social (social.name)}
 					<li>
 						<a
