@@ -26,9 +26,11 @@
 			<p class="small">{demo.kind === 'book' ? text.book : text.link}</p>
 		</div>
 		<div class="actions">
-			<Button href={demo.href} external variant="night">
-				{demo.kind === 'book' ? text.toForm : text.follow}
-			</Button>
+			{#if demo.href}
+				<Button href={demo.href} external variant="night">
+					{demo.kind === 'book' ? text.toForm : text.follow}
+				</Button>
+			{/if}
 			<button type="button" class="close link label tap" onclick={demo.close}>
 				<Roll>{text.close}</Roll>
 			</button>

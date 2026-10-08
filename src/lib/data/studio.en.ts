@@ -211,6 +211,7 @@ export const en: Copy = {
 			lines: ['A space to connect'],
 			body: 'Besides our reformer classes, we open our doors for private classes, birthdays, company outings, workshops and exclusive events. We are happy to think along with you.',
 			contact: 'Get in touch',
+			portfolioContact: 'Through MOOON’s real site.',
 			alt: 'Two women laughing together at a table in the studio'
 		},
 		faq: { label: 'Questions', lines: ['Frequently asked questions'] },
@@ -220,9 +221,10 @@ export const en: Copy = {
 			find: 'Address',
 			hours: 'Opening hours',
 			contact: 'Contact',
+			portfolioContact: 'This is a demo from the JW Creative portfolio. Contact runs through MOOON’s real site.',
 			whatsapp: 'WhatsApp',
 			route: 'Directions',
-			alt: 'The front of MOOON on the Zuidpassage'
+			alt: 'The front of MOOON'
 		},
 		closing: { label: 'Trial class', book: 'Book Meet the reformer' },
 		footer: {

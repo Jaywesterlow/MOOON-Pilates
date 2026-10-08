@@ -48,24 +48,31 @@ export const facts = {
 	 * Every booking link keeps this as its href, for visitors without JavaScript and for a new tab;
 	 * a plain click opens the demo dialog, so the demo can never take a real booking.
 	 */
+	/**
+	 * Portfolio mode, 8 Oct 2026: MOOON kept their own site, warmly, and agreed the demo may stand in
+	 * Jaymar's portfolio. So no way to reach or book them from here: the booking form, the app
+	 * links, the mail address, the WhatsApp line and the street address are out. The city stays.
+	 * Every booking button still opens the demo dialog, which now says where the real site would
+	 * book, with no link to follow.
+	 */
+	portfolio: true,
 	booking: {
-		url: 'https://docs.google.com/forms/d/1Iac0tKM0_6hmCPMBvERE96OpbaqkdLAbAa9h7t0NpS0/viewform',
-		android:
-			'https://play.google.com/store/apps/details?id=digifit.android.virtuagym.pro.mooonpilates',
-		apple: 'https://apps.apple.com/us/app/virtuagym-fitness-workouts/id808207399'
+		url: '',
+		android: '',
+		apple: ''
 	},
-	email: 'info@mooonpilates.nl',
+	email: '',
 	whatsapp: {
-		display: '0181 201212',
-		href: 'https://wa.me/31181201212',
-		schema: '+31181201212'
+		display: '',
+		href: '',
+		schema: ''
 	},
 	address: {
-		street: 'Zuidpassage 24',
-		postalCode: '3201 DG',
+		street: '',
+		postalCode: '',
 		city: 'Spijkenisse',
 		country: 'NL',
-		maps: 'https://maps.google.com/?q=Zuidpassage+24,+3201+DG+Spijkenisse'
+		maps: ''
 	},
 	socials: [
 		{ name: 'Instagram', href: 'https://www.instagram.com/mooonpilates.spijkenisse/' },
@@ -197,7 +204,7 @@ export type Copy = {
 			alt: string;
 		};
 		studio: { label: string; lines: string[]; lede: string; moonLabel: string };
-		more: { label: string; lines: string[]; body: string; contact: string; alt: string };
+		more: { label: string; lines: string[]; body: string; contact: string; portfolioContact: string; alt: string };
 		faq: { label: string; lines: string[] };
 		visit: {
 			label: string;
@@ -205,6 +212,7 @@ export type Copy = {
 			find: string;
 			hours: string;
 			contact: string;
+			portfolioContact: string;
 			whatsapp: string;
 			route: string;
 			alt: string;

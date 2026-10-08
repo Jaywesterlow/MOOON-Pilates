@@ -18,12 +18,12 @@ export function studioSchema(studio: Studio, prices: Price[], faq: Faq[], page: 
 				'@id': id,
 				name: studio.fullName,
 				url: studio.url,
-				email: studio.email,
-				telephone: studio.whatsapp.schema,
+				...(studio.email ? { email: studio.email } : {}),
+				...(studio.whatsapp.schema ? { telephone: studio.whatsapp.schema } : {}),
 				address: {
 					'@type': 'PostalAddress',
-					streetAddress: studio.address.street,
-					postalCode: studio.address.postalCode,
+					...(studio.address.street ? { streetAddress: studio.address.street } : {}),
+					...(studio.address.postalCode ? { postalCode: studio.address.postalCode } : {}),
 					addressLocality: studio.address.city,
 					addressCountry: studio.address.country
 				},

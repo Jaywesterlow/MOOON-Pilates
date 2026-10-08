@@ -42,9 +42,13 @@
 
 	<div class="corners frame small">
 		<Rise>
-			<a class="link" href={studio.address.maps} onclick={demo.open} target="_blank" rel="noopener">
-				<Roll>{studio.address.street}, {studio.address.city}</Roll>
-			</a>
+			{#if studio.address.maps}
+				<a class="link" href={studio.address.maps} onclick={demo.open} target="_blank" rel="noopener">
+					<Roll>{studio.address.street}, {studio.address.city}</Roll>
+				</a>
+			{:else}
+				<span class="label"><Roll>{studio.address.city}</Roll></span>
+			{/if}
 		</Rise>
 		<Rise><span class="numeric">{opening.headline(words)}</span></Rise>
 	</div>
